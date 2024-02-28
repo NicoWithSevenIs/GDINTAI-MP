@@ -15,7 +15,6 @@ public class LookAt : MonoBehaviour
     public void LookAtRootScreen()
     {
         LeanTween.moveLocalX(container.gameObject, 960, 0.1f).setEase(TweenType);
-        //container.anchoredPosition = new Vector2(960, container.anchoredPosition.y);
     }
 
     public void LookAtSelectionScreen()
