@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-public class UpdatableText : MonoBehaviour
+public class ShowDifficulty : MonoBehaviour
 {
     private TextMeshProUGUI text;
 

@@ -48,7 +48,7 @@ public class ScrollablePanel : MonoBehaviour
     private void setPosition()
     {
         float newPos = originPos.x - offsetTemplate.rect.width * currentPage;
-        LeanTween.moveLocalX(container.gameObject, newPos, 0.1f).setEase(TweenType);
+        LeanTween.moveLocalX(container.gameObject, newPos, TweenTime).setEase(TweenType);
     }
 
 }
