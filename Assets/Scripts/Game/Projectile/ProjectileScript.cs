@@ -44,7 +44,6 @@ public class ProjectileScript : MonoBehaviour
 
     }
 
-
     private void FixedUpdate()
     {
         
@@ -64,4 +63,16 @@ public class ProjectileScript : MonoBehaviour
         this.direction = direction;
     }
 
+
+    public void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.tag == gameObject.tag)
+            return;
+
+        IDamageable damageable = collision.GetComponent<IDamageable>();
+
+        damageable?.TakeDamage(50);
+
+    }
+    
 }
