@@ -41,8 +41,8 @@ public class PlayerMovement : MonoBehaviour
     {
         Vector2 velocity = Vector2.zero;
 
-        velocity.x = HorizontalInput * Time.deltaTime;
-        velocity.y = VerticalInput * Time.deltaTime;
+        velocity.x = HorizontalInput * Time.fixedDeltaTime;
+        velocity.y = VerticalInput * Time.fixedDeltaTime;
 
         velocity.Normalize();
         velocity *= speed;
