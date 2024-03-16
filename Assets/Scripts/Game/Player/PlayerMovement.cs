@@ -52,9 +52,9 @@ public class PlayerMovement : MonoBehaviour
 
     private void flipSprite()
     {
-        if (VerticalInput < 0f)
+        if (HorizontalInput < 0f)
             sprite.flipX = true;
-        else if (VerticalInput > 0f)
+        else if (HorizontalInput > 0f)
             sprite.flipX = false;
     }
 }
