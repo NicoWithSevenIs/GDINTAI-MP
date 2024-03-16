@@ -17,19 +17,20 @@ public class ProjectileScript : MonoBehaviour
 
  
 
-    private void Start()
+    private void Awake()
     {
         body = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
         box = GetComponent<BoxCollider2D>();
 
-
+        direction = new Vector2(10, 0);
     }
 
     private void OnEnable()
     {
         lifetime = new Timer(lifetimeDuration);
         lifetime.startTimer();
+        anim.SetBool("hasExploded", false);
     }
 
     private void Update()
@@ -47,12 +48,10 @@ public class ProjectileScript : MonoBehaviour
     private void FixedUpdate()
     {
         
-        Vector2 velocity = Vector2.zero;
+        Vector2 velocity = direction;
+        print(direction);
+        velocity *= speed * Time.deltaTime;
 
-        direction.Normalize();
-
-        velocity.x =  10 * speed * Time.fixedDeltaTime;
-        velocity.y = body.velocity.y;
 
         body.velocity = velocity;
 
@@ -66,13 +65,17 @@ public class ProjectileScript : MonoBehaviour
 
     public void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.tag == gameObject.tag)
-            return;
+       if (collision.tag == gameObject.tag)
+           return;
 
-        IDamageable damageable = collision.GetComponent<IDamageable>();
-
-        damageable?.TakeDamage(50);
-
+       collision.GetComponent<IDamageable>()?.TakeDamage(50);
+       anim.SetBool("hasExploded", true);
+       direction = Vector2.zero;
     }
-    
+
+    public void disable()
+    {
+       gameObject.SetActive(false);
+    }
+
 }
