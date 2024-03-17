@@ -5,7 +5,7 @@ using UnityEngine;
 public class ProjectileScript : MonoBehaviour
 {
     [SerializeField] private float speed = 5f;
-
+    [SerializeField] private string[] blackList;
     [SerializeField] private float lifetimeDuration = 2f;
     private Timer lifetime;
 
@@ -13,7 +13,10 @@ public class ProjectileScript : MonoBehaviour
     private Animator anim;
     private BoxCollider2D box;
 
+
+    //temp
     public Vector2 direction;
+    public Vector2 currentDirection;
 
  
 
@@ -24,6 +27,7 @@ public class ProjectileScript : MonoBehaviour
         box = GetComponent<BoxCollider2D>();
 
         direction = new Vector2(10, 0);
+        currentDirection = direction;
     }
 
     private void OnEnable()
@@ -31,6 +35,7 @@ public class ProjectileScript : MonoBehaviour
         lifetime = new Timer(lifetimeDuration);
         lifetime.startTimer();
         anim.SetBool("hasExploded", false);
+        currentDirection = direction;
     }
 
     private void Update()
@@ -48,7 +53,7 @@ public class ProjectileScript : MonoBehaviour
     private void FixedUpdate()
     {
         
-        Vector2 velocity = direction;
+        Vector2 velocity = currentDirection;
         velocity *= speed * Time.deltaTime;
         body.velocity = velocity;
 
@@ -62,12 +67,16 @@ public class ProjectileScript : MonoBehaviour
 
     public void OnTriggerEnter2D(Collider2D collision)
     {
-       if (collision.tag == gameObject.tag)
-           return;
+        foreach(string s in blackList)
+        {
+            if (collision.tag == s)
+                return;
+        }
+      
 
        collision.GetComponent<IDamageable>()?.TakeDamage(50);
        anim.SetBool("hasExploded", true);
-       direction = Vector2.zero;
+       currentDirection = Vector2.zero;
     }
 
     public void disable()

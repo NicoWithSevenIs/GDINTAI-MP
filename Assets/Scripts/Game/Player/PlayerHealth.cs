@@ -20,7 +20,7 @@ public class PlayerHealth : MonoBehaviour, IDamageable
 
     void OnEnable()
     {
-        anim.SetBool("isDead", false);
+        anim?.SetBool("isDead", false);
         currentHealth = maxHealth;
         foreach (var i in GetComponents<MonoBehaviour>())
         {

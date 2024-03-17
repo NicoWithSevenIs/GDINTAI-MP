@@ -52,9 +52,10 @@ public class PlayerMovement : MonoBehaviour
 
     private void flipSprite()
     {
+        float unsignedX = Mathf.Abs(transform.localScale.x);
         if (HorizontalInput < 0f)
-            sprite.flipX = true;
-        else if (HorizontalInput > 0f)
-            sprite.flipX = false;
-    }
+            transform.localScale = new Vector2 (-1 * unsignedX, transform.localScale.y);
+        else if(HorizontalInput > 0f)
+            transform.localScale = new Vector2(unsignedX, transform.localScale.y);
+    }   
 }

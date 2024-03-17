@@ -194,5 +194,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 30
+  blackList:
+  - Player
   lifetimeDuration: 3
   direction: {x: 0, y: 0}
