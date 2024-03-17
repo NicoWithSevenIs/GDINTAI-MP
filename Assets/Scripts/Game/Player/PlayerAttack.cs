@@ -6,7 +6,7 @@ public class PlayerAttack : MonoBehaviour
 {
 
     [SerializeField] private GameObject projectile;
-
+    
 
     [Header("Stats")]
     [SerializeField] private float attackCooldown = 1f;

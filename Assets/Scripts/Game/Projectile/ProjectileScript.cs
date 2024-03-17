@@ -49,10 +49,7 @@ public class ProjectileScript : MonoBehaviour
     {
         
         Vector2 velocity = direction;
-        print(direction);
         velocity *= speed * Time.deltaTime;
-
-
         body.velocity = velocity;
 
     }
