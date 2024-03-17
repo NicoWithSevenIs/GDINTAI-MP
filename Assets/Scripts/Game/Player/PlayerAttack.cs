@@ -8,6 +8,7 @@ public class PlayerAttack : MonoBehaviour
 {
     [SerializeField] private GameObject attackOrigin;
     [SerializeField] private GameObject projectileContainer;
+    [SerializeField] private Texture2D cursorOverride;
 
     
 
@@ -37,9 +38,11 @@ public class PlayerAttack : MonoBehaviour
 
     private void Start()
     {
+        Cursor.SetCursor(cursorOverride, new Vector2(cursorOverride.width/2, cursorOverride.height/2) , CursorMode.ForceSoftware);
         anim = GetComponent<Animator>();
         attackCooldownTimer = new Timer(attackCooldown);
-        onAttack += Attack;
+
+        onAttack += () => { anim.SetTrigger("isAttacking"); };
         onAttack += attackCooldownTimer.startTimer;
     }
 
@@ -57,8 +60,7 @@ public class PlayerAttack : MonoBehaviour
 
     public void Attack()
     {
-        anim.SetTrigger("isAttacking");
-
+       
         GameObject projectile = getFromPool();
         projectile.transform.position = attackOrigin.transform.position;
         projectile.SetActive(true);

@@ -26,6 +26,7 @@ public class MenuManager : MonoBehaviour
 
     private void Start()
     {
+        Cursor.SetCursor(null, Vector2.zero, CursorMode.Auto);
         PlayerPrefs.DeleteKey("Difficulty");
 
         selectDifficulty(0);

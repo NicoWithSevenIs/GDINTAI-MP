@@ -72,7 +72,6 @@ public class ProjectileScript : MonoBehaviour
             if (collision.tag == s)
                 return;
         }
-      
 
        collision.GetComponent<IDamageable>()?.TakeDamage(50);
        anim.SetBool("hasExploded", true);

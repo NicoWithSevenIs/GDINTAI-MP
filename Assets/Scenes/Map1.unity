@@ -1318,6 +1318,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attackOrigin: {fileID: 246434138}
   projectileContainer: {fileID: 1336335013}
+  cursorOverride: {fileID: 2800000, guid: c17dc7f7d085c2444b8880eb56e90494, type: 3}
   projectile: {fileID: 2870686550065675643, guid: ebc24584dda1f844794911380f16f0c4, type: 3}
   poolSize: 1
   attackCooldown: 1
