@@ -7,20 +7,84 @@ using System.IO;
 
 public class TilemapManager : MonoBehaviour
 {
-    [SerializeField] private Tilemap tileMap;
+    [SerializeField] private Tilemap[] tileMap;
     [SerializeField] private TileTypeSorter typedTile;
 
     TileType[,] tileMapTypes;
 
-    BoundsInt? tileMapBoundsData = null;
+    BoundsInt? maxBoundsData = null; //largest bounds data among all tilemap layers
+
+
+
+    private void getMaxBounds()
+    {
+        foreach (var t in tileMap)
+        {
+            t.CompressBounds();
+            BoundsInt tBounds = t.cellBounds;
+
+            if (!maxBoundsData.HasValue)
+            {
+                maxBoundsData = tBounds;
+                continue;
+            }
+
+            if (tBounds.size.x * tBounds.size.y > maxBoundsData.Value.size.x * maxBoundsData.Value.size.y)
+                maxBoundsData = tBounds;
+
+        }
+    }
+
+ 
+    private void UpdateTileTypeArray(int index, BoundsInt maxBounds)
+    {
+        for (int row = 0; row < maxBounds.size.y; row++)
+        {
+
+            for (int col = 0; col < maxBounds.size.x; col++)
+            {
+                int x = col + maxBounds.xMin;
+                int y = maxBounds.yMax - 1 - row;
+
+
+                Vector3Int pos = new Vector3Int(x, y, 0);
+                TileBase t = tileMap[index].GetTile(pos);
+
+                TileType typeOfT = t != null ? typedTile.getTileType(t.name) : TileType.None;
+
+                if(typeOfT > tileMapTypes[col, row])
+                    tileMapTypes[col, row] = typeOfT;
+
+
+            }
+
+        }
+    }
 
     private void Start()
     {
+        getMaxBounds();
+
+        if (!maxBoundsData.HasValue)
+            return;
+
+        tileMapTypes.Initialize();
+        writeToTextFile();
+        BoundsInt maxBounds = maxBoundsData.Value;
+        tileMapTypes = new TileType[maxBounds.size.x, maxBounds.size.y];
+
+
+        for(int i = 0; i < tileMap.Length; i++)
+        {
+            UpdateTileTypeArray(i, maxBounds);
+        }
+
+        /*
         tileMap.CompressBounds();
         tileMapBoundsData = tileMap.cellBounds;
         BoundsInt tileMapBounds = tileMapBoundsData.Value;
 
-        tileMapTypes = new TileType[tileMapBounds.size.x, tileMapBounds.size.y];
+      
 
         //row is y traversal, y goes down as you go down
         for (int row = 0; row < tileMapBounds.size.y; row++)
@@ -42,17 +106,18 @@ public class TilemapManager : MonoBehaviour
         }
 
 
-
-        //writeToTextFile();
+       
+        writeToTextFile();
+         */
     }
-
+  
     private void writeToTextFile()
     {
 
-        if (tileMapBoundsData == null)
+        if (!maxBoundsData.HasValue)
             return;
 
-        BoundsInt tileMapBounds = tileMapBoundsData.Value;
+        BoundsInt tileMapBounds = maxBoundsData.Value;
 
 
         string filename = Application.dataPath + "/Output.txt";

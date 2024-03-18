@@ -15,6 +15,8 @@ public class PlayerMovement : MonoBehaviour
     private float HorizontalInput = 0;
     private float VerticalInput = 0;
 
+    private bool canTurn = true;
+
     private void Start()
     {
         body = GetComponent<Rigidbody2D>();
@@ -52,10 +54,19 @@ public class PlayerMovement : MonoBehaviour
 
     private void flipSprite()
     {
+
+        if (!canTurn)
+            return;
+
         float unsignedX = Mathf.Abs(transform.localScale.x);
         if (HorizontalInput < 0f)
             transform.localScale = new Vector2 (-1 * unsignedX, transform.localScale.y);
         else if(HorizontalInput > 0f)
             transform.localScale = new Vector2(unsignedX, transform.localScale.y);
     }   
+
+    public void setTurning(bool canTurn)
+    {
+        this.canTurn= canTurn;
+    }
 }

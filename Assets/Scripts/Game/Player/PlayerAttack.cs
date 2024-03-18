@@ -24,6 +24,7 @@ public class PlayerAttack : MonoBehaviour
 
 
     public event Action onAttack;
+    public event Action onAttackComplete;
 
     private Animator anim;
    
@@ -44,6 +45,9 @@ public class PlayerAttack : MonoBehaviour
 
         onAttack += () => { anim.SetTrigger("isAttacking"); };
         onAttack += attackCooldownTimer.startTimer;
+        onAttack += () => { GetComponent<PlayerMovement>().setTurning(false); };
+        onAttackComplete += () => { GetComponent<PlayerMovement>().setTurning(true); };
+
     }
 
     private void Update()
@@ -60,11 +64,35 @@ public class PlayerAttack : MonoBehaviour
 
     public void Attack()
     {
-       
+        
         GameObject projectile = getFromPool();
+
+        Vector2 aimDir = Camera.main.ScreenToWorldPoint(Input.mousePosition) - attackOrigin.transform.position;
+
+        projectile.GetComponent<ProjectileScript>().setDirection(aimDir);
+        
+
+        float unsignedX = Mathf.Abs(transform.localScale.x);
+
+
         projectile.transform.position = attackOrigin.transform.position;
         projectile.SetActive(true);
 
+        
+        if (aimDir.x < transform.position.x)
+        {
+            transform.localScale = new Vector2(-1 * unsignedX, transform.localScale.y);
+        }else if (aimDir.x > transform.position.x)
+        {
+            transform.localScale = new Vector2(unsignedX, transform.localScale.y);
+        }
+        
+
+    }
+
+    public void AttackCompleted()
+    {
+        onAttackComplete?.Invoke();
     }
 
     private GameObject getFromPool()
@@ -82,7 +110,6 @@ public class PlayerAttack : MonoBehaviour
 
     private GameObject insertToPool()
     {
-        print("run");
         GameObject poolable = Instantiate(projectile);
         poolable.SetActive(false);
         poolable.transform.parent = projectileContainer.transform;

@@ -54,8 +54,8 @@ public class ProjectileScript : MonoBehaviour
     {
         
         Vector2 velocity = currentDirection;
-        velocity *= speed * Time.deltaTime;
-        body.velocity = velocity;
+        velocity.Normalize();
+        body.velocity = velocity * speed;
 
     }
 
@@ -63,7 +63,6 @@ public class ProjectileScript : MonoBehaviour
     {
         this.direction = direction;
     }
-
 
     public void OnTriggerEnter2D(Collider2D collision)
     {
