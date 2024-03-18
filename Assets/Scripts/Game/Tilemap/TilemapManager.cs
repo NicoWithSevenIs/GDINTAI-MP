@@ -4,18 +4,45 @@ using UnityEditor.Build.Content;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 using System.IO;
+using System;
 
 public class TilemapManager : MonoBehaviour
 {
+    [Header("Tile Type Referencing")]
     [SerializeField] private Tilemap[] tileMap;
     [SerializeField] private TileTypeSorter typedTile;
 
-    TileType[,] tileMapTypes;
+    [Header("Collider Handling")]
+    [SerializeField] private Tilemap pathReference;
+
+    
+
+    public TileType[,] tileMapTypes { get; private set; }
 
     BoundsInt? maxBoundsData = null; //largest bounds data among all tilemap layers
 
 
+    private void Start()
+    {
+        initializeTileTypeArray();
+    }
 
+    #region positionTracking
+
+    [SerializeField] private Vector3Int playerPos = Vector3Int.zero;
+    public event Action onPlayerChangedPos;
+    
+    public void setPlayerPos(Vector3Int newPos)
+    {
+        playerPos = newPos;
+        onPlayerChangedPos?.Invoke();
+    }
+
+    #endregion positionTracking
+
+
+
+    #region mapInitialization
     private void getMaxBounds()
     {
         foreach (var t in tileMap)
@@ -35,8 +62,7 @@ public class TilemapManager : MonoBehaviour
         }
     }
 
- 
-    private void UpdateTileTypeArray(int index, BoundsInt maxBounds)
+    private void UpdateTileTypeAt(int index, BoundsInt maxBounds)
     {
         for (int row = 0; row < maxBounds.size.y; row++)
         {
@@ -52,7 +78,7 @@ public class TilemapManager : MonoBehaviour
 
                 TileType typeOfT = t != null ? typedTile.getTileType(t.name) : TileType.None;
 
-                if(typeOfT > tileMapTypes[col, row])
+                if (typeOfT > tileMapTypes[col, row])
                     tileMapTypes[col, row] = typeOfT;
 
 
@@ -61,14 +87,14 @@ public class TilemapManager : MonoBehaviour
         }
     }
 
-    private void Start()
+    private void initializeTileTypeArray()
     {
         getMaxBounds();
 
         if (!maxBoundsData.HasValue)
             return;
 
-   
+
         BoundsInt maxBounds = maxBoundsData.Value;
         tileMapTypes = new TileType[maxBounds.size.x, maxBounds.size.y];
 
@@ -78,42 +104,13 @@ public class TilemapManager : MonoBehaviour
 
         for (int i = 0; i < tileMap.Length; i++)
         {
-            UpdateTileTypeArray(i, maxBounds);
+            UpdateTileTypeAt(i, maxBounds);
         }
 
         writeToTextFile();
-        /*
-        tileMap.CompressBounds();
-        tileMapBoundsData = tileMap.cellBounds;
-        BoundsInt tileMapBounds = tileMapBoundsData.Value;
 
-      
-
-        //row is y traversal, y goes down as you go down
-        for (int row = 0; row < tileMapBounds.size.y; row++)
-        {
-
-            for (int col = 0; col < tileMapBounds.size.x; col++)
-            {
-                int x = col + tileMapBounds.xMin;
-                int y = tileMapBounds.yMax - 1 - row;
-
-
-                Vector3Int pos = new Vector3Int(x, y, 0);
-                TileBase t = tileMap.GetTile(pos);
-
-                tileMapTypes[col, row] = t != null ? typedTile.getTileType(t.name) : TileType.None;
-
-            }
-
-        }
-
-
-       
-        writeToTextFile();
-         */
     }
-  
+
     private void writeToTextFile()
     {
 
@@ -156,6 +153,7 @@ public class TilemapManager : MonoBehaviour
         }
 
     }
+    #endregion mapInitialization
 
     #region singleton
     public static TilemapManager instance { get; private set; }

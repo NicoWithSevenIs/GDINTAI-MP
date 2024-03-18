@@ -196,6 +196,7 @@ MonoBehaviour:
   speed: 15
   blackList:
   - Player
+  - Ground
   lifetimeDuration: 3
   direction: {x: 0, y: 0}
   currentDirection: {x: 0, y: 0}
