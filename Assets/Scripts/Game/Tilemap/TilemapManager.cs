@@ -68,17 +68,20 @@ public class TilemapManager : MonoBehaviour
         if (!maxBoundsData.HasValue)
             return;
 
-        tileMapTypes.Initialize();
-        writeToTextFile();
+   
         BoundsInt maxBounds = maxBoundsData.Value;
         tileMapTypes = new TileType[maxBounds.size.x, maxBounds.size.y];
 
 
-        for(int i = 0; i < tileMap.Length; i++)
+        tileMapTypes.Initialize();
+
+
+        for (int i = 0; i < tileMap.Length; i++)
         {
             UpdateTileTypeArray(i, maxBounds);
         }
 
+        writeToTextFile();
         /*
         tileMap.CompressBounds();
         tileMapBoundsData = tileMap.cellBounds;
