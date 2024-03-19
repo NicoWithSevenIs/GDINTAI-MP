@@ -3,10 +3,15 @@ using System.Collections;
 using System.Security.Cryptography;
 using UnityEngine;
 
-public class PlayerHealth : MonoBehaviour, IDamageable
+public class Health : MonoBehaviour, IDamageable
 {
     [SerializeField] private int maxHealth = 1;
     [SerializeField] private int currentHealth;
+
+    [Header("Animator Parameters")]
+
+    [SerializeField] private string deathTrigger;
+
 
     public event Action onDie;
     private Animator anim;
@@ -20,13 +25,8 @@ public class PlayerHealth : MonoBehaviour, IDamageable
 
     void OnEnable()
     {
-        anim?.SetBool("isDead", false);
         currentHealth = maxHealth;
-        foreach (var i in GetComponents<MonoBehaviour>())
-        {
-            i.enabled = true;
-        }
-
+        GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;
     }
 
 
@@ -36,40 +36,22 @@ public class PlayerHealth : MonoBehaviour, IDamageable
 
         if(currentHealth <= 0 )
         {
-            print("Died");
             onDie?.Invoke();
         }
     }
 
     public void Death()
     {
-        anim.SetBool("isDead", true);
-
-        foreach(var i in GetComponents<MonoBehaviour>())
-        {
-            if(i != this)
-                i.enabled = false;
-        }
-
-        print("clean up in 3 seconds");
+        anim.SetTrigger(deathTrigger);
         StartCoroutine(delayedDisable());
+        GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Static;
     }
 
     //temp
     public IEnumerator delayedDisable()
     {
         yield return new WaitForSeconds(3);
-        print("died, cleaning up");
         gameObject.SetActive(false);
     }
-
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.C))
-        {
-            TakeDamage(1);
-        }
-    }
-
 
 }

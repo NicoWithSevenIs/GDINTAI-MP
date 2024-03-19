@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using System.Text.RegularExpressions;
 
 public class PlayerAttack : MonoBehaviour
 {
@@ -37,6 +38,7 @@ public class PlayerAttack : MonoBehaviour
         }
     }
 
+
     private void Start()
     {
         Cursor.SetCursor(cursorOverride, new Vector2(cursorOverride.width/2, cursorOverride.height/2) , CursorMode.ForceSoftware);
@@ -48,6 +50,12 @@ public class PlayerAttack : MonoBehaviour
         onAttack += () => { GetComponent<PlayerMovement>().setTurning(false); };
         onAttackComplete += () => { GetComponent<PlayerMovement>().setTurning(true); };
 
+
+        GetComponent<Health>().onDie += () =>
+        {
+            anim.ResetTrigger("isAttacking");
+           
+        };
     }
 
     private void Update()

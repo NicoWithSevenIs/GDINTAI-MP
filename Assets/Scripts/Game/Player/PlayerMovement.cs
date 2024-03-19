@@ -16,16 +16,32 @@ public class PlayerMovement : MonoBehaviour
     private float VerticalInput = 0;
 
     private bool canTurn = true;
+    private bool canMove = true;
 
     private void Start()
     {
         body = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
         sprite= GetComponent<SpriteRenderer>();
+
+        GetComponent<Health>().onDie += () =>
+        {
+            canTurn = false;
+            anim.SetBool("isWalking", false);
+        };
     }
 
+    private void OnEnable()
+    {
+        canMove = true;
+        canTurn = true;
+    }
     private void Update()
     {
+
+        if (!canMove)
+            return;
+
         HorizontalInput = Input.GetAxisRaw("Horizontal");
         VerticalInput = Input.GetAxisRaw("Vertical");
 
@@ -41,6 +57,10 @@ public class PlayerMovement : MonoBehaviour
 
     private void Move()
     {
+
+        if (body.bodyType == RigidbodyType2D.Static)
+            return;
+
         Vector2 velocity = Vector2.zero;
 
         velocity.x = HorizontalInput * Time.fixedDeltaTime;
@@ -50,6 +70,7 @@ public class PlayerMovement : MonoBehaviour
         velocity *= speed;
 
         body.velocity = velocity;
+
     }
 
     private void flipSprite()
