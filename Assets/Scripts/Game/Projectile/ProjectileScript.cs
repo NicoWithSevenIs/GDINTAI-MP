@@ -7,6 +7,10 @@ public class ProjectileScript : MonoBehaviour
     [SerializeField] private float speed = 5f;
     [SerializeField] private string[] blackList;
     [SerializeField] private float lifetimeDuration = 2f;
+
+    [Header("Animator Parameters")]
+    [SerializeField] private string detonateTrigger;
+
     private Timer lifetime;
 
     private Rigidbody2D body;
@@ -34,7 +38,7 @@ public class ProjectileScript : MonoBehaviour
     {
         lifetime = new Timer(lifetimeDuration);
         lifetime.startTimer();
-        anim.SetBool("hasExploded", false);
+        anim.SetBool(detonateTrigger, false);
         currentDirection = direction;
     }
 
@@ -73,7 +77,7 @@ public class ProjectileScript : MonoBehaviour
         }
 
        collision.GetComponent<IDamageable>()?.TakeDamage(50);
-       anim.SetBool("hasExploded", true);
+       anim.SetBool(detonateTrigger, true);
        currentDirection = Vector2.zero;
     }
 

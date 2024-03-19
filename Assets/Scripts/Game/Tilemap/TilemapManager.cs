@@ -30,12 +30,19 @@ public class TilemapManager : MonoBehaviour
     #region positionTracking
 
     [SerializeField] private Vector3Int playerPos = Vector3Int.zero;
+    [SerializeField] private Vector3Int enemyPos = Vector3Int.zero;
+
     public event Action onPlayerChangedPos;
     
     public void setPlayerPos(Vector3Int newPos)
     {
         playerPos = newPos;
         onPlayerChangedPos?.Invoke();
+    }
+
+    public void setEnemyPos(Vector3Int newPos)
+    {
+        enemyPos = newPos;
     }
 
     #endregion positionTracking
