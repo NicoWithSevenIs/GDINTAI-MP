@@ -28,6 +28,8 @@ public class PlayerAttack : MonoBehaviour
     public event Action onAttackComplete;
 
     private Animator anim;
+
+    private bool canAttack = true;
    
     private void Awake()
     {
@@ -45,17 +47,26 @@ public class PlayerAttack : MonoBehaviour
         anim = GetComponent<Animator>();
         attackCooldownTimer = new Timer(attackCooldown);
 
-        onAttack += () => { anim.SetTrigger("isAttacking"); };
-        onAttack += attackCooldownTimer.startTimer;
-        onAttack += () => { GetComponent<PlayerMovement>().setTurning(false); };
-        onAttackComplete += () => { GetComponent<PlayerMovement>().setTurning(true); };
-
+        onAttack += () => { 
+            anim.SetTrigger("isAttacking");
+            attackCooldownTimer.startTimer();
+            GetComponent<PlayerMovement>().setTurning(false);
+        };
+      
+        onAttackComplete += () => { 
+            GetComponent<PlayerMovement>().setTurning(true); 
+        };
 
         GetComponent<Health>().onDie += () =>
         {
             anim.ResetTrigger("isAttacking");
-           
+            canAttack = false;
         };
+    }
+
+    private void OnEnable()
+    {
+        canAttack = true;
     }
 
     private void Update()
@@ -64,7 +75,7 @@ public class PlayerAttack : MonoBehaviour
         attackCooldownTimer.TickDown(Time.deltaTime);
 
 
-        if (Input.GetMouseButtonDown(0) && !attackCooldownTimer.isTimerRunning)
+        if (Input.GetMouseButtonDown(0) && !attackCooldownTimer.isTimerRunning && canAttack)
         {
             onAttack?.Invoke();
         }    
@@ -72,29 +83,26 @@ public class PlayerAttack : MonoBehaviour
 
     public void Attack()
     {
-        
+
         GameObject projectile = getFromPool();
 
-        Vector2 aimDir = Camera.main.ScreenToWorldPoint(Input.mousePosition) - attackOrigin.transform.position;
-
-        projectile.GetComponent<ProjectileScript>().setDirection(aimDir);
-        
+        Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
         float unsignedX = Mathf.Abs(transform.localScale.x);
 
-
-        projectile.transform.position = attackOrigin.transform.position;
-        projectile.SetActive(true);
-
-        
-        if (aimDir.x < transform.position.x)
+        if (mousePos.x < transform.position.x)
         {
             transform.localScale = new Vector2(-1 * unsignedX, transform.localScale.y);
-        }else if (aimDir.x > transform.position.x)
+        }
+        else if (mousePos.x > transform.position.x)
         {
             transform.localScale = new Vector2(unsignedX, transform.localScale.y);
         }
-        
+
+        Vector2 aimDir = mousePos - attackOrigin.transform.position;
+        projectile.GetComponent<ProjectileScript>().setDirection(aimDir);
+        projectile.transform.position = attackOrigin.transform.position;
+        projectile.SetActive(true);
 
     }
 

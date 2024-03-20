@@ -15,10 +15,12 @@ public class Health : MonoBehaviour, IDamageable
 
     public event Action onDie;
     private Animator anim;
+    private BoxCollider2D box;
 
     void Start()
     {
         anim = GetComponent<Animator>();
+        box = GetComponent<BoxCollider2D>();
         currentHealth = maxHealth;
         onDie += Death;
     }
@@ -27,6 +29,12 @@ public class Health : MonoBehaviour, IDamageable
     {
         currentHealth = maxHealth;
         GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;
+        
+        if(box != null )
+        {
+            box.enabled = true;
+        }
+        
     }
 
 
@@ -45,6 +53,7 @@ public class Health : MonoBehaviour, IDamageable
         anim.SetTrigger(deathTrigger);
         StartCoroutine(delayedDisable());
         GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Static;
+        box.enabled= false;
     }
 
     //temp

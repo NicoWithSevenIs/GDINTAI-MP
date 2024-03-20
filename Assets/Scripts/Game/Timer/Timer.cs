@@ -83,7 +83,11 @@ public class Timer
         this.baseDuration = time;
     }
 
-
+    public void recalibrateTimer(float time)
+    {
+        this.baseDuration = time;
+        this.resetTimer();
+    }
 
     #endregion TimerUtilities
 
