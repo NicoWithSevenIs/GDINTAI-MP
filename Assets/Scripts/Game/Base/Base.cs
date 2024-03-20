@@ -41,12 +41,6 @@ public class Base : MonoBehaviour
     private void Update()
     {
         invincibilityTimer.TickDown(Time.deltaTime);
-
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            setInvincible(1.5f);
-        }
-
     }
     public void setInvincible(float duration)
     {
