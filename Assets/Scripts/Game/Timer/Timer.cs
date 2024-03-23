@@ -48,7 +48,7 @@ public class Timer
     public void restartTimer()
     {
         resetTimer();
-        onStart.Invoke();
+        startTimer();
     }
 
     public void startTimer()

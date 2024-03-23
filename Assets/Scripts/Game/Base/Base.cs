@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -11,11 +12,14 @@ public class Base : MonoBehaviour
     [SerializeField] private GameObject statueTop;
     [SerializeField] private GameObject statueBottom;
     [SerializeField] private GameObject statueDestroyed;
+    [SerializeField] private GameObject[] InvincibilityObjects;
 
     [ColorUsageAttribute(true, false)]
     [SerializeField] private Color baseInvincibilityColor;
-    private Timer invincibilityTimer;
+    public Timer invincibilityTimer { get; private set; }
 
+    public event Action onBaseDestroyed;
+   
 
     [Header("Game Logic")]
     [SerializeField] private string[] destroyOnTouch;
@@ -27,15 +31,32 @@ public class Base : MonoBehaviour
 
     #region invincibility
 
-    private void Start()
+    private void Awake()
     {
         sprite = GetComponent<SpriteRenderer>();
-
+        foreach (var i in InvincibilityObjects)
+        {
+            i.SetActive(false);
+        }
         invincibilityTimer = new Timer(1);
         invincibilityTimer.onElapse += () => {
             isInvincible = false;
-            setColor(Color.white); 
+            setColor(Color.white);
+            foreach (var i in InvincibilityObjects)
+            {
+                IInvincibilityComponent inv = i.GetComponent<IInvincibilityComponent>();
+                if (inv != null)
+                    inv.Disable();
+            }
         };
+        invincibilityTimer.onStart += () =>
+        {
+            foreach (var i in InvincibilityObjects)
+            {
+                i.SetActive(true);
+            }
+        };
+       
     }
 
     private void Update()
@@ -44,10 +65,15 @@ public class Base : MonoBehaviour
     }
     public void setInvincible(float duration)
     {
+
+        if (isDestroyed)
+            return;
+
         isInvincible = true;
         setColor(baseInvincibilityColor);
         invincibilityTimer.recalibrateTimer(duration);
         invincibilityTimer.startTimer();
+
     }
 
     private void setColor(Color color)
@@ -79,6 +105,7 @@ public class Base : MonoBehaviour
 
 
         setStatueDestroyed(true);
+        onBaseDestroyed?.Invoke();
        
     }
 

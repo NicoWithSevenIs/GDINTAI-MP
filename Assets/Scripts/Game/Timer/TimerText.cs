@@ -7,7 +7,7 @@ public class TimerText : LabeledUpdatableText
 
     private void Update()
     {
-        float TimeRemaining = GameTimeHandler.instance.timer.getTimeRemaining();
+        float TimeRemaining = Game.instance.gameTimer.getTimeRemaining();
 
         int minute = (int)(TimeRemaining / 60);
         int seconds = (int)(TimeRemaining % 60);

@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.Tilemaps;
 using System.IO;
 using System;
+using System.Linq;
 
 public class TilemapManager : MonoBehaviour
 {
@@ -18,13 +19,9 @@ public class TilemapManager : MonoBehaviour
 
     public TileType[,] tileMapTypes { get; private set; }
 
-    BoundsInt? maxBoundsData = null; //largest bounds data among all tilemap layers
+    public BoundsInt? maxBoundsData { get; private set; } = null; //largest bounds data among all tilemap layers
 
 
-    private void Start()
-    {
-        initializeTileTypeArray();
-    }
 
     #region positionTracking
 
@@ -42,6 +39,23 @@ public class TilemapManager : MonoBehaviour
     public void setEnemyPos(Vector3Int newPos)
     {
         enemyPos = newPos;
+    }
+
+    public Vector2 getTileCoord(Vector2Int vec)
+    {
+      
+        for(int i =0; i < tileMap.Length; i++)
+        {
+            Vector3Int cell = new Vector3Int(vec.x, vec.y, 0);
+            if(tileMap[i].GetTile(cell) != null)
+            {
+                return tileMap[i].GetCellCenterWorld(cell);
+            }
+        }
+
+        print(vec);
+        return new Vector2(5, 5);
+
     }
 
     #endregion positionTracking
@@ -168,6 +182,8 @@ public class TilemapManager : MonoBehaviour
         if (instance == null)
             instance = this;
         else Destroy(gameObject);
+
+        initializeTileTypeArray();
     }
     #endregion
 }
