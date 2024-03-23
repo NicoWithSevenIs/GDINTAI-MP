@@ -20,7 +20,7 @@ public class Chaos : MonoBehaviour
     private void ResetVisited()
     {
         visited.Clear();
-        GameObject[] bases = Game.instance.playerBases;
+        List<GameObject> bases = Game.instance.playerBases;
         foreach (var b in bases)
         {
             Vector3Int v = toVec3Int(b.transform.position);
@@ -50,13 +50,13 @@ public class Chaos : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        Dictionary<string, GameObject[]> r = new Dictionary<string, GameObject[]>()
+        Dictionary<string, List<GameObject>> r = new Dictionary<string, List<GameObject>>()
         {
             {"Player", Game.instance.playerBases},
             {"Enemy", Game.instance.enemyBases}
         };
 
-        if (!r.TryGetValue(collision.tag, out GameObject[] a))
+        if (!r.TryGetValue(collision.tag, out List<GameObject> a))
             return;
 
         
