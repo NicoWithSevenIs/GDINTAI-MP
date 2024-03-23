@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Invincibility : MonoBehaviour
+public class Invincibility : PowerUp
 {
 
 
@@ -18,7 +18,8 @@ public class Invincibility : MonoBehaviour
         foreach(var b in bases){
             b.GetComponent<Base>()?.setInvincible(10.0f);
         }
+
+        Consume();
         
-        gameObject.SetActive(false);
     }
 }

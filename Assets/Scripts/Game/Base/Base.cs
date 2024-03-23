@@ -39,7 +39,9 @@ public class Base : MonoBehaviour
             i.SetActive(false);
         }
         invincibilityTimer = new Timer(1);
+
         invincibilityTimer.onElapse += () => {
+
             isInvincible = false;
             setColor(Color.white);
             foreach (var i in InvincibilityObjects)
@@ -49,6 +51,7 @@ public class Base : MonoBehaviour
                     inv.Disable();
             }
         };
+
         invincibilityTimer.onStart += () =>
         {
             foreach (var i in InvincibilityObjects)

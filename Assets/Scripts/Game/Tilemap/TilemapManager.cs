@@ -53,9 +53,21 @@ public class TilemapManager : MonoBehaviour
             }
         }
 
-        print(vec);
-        return new Vector2(5, 5);
+        Debug.LogException(new Exception("Tile does not exist in Tilemap Collection"));
+        return new Vector2(0, 0);
 
+    }
+
+    public Vector3Int WorldToCell(Vector3 pos)
+    {
+        if(tileMap.Length == 0)
+        {
+            Debug.LogException(new Exception("No Tilemaps to Reference"));
+            return new Vector3Int(0, 0, 0);
+        }
+           
+        
+        return tileMap[0].WorldToCell(pos);
     }
 
     #endregion positionTracking

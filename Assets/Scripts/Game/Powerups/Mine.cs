@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Mine : MonoBehaviour
+public class Mine : PowerUp
 {
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -13,7 +13,7 @@ public class Mine : MonoBehaviour
         if (damageable != null)
         {
             damageable.TakeDamage(1);
-            gameObject.SetActive(false);
+            Consume();
         }
     
     }

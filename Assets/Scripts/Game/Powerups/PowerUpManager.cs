@@ -1,4 +1,4 @@
-using System;
+
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
@@ -6,17 +6,6 @@ using Unity.VisualScripting;
 using UnityEngine;
 
 
-struct CellData
-{
-    public Vector2Int index { get; private set; }
-    public Vector2Int cellPos { get; private set; }
-
-    public CellData(Vector2Int index, Vector2Int cellPos)
-    {
-        this.index = index;
-        this.cellPos = cellPos;
-    }
-}
 public class PowerUpManager : MonoBehaviour
 {
     [Header("Power Ups")]
@@ -48,28 +37,49 @@ public class PowerUpManager : MonoBehaviour
 
     private void spawnPotion()
     {
-        List<CellData> openList = getEmptyTiles();
+        potionSpawnTimer.restartTimer();
+        
+        List<Vector3Int> openList = getEmptyTiles();
 
         if (openList.Count == 0)
         {
             print("Board is Full");
             return;
         }
-            
 
-        CellData randomTile = openList[UnityEngine.Random.Range(0, openList.Count)];
+        Vector3Int randomTile = openList[Random.Range(0, openList.Count)];
       
-        string key = powerUps[UnityEngine.Random.Range(0, powerUps.Length)].name;
-       
-        potionPosTracker[randomTile.index.x, randomTile.index.y] = true;
-      
+        string key = powerUps[Random.Range(0, powerUps.Length)].name;
+
+        int i = randomTile.x - TilemapManager.instance.maxBoundsData.Value.xMin;
+        int j = TilemapManager.instance.maxBoundsData.Value.yMax - 1 - randomTile.y;
+
+        potionPosTracker[i,j] = true;
    
         GameObject poolable = getFromPool(key);
-        poolable.transform.position = TilemapManager.instance.getTileCoord(randomTile.cellPos);
+        poolable.transform.position = TilemapManager.instance.getTileCoord((Vector2Int)randomTile);
 
-        potionSpawnTimer.restartTimer();
+
+        PowerUp powerup = poolable.GetComponent<PowerUp>();
+
+        System.Action e = null;
+
+        e = () =>
+        {
+            Vector3Int v = TilemapManager.instance.WorldToCell(poolable.transform.position);
+      
+            v.x = v.x - TilemapManager.instance.maxBoundsData.Value.xMin;
+            v.y = TilemapManager.instance.maxBoundsData.Value.yMax - 1 - v.y;
+
+            potionPosTracker[v.x, v.y] = false;
+            powerup.onConsumption -= e;
+        };
+
+        powerup.onConsumption += e;
+        
     }
 
+ 
 
     private void initializePool()
     {
@@ -131,9 +141,9 @@ public class PowerUpManager : MonoBehaviour
     }
 
 
-    private List<CellData> getEmptyTiles()
+    private List<Vector3Int> getEmptyTiles()
     {
-        List<CellData> openList = new List<CellData>();
+        List<Vector3Int> openList = new List<Vector3Int>();
 
         for(int row =0; row < potionPosTracker.GetLength(1); row++)
         {
@@ -144,7 +154,7 @@ public class PowerUpManager : MonoBehaviour
 
                 if (TilemapManager.instance.tileMapTypes[col,row] == TileType.Path && !potionPosTracker[col, row])
                 {
-                    openList.Add(new CellData(new Vector2Int(col, row), new Vector2Int(x, y)));
+                    openList.Add(new Vector3Int(x, y, 0));
                 }
                     
 
