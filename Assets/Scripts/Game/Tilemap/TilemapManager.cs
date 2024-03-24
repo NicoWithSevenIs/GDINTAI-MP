@@ -41,7 +41,7 @@ public class TilemapManager : MonoBehaviour
         enemyPos = newPos;
     }
 
-    public Vector2 getTileCoord(Vector2Int vec)
+    public Vector2 CellToWorld(Vector2Int vec)
     {
       
         for(int i =0; i < tileMap.Length; i++)

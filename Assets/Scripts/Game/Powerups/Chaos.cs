@@ -28,15 +28,20 @@ public class Chaos : PowerUp
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        Dictionary<string, List<GameObject>> r = new Dictionary<string, List<GameObject>>()
-        {
-            {"Player", Game.instance.playerBases},
-            {"Enemy", Game.instance.enemyBases}
-        };
 
-        if (!r.TryGetValue(collision.tag, out List<GameObject> a))
+        List<GameObject> bases = collision.tag == "Player" ? Game.instance.playerBases : collision.tag == "Enemy" ? Game.instance.enemyBases : new List<GameObject> { };
+
+        if (bases.Count == 0)
             return;
 
+        /*
+        Game.invalidTileChecker isTileInvalid = (int x, int y) =>
+        {
+
+        };
+
+        Game.instance.RearrangeBases(collision.tag == "Player", ) 
+        */
 
         Consume();
     }

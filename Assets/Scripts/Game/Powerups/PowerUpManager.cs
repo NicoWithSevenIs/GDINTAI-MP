@@ -57,7 +57,7 @@ public class PowerUpManager : MonoBehaviour
         potionPosTracker[i,j] = true;
    
         GameObject poolable = getFromPool(key);
-        poolable.transform.position = TilemapManager.instance.getTileCoord((Vector2Int)randomTile);
+        poolable.transform.position = TilemapManager.instance.CellToWorld((Vector2Int)randomTile);
 
 
         PowerUp powerup = poolable.GetComponent<PowerUp>();
