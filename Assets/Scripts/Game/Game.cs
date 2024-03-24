@@ -342,7 +342,7 @@ public class Game : MonoBehaviour
             if (baseScript.isDestroyed)
                 count++;
         }
-        print(count);
+        
         return count == bases.Count;
     }
 

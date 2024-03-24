@@ -1331,9 +1331,9 @@ TilemapRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: -1
+  m_SortingLayerID: 1462608531
+  m_SortingLayer: 1
+  m_SortingOrder: 101
   m_ChunkSize: {x: 32, y: 32, z: 32}
   m_ChunkCullingBounds: {x: 0, y: 0, z: 0}
   m_MaxChunkCount: 16
@@ -3709,9 +3709,9 @@ TilemapRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: -2
+  m_SortingLayerID: 1462608531
+  m_SortingLayer: 1
+  m_SortingOrder: 100
   m_ChunkSize: {x: 32, y: 32, z: 32}
   m_ChunkCullingBounds: {x: 0, y: 0, z: 0}
   m_MaxChunkCount: 16
@@ -4361,7 +4361,7 @@ MonoBehaviour:
   enemyBase: {fileID: 7818769600753536046, guid: 5a9d2467e0e953149b7e33c823988e38, type: 3}
   player: {fileID: 1418000621}
   enemy: {fileID: 560554150}
-  gameDuration: 121
+  gameDuration: 120
 --- !u!1001 &1246971184
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -13457,14 +13457,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1547825111}
     m_Modifications:
-    - target: {fileID: 2189992337183055309, guid: 13f3c7ef6e9908a4bb7191efa1fb2227, type: 3}
-      propertyPath: m_Material
-      value: 
-      objectReference: {fileID: 6200000, guid: 40b511a9a4d90e24c84f2418020cf938, type: 2}
-    - target: {fileID: 2189992337183055309, guid: 13f3c7ef6e9908a4bb7191efa1fb2227, type: 3}
-      propertyPath: m_LinearDrag
-      value: 10
-      objectReference: {fileID: 0}
     - target: {fileID: 6525603057950358801, guid: 13f3c7ef6e9908a4bb7191efa1fb2227, type: 3}
       propertyPath: m_LocalPosition.x
       value: 1.51
@@ -13507,14 +13499,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7022968983745808578, guid: 13f3c7ef6e9908a4bb7191efa1fb2227, type: 3}
       propertyPath: m_Name
-      value: Enemy
-      objectReference: {fileID: 0}
-    - target: {fileID: 7022968983745808578, guid: 13f3c7ef6e9908a4bb7191efa1fb2227, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7022968983745808578, guid: 13f3c7ef6e9908a4bb7191efa1fb2227, type: 3}
-      propertyPath: m_TagString
       value: Enemy
       objectReference: {fileID: 0}
     m_RemovedComponents: []
