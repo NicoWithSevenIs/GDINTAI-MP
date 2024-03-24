@@ -152,7 +152,7 @@ public class PowerUpManager : MonoBehaviour
                 int x = col + TilemapManager.instance.maxBoundsData.Value.xMin;
                 int y = TilemapManager.instance.maxBoundsData.Value.yMax - 1 - row;
 
-                if (TilemapManager.instance.tileMapTypes[col,row] == TileType.Path && !potionPosTracker[col, row])
+                if (TilemapManager.instance.tileMapTypes[col,row] == TileType.Path && !potionPosTracker[col, row] && !Game.instance.basePositions[col,row])
                 {
                     openList.Add(new Vector3Int(x, y, 0));
                 }

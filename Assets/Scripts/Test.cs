@@ -57,18 +57,18 @@ public class Test : MonoBehaviour
             buffer = "";
             for (int j = x - 2; j <= x + 2; j++)
             {
-                buffer += typeToStr[TilemapManager.instance.tileMapTypes[j, i]];
-                if (j + 1 != x + 3)
-                    buffer += " ";
+
+                if (j == x - 2 && i == y || j == x + 2 && i == y || j == x && i == y - 2)
+                    buffer += "O ";
+                else if (j == x && i == y)
+                    buffer += "X ";
+                else buffer += typeToStr[TilemapManager.instance.tileMapTypes[j, i]] + " ";
             }
   
             buffer += "\n";
             File.AppendAllText(filename, buffer);
         }
 
-        print(TilemapManager.instance.tileMapTypes[x-2, y]);
-        print(TilemapManager.instance.tileMapTypes[x+2, y]);
-        print(TilemapManager.instance.tileMapTypes[x, y-2]);
     }
 
 }

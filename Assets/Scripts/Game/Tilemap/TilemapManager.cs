@@ -15,7 +15,7 @@ public class TilemapManager : MonoBehaviour
     [Header("Collider Handling")]
     [SerializeField] private Tilemap pathReference;
 
-    
+
 
     public TileType[,] tileMapTypes { get; private set; }
 
@@ -25,8 +25,8 @@ public class TilemapManager : MonoBehaviour
 
     #region positionTracking
 
-    [SerializeField] private Vector3Int playerPos = Vector3Int.zero;
-    [SerializeField] private Vector3Int enemyPos = Vector3Int.zero;
+    [SerializeField] public Vector3Int playerPos { get; private set; } = Vector3Int.zero;
+    [SerializeField] public Vector3Int enemyPos { get; private set; } = Vector3Int.zero;
 
     public event Action onPlayerChangedPos;
     

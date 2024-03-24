@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using UnityEngine;
 
@@ -27,6 +28,8 @@ public class Game : MonoBehaviour
 
     public event Action onGameOver;
 
+    delegate bool isTileValid(int x, int y);
+
     private void Start()
     {
 
@@ -36,33 +39,42 @@ public class Game : MonoBehaviour
         gameTimer = new Timer(gameDuration);
         gameTimer.startTimer();
 
+        playerBases = new List<GameObject>();
+        enemyBases = new List<GameObject>();
+
         gameTimer.onElapse += () =>
         {
             //Check Win con here
         };
 
+        isTileValid validTileChecker = (int x, int y) =>
+        {
+            return TilemapManager.instance.tileMapTypes[x, y] != TileType.Path || basePositions[x, y];
+        };
 
-        print(TilemapManager.instance.tileMapTypes[5,2]);
-
-        SpawnBases(true,playerBases, 3);
-        SpawnBases(false,enemyBases, 3);
+        SpawnBases(true,playerBases, 3, validTileChecker);
+        SpawnBases(false,enemyBases, 3, validTileChecker);
 
         initializeBase(true, playerBases);
         initializeBase(false, enemyBases);
 
-        
+        writeToTextFile();
 
     }
 
     //Call this in chaos powerup
-    private void SpawnBases(bool isPlayer, List<GameObject> parent, int amount)
+    private void SpawnBases(bool isPlayer, List<GameObject> parent, int amount, isTileValid validTileChecker)
     {
-        for(int i =0; i < 3; i++)
+        for(int i =0; i < amount; i++)
         {
             List<Vector3Int> openList = getSpawnableTiles();
 
             if (openList.Count == 0)
+            {
+                print("No more vacant tiles");
                 return;
+            }
+               
 
             Vector3Int selectedTile = openList[UnityEngine.Random.Range(0, openList.Count)];
 
@@ -72,19 +84,18 @@ public class Game : MonoBehaviour
             int j = selectedTile.x - TilemapManager.instance.maxBoundsData.Value.xMin;
             int k = TilemapManager.instance.maxBoundsData.Value.yMax - 1 - selectedTile.y;
 
-            basePositions[j - 2, k] = true;
-            basePositions[j + 2, k] = true;
-            basePositions[j, k - 2] = true;
-
-            for (int r= k - 1; r <= k + 1; r++)
+            
+            for (int r= k - 2; r <= k + 1; r++)
             {
-                for (int c = j - 1; c <= j + 1; c++)
+                for (int c = j - 2; c <= j + 2; c++)
                 {
                     basePositions[c,r] = true;
                 }
             }
 
-
+            if (isPlayer)
+                playerBases.Add(b);
+            else enemyBases.Add(b);
         }
     }
 
@@ -99,14 +110,12 @@ public class Game : MonoBehaviour
                 int x = col + TilemapManager.instance.maxBoundsData.Value.xMin;
                 int y = TilemapManager.instance.maxBoundsData.Value.yMax - 1 - row;
 
-
                 /*
                     Base is within a 4x5 grid and its center is at index [2,2]
-                    
                     When adding a tile to the open list, all tiles within this range must be within the bounds of the array and vacant
                 */
 
-                if(isTileSpawnable(new Vector2Int(row,col)))
+                if(isTileSpawnable(new Vector2Int(col,row)))
                     openList.Add(new Vector3Int(x, y, 0));
                
 
@@ -116,15 +125,24 @@ public class Game : MonoBehaviour
         return openList;
     }
 
-    private bool isTileSpawnable(Vector2Int v)
+    public void resetBasePositions()
     {
+        basePositions.Initialize();
+    }
+
+    public bool isTileSpawnable(Vector2Int v)
+    {
+       
         bool topleft = v.y - 2 >= 0 && v.x - 2 >= 0;
         bool bottomright = v.y + 1 < basePositions.GetLength(1) && v.x + 2 < basePositions.GetLength(0);
 
         //if the grid is out of bounds, return false
         if (!topleft || !bottomright)
+        {
             return false;
-
+        }
+           
+        
         //check first if "outskirt" tiles are path tiles
         Vector2Int[] cross = new Vector2Int[]
         {
@@ -135,23 +153,25 @@ public class Game : MonoBehaviour
 
         foreach(var c in cross)
         {
-            if (TilemapManager.instance.tileMapTypes[c.x, c.y] != TileType.Path && !basePositions[c.x, c.y])
+            if (TilemapManager.instance.tileMapTypes[c.x, c.y] != TileType.Path || basePositions[c.x, c.y])
+            {
                 return false;
+            }
+                
         }
-
+        
         //finally, check within the surrounding tiles of the origin tile
         for (int i = v.y - 1; i <= v.y + 1; i++)
         {
             for (int j = v.x - 1; j <= v.x + 1; j++)
             {
-                if (TilemapManager.instance.tileMapTypes[j, i] != TileType.Path && !basePositions[j,i])
+                if (TilemapManager.instance.tileMapTypes[j, i] != TileType.Path || basePositions[j, i])
+                {
                     return false;
-
+                }
             }
         }
-
-                //otherwise iterate through the grid and check if none of the tiles within the bounds are walls
-                //for(int row = v.y - 2; row < v.y + 3  )
+      
 
         return true;
     }
@@ -198,6 +218,58 @@ public class Game : MonoBehaviour
     private void Update()
     {
         gameTimer.TickDown(Time.deltaTime);
+
+        /* //Debugging - Check if Tile is Placeable
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            Vector2Int p = (Vector2Int)TilemapManager.instance.playerPos;
+            int j = p.x - TilemapManager.instance.maxBoundsData.Value.xMin;
+            int k = TilemapManager.instance.maxBoundsData.Value.yMax - 1 - p.y;
+            Vector2Int norm = new Vector2Int(j, k);
+            print(p + "-> " + norm + " = "+ isTileSpawnable(norm));
+        }*/
+
+        /* //Debugging - Check if spawning works correctly
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            SpawnBases(true, playerBases, 1);
+            writeToTextFile();
+
+        }
+        */
+
+
+    }
+
+    private void writeToTextFile()
+    {
+
+
+        BoundsInt tileMapBounds = TilemapManager.instance.maxBoundsData.Value;
+
+
+        string filename = Application.dataPath + "/Test.txt";
+
+
+        string buffer;
+        File.WriteAllText(filename, "");
+
+
+
+        for (int i = 0; i < tileMapBounds.size.y; i++)
+        {
+            buffer = "";
+            for (int j = 0; j < tileMapBounds.size.x; j++)
+            {
+                buffer += TilemapManager.instance.tileMapTypes[j,i] != TileType.Path ? "X " : basePositions[j, i] ? "O " : ". ";
+                if (j + 1 != tileMapBounds.size.x)
+                    buffer += " ";
+            }
+            if (i + 1 != tileMapBounds.size.y)
+                buffer += "\n";
+            File.AppendAllText(filename, buffer);
+        }
+
     }
 
     #region singleton
