@@ -5,6 +5,7 @@ using UnityEngine;
 public class ProjectileScript : MonoBehaviour
 {
     [SerializeField] private float speed = 5f;
+    [SerializeField] private string ownerTag;
     [SerializeField] private string[] blackList;
     [SerializeField] private float lifetimeDuration = 2f;
 
@@ -32,6 +33,7 @@ public class ProjectileScript : MonoBehaviour
 
         direction = new Vector2(10, 0);
         currentDirection = direction;
+
     }
 
     private void OnEnable()
@@ -70,13 +72,16 @@ public class ProjectileScript : MonoBehaviour
 
     public void OnTriggerEnter2D(Collider2D collision)
     {
+        if (collision.tag == ownerTag)
+            return;
+
         foreach(string s in blackList)
         {
             if (collision.tag == s)
                 return;
         }
 
-       collision.GetComponent<IDamageable>()?.TakeDamage(50);
+       collision.GetComponent<IDamageable>()?.TakeDamage(ownerTag, 50);
        anim.SetBool(detonateTrigger, true);
        currentDirection = Vector2.zero;
     }

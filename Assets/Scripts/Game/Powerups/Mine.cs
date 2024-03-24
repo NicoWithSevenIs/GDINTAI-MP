@@ -12,7 +12,7 @@ public class Mine : PowerUp
 
         if (damageable != null)
         {
-            damageable.TakeDamage(1);
+            damageable.TakeDamage("Mine", 1);
             Consume();
         }
     

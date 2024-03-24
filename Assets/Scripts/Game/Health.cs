@@ -12,8 +12,9 @@ public class Health : MonoBehaviour, IDamageable
 
     [SerializeField] private string deathTrigger;
 
-
     public event Action onDie;
+    public event Action<string> onHandleBlame;
+
     private Animator anim;
     private BoxCollider2D box;
 
@@ -38,29 +39,26 @@ public class Health : MonoBehaviour, IDamageable
     }
 
 
-    public void TakeDamage(float damage)
+
+    public void TakeDamage(string origin, float damage)
     {
         currentHealth -= (int)damage;
 
-        if(currentHealth <= 0 )
+        if (currentHealth <= 0)
         {
             onDie?.Invoke();
+            onHandleBlame?.Invoke(origin);
         }
+
     }
 
     public void Death()
     {
         anim.SetTrigger(deathTrigger);
-        StartCoroutine(delayedDisable());
         GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Static;
         box.enabled= false;
     }
 
-    //temp
-    public IEnumerator delayedDisable()
-    {
-        yield return new WaitForSeconds(3);
-        gameObject.SetActive(false);
-    }
+
 
 }

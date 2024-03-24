@@ -8,14 +8,15 @@ TagManager:
   - Ground
   - PowerUp
   - Enemy
+  - Base
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Ignore Agent
   - Water
   - UI
-  - 
+  - Agent
   - 
   - 
   - 

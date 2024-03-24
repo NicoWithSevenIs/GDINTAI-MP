@@ -76,7 +76,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1462608531
   m_SortingLayer: 1
-  m_SortingOrder: 0
+  m_SortingOrder: 99
   m_Sprite: {fileID: 595460357, guid: 883d5298c25da58408d6638735c04669, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -194,10 +194,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 15
+  ownerTag: Enemy
   blackList:
-  - Enemy
   - Ground
   - PowerUp
+  - Base
   lifetimeDuration: 3
   detonateTrigger: hasShroomsploded
   direction: {x: 0, y: 0}

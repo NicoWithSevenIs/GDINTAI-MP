@@ -13,6 +13,10 @@ public class Game : MonoBehaviour
     [SerializeField] private GameObject playerBase;
     [SerializeField] private GameObject enemyBase;
 
+    [Header("Agents")]
+    [SerializeField] private GameObject player;
+    [SerializeField] private GameObject enemy;
+
     public List<GameObject> playerBases { get; private set; }
     public List<GameObject> enemyBases { get; private set; }
     public bool[,] basePositions { get; private set; }
@@ -48,6 +52,30 @@ public class Game : MonoBehaviour
             //Check Win con here
         };
 
+        player.GetComponent<Health>().onDie += () =>
+        {
+            StartCoroutine(delayedRespawn(true, player));
+        };
+
+        player.GetComponent<Health>().onHandleBlame += (string origin) =>
+        {
+            if (origin == "Enemy")
+                enemyScore += 25;
+        };
+
+
+        enemy.GetComponent<Health>().onDie += () =>
+        {
+            StartCoroutine(delayedRespawn(false, enemy));
+        };
+
+        enemy.GetComponent<Health>().onHandleBlame += (string origin) =>
+        {
+            if (origin == "Player")
+                playerScore += 25;
+        };
+
+
 
         SpawnBases(true, playerBases, 3);
         SpawnBases(false, enemyBases, 3);
@@ -55,10 +83,49 @@ public class Game : MonoBehaviour
         initializeBase(true, playerBases);
         initializeBase(false, enemyBases);
 
+
+        //debugging
         writeToTextFile();
 
     }
+    private void Update()
+    {
+        gameTimer.TickDown(Time.deltaTime);
+    }
 
+    private IEnumerator delayedRespawn(bool isPlayer, GameObject agent)
+    {
+            /*
+          for(int i = 1; i < 3; i++)
+          {
+              //agent.GetComponent<SpriteRenderer>().color.a = 0;
+              yield return new WaitForSeconds(2 * (1/(2*i)));
+          }
+          */
+
+        yield return new WaitForSeconds(3);
+        agent.SetActive(false);
+
+        List<GameObject> validBases = new List<GameObject>();
+
+        foreach(var b in isPlayer? playerBases : enemyBases)
+        {
+            Base baseScript = b.GetComponent<Base>();
+            if (!baseScript.isDestroyed)
+                validBases.Add(b);
+        }
+
+        GameObject selectedBase = validBases[UnityEngine.Random.Range(0, validBases.Count)];
+
+        Vector2Int cellPos = (Vector2Int) TilemapManager.instance.WorldToCell(selectedBase.transform.position);
+        cellPos.y -= 1;
+
+        agent.transform.position = TilemapManager.instance.CellToWorld(cellPos);
+
+        agent.SetActive(true);
+    }
+
+    #region Base Management
     public void resetBasePositions()
     {
         for(int i =0; i <basePositions.GetLength(0); i++)
@@ -181,7 +248,7 @@ public class Game : MonoBehaviour
                     When adding a tile to the open list, all tiles within this range must be within the bounds of the array and vacant
                 */
 
-                if(isTileSpawnable(new Vector2Int(col,row), isTileInvalid))
+        if (isTileSpawnable(new Vector2Int(col,row), isTileInvalid))
                     openList.Add(new Vector3Int(x, y, 0));
                
 
@@ -233,8 +300,6 @@ public class Game : MonoBehaviour
     }
 
   
-
-
     private void initializeBase(bool isPlayer, List<GameObject> bases)
     {
         foreach(var b in bases)
@@ -256,7 +321,8 @@ public class Game : MonoBehaviour
         }
     }
 
-    
+    #endregion BaseManagement
+
     private bool hasAgentLost(GameObject[] bases)
     {
         int count = 0;
@@ -274,12 +340,7 @@ public class Game : MonoBehaviour
         return count == 0;
     }
 
-    int count = 1;
-    private void Update()
-    {
-        gameTimer.TickDown(Time.deltaTime);
-    }
-
+  
     private void writeToTextFile()
     {
 
