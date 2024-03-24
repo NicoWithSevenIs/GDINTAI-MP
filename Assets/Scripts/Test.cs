@@ -5,6 +5,31 @@ using UnityEngine;
 
 public class Test : MonoBehaviour
 {
+
+    private Game.invalidTileChecker isTileInvalid = (int x, int y) =>
+    {
+
+        bool tileNonPath = TilemapManager.instance.tileMapTypes[x, y] != TileType.Path;
+        bool tileHasBase = Game.instance.basePositions[x, y];
+        bool tileHasPotion = PowerUpManager.instance.potionPosTracker[x, y];
+        bool tileHasPlayer = TilemapManager.instance.playerPos.x == x && TilemapManager.instance.playerPos.y == y;
+        bool tileHasEnemy = TilemapManager.instance.enemyPos.x == x && TilemapManager.instance.enemyPos.y == y;
+
+        return tileNonPath || tileHasBase || tileHasPotion || tileHasPlayer || tileHasEnemy;
+
+    };
+
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Space))
+            Game.instance.RearrangeBases(true, Game.instance.playerBases, isTileInvalid);
+    }
+
+
+
+
+    /*For testing base placement
     [SerializeField] private int x;
     [SerializeField] private int y;
 
@@ -70,5 +95,5 @@ public class Test : MonoBehaviour
         }
 
     }
-
+    */
 }

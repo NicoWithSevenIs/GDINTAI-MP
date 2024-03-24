@@ -13,7 +13,7 @@ public class PowerUpManager : MonoBehaviour
     [SerializeField] private float spawnInterval = 15f;
     [SerializeField] private int sizePerPool = 10;
     private Timer potionSpawnTimer;
-    private bool[,] potionPosTracker;
+    public bool[,] potionPosTracker { get; private set; }
 
     private Dictionary<string, List<GameObject>> potionPool;
 
@@ -152,7 +152,12 @@ public class PowerUpManager : MonoBehaviour
                 int x = col + TilemapManager.instance.maxBoundsData.Value.xMin;
                 int y = TilemapManager.instance.maxBoundsData.Value.yMax - 1 - row;
 
-                if (TilemapManager.instance.tileMapTypes[col,row] == TileType.Path && !potionPosTracker[col, row] && !Game.instance.basePositions[col,row])
+
+                bool isTilePath = TilemapManager.instance.tileMapTypes[col, row] == TileType.Path;
+                //bool playerNotInTile = TilemapManager.instance.playerPos.x != col && TilemapManager.instance.playerPos.y != row;
+                //bool enemyNotInTile = TilemapManager.instance.enemyPos.x != col && TilemapManager.instance.enemyPos.y != row;
+
+                if (isTilePath && !potionPosTracker[col, row] && !Game.instance.basePositions[col,row] /*&& playerNotInTile && enemyNotInTile*/)
                 {
                     openList.Add(new Vector3Int(x, y, 0));
                 }

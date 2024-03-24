@@ -146,7 +146,7 @@ public class Game : MonoBehaviour
         for (int i = 0; i < temp.Count; i++)
         {
             List<Vector3Int> openList = getSpawnableTiles(isTileInvalid);
-
+         
             if (openList.Count == 0)
             {
                 print("No more vacant tiles");
@@ -278,31 +278,6 @@ public class Game : MonoBehaviour
     private void Update()
     {
         gameTimer.TickDown(Time.deltaTime);
-
-        /* //Debugging - Check if Tile is Placeable
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            Vector2Int p = (Vector2Int)TilemapManager.instance.playerPos;
-            int j = p.x - TilemapManager.instance.maxBoundsData.Value.xMin;
-            int k = TilemapManager.instance.maxBoundsData.Value.yMax - 1 - p.y;
-            Vector2Int norm = new Vector2Int(j, k);
-            print(p + "-> " + norm + " = "+ isTileSpawnable(norm));
-        }*/
-        invalidTileChecker isTileInvalid = (int x, int y) =>
-        {
-            return TilemapManager.instance.tileMapTypes[x, y] != TileType.Path || basePositions[x, y];
-        };
-
-        //Debugging - Check if spawning works correctly
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            RearrangeBases(true, playerBases, isTileInvalid);
-            writeToTextFile();
-
-        }
-      
-
-
     }
 
     private void writeToTextFile()

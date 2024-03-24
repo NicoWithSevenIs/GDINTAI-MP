@@ -7,7 +7,7 @@ public class PowerUp : MonoBehaviour
 {
     public event Action onConsumption;
 
-    protected void Consume()
+    protected virtual void Consume()
     {
         onConsumption?.Invoke();
         gameObject.SetActive(false);
