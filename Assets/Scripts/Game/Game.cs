@@ -30,8 +30,8 @@ public class Game : MonoBehaviour
     public int playerScore { get; private set; }
     public int enemyScore { get; private set; }
 
-
-    public event Action onGameOver;
+    //passes the name of the winner
+    public event Action<string> onGameOver;
 
     public delegate bool invalidTileChecker(int x, int y);
 
@@ -49,7 +49,7 @@ public class Game : MonoBehaviour
 
         gameTimer.onElapse += () =>
         {
-            //Check Win con here
+            onGameOver?.Invoke(playerScore > enemyScore ? "Player" : enemyScore > playerScore ? "Enemy" : "Draw");
         };
 
         player.GetComponent<Health>().onDie += () =>
@@ -92,6 +92,8 @@ public class Game : MonoBehaviour
     {
         gameTimer.TickDown(Time.deltaTime);
     }
+
+   
 
     private IEnumerator delayedRespawn(bool isPlayer, GameObject agent)
     {
@@ -315,29 +317,33 @@ public class Game : MonoBehaviour
                     enemyScore += 100;
                 else playerScore += 100;
 
-                //Check here if any agent has run out of bases
-            
+                if (allBasesDestroyed(enemyBases))
+                    onGameOver?.Invoke("Player");
+                else if (allBasesDestroyed(playerBases))
+                    onGameOver?.Invoke("Enemy");
+                
             };
         }
     }
 
     #endregion BaseManagement
 
-    private bool hasAgentLost(GameObject[] bases)
+    private bool allBasesDestroyed(List<GameObject> bases)
     {
         int count = 0;
 
+       
         foreach(var b in bases)
         {
-            var baseScript = GetComponent<Base>();
+            var baseScript = b.GetComponent<Base>();
             if (baseScript == null)
                 continue;
 
-            if (!baseScript.isDestroyed)
+            if (baseScript.isDestroyed)
                 count++;
         }
-
-        return count == 0;
+        print(count);
+        return count == bases.Count;
     }
 
   
