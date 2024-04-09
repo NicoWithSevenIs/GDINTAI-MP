@@ -6,6 +6,11 @@ public class EnemyAttack : MonoBehaviour
 {
     [SerializeField] private GameObject player;
 
+
+    private void Start()
+    {
+        
+    }
     private void Update()
     {
         

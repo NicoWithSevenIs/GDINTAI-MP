@@ -72,7 +72,7 @@ public class ProjectileScript : MonoBehaviour
 
     public void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.tag == ownerTag)
+        if (collision.tag == ownerTag || collision.isTrigger)
             return;
 
         foreach(string s in blackList)

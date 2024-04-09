@@ -4203,6 +4203,51 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 7181779000696776663, guid: d5ccbdab11c09dd4f84af605555a4502, type: 3}
   m_PrefabInstance: {fileID: 4000971769352999189}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1473198680
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1473198682}
+  - component: {fileID: 1473198681}
+  m_Layer: 0
+  m_Name: PathfindingTester
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1473198681
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1473198680}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 68127f640f4b1ae4ea6f62b1ab57e0ec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  prefab: {fileID: 7960226100971815631, guid: cfbbbf2ee98409b4e8786fbc3a00bc7f, type: 3}
+--- !u!4 &1473198682
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1473198680}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -12.894153, y: -2.4930952, z: 103.93053}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1547825110
 GameObject:
   m_ObjectHideFlags: 0
@@ -12412,6 +12457,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 7181779000696776663, guid: d5ccbdab11c09dd4f84af605555a4502, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -12596,6 +12645,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Enemy
       objectReference: {fileID: 0}
+    - target: {fileID: 7022968983745808578, guid: 13f3c7ef6e9908a4bb7191efa1fb2227, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -12755,3 +12808,4 @@ SceneRoots:
   - {fileID: 1547825111}
   - {fileID: 1193524742}
   - {fileID: 1700936582}
+  - {fileID: 1473198682}

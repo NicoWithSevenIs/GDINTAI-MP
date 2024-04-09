@@ -70,6 +70,17 @@ public class TilemapManager : MonoBehaviour
         return tileMap[0].WorldToCell(pos);
     }
 
+    public Vector2Int IndexToCell(int i, int j)
+    {
+
+        BoundsInt maxBounds = maxBoundsData.Value;
+
+        int x = i + maxBounds.xMin;
+        int y = maxBounds.yMax - 1 - j;
+
+        return new Vector2Int(x,y);
+    }
+
     #endregion positionTracking
 
 
