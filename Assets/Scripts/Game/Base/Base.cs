@@ -25,7 +25,6 @@ public class Base : MonoBehaviour
     public Timer invincibilityTimer { get; private set; }
 
     public event Action onBaseDestroyed;
-   
 
     [Header("Game Logic")]
     [SerializeField] private string[] destroyOnTouch;
@@ -34,6 +33,29 @@ public class Base : MonoBehaviour
 
 
     private SpriteRenderer sprite;
+
+    #region positionHandling
+        
+    public void moveBase(Vector2 newPos)
+    {
+
+        if(this.isInvincible)
+            foreach(var v in InvincibilityObjects)
+            {
+                v.GetComponent<IInvincibilityComponent>().Disable();
+            }
+          
+
+        transform.position = newPos;
+
+        if (this.isInvincible)
+            foreach (var v in InvincibilityObjects)
+            {
+                v.SetActive(true);
+            }
+    }
+
+    #endregion
 
     #region invincibility
 

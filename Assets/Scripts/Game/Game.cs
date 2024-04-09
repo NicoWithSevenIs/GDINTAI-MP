@@ -87,13 +87,35 @@ public class Game : MonoBehaviour
         //debugging
         writeToTextFile();
 
+        Spawn(true, player);
+        Spawn(false, enemy);
+
     }
     private void Update()
     {
         gameTimer.TickDown(Time.deltaTime);
     }
 
-   
+    public void Spawn(bool isPlayer, GameObject agent)
+    {
+        List<GameObject> validBases = new List<GameObject>();
+
+        foreach (var b in isPlayer ? playerBases : enemyBases)
+        {
+            Base baseScript = b.GetComponent<Base>();
+            if (!baseScript.isDestroyed)
+                validBases.Add(b);
+        }
+
+        GameObject selectedBase = validBases[UnityEngine.Random.Range(0, validBases.Count)];
+
+        Vector2Int cellPos = (Vector2Int)TilemapManager.instance.WorldToCell(selectedBase.transform.position);
+        cellPos.y -= 1;
+
+        agent.transform.position = TilemapManager.instance.CellToWorld(cellPos);
+
+        agent.SetActive(true);
+    }
 
     private IEnumerator delayedRespawn(bool isPlayer, GameObject agent)
     {
@@ -108,23 +130,7 @@ public class Game : MonoBehaviour
         yield return new WaitForSeconds(3);
         agent.SetActive(false);
 
-        List<GameObject> validBases = new List<GameObject>();
-
-        foreach(var b in isPlayer? playerBases : enemyBases)
-        {
-            Base baseScript = b.GetComponent<Base>();
-            if (!baseScript.isDestroyed)
-                validBases.Add(b);
-        }
-
-        GameObject selectedBase = validBases[UnityEngine.Random.Range(0, validBases.Count)];
-
-        Vector2Int cellPos = (Vector2Int) TilemapManager.instance.WorldToCell(selectedBase.transform.position);
-        cellPos.y -= 1;
-
-        agent.transform.position = TilemapManager.instance.CellToWorld(cellPos);
-
-        agent.SetActive(true);
+        Spawn(isPlayer, agent);
     }
 
     #region Base Management
@@ -223,7 +229,10 @@ public class Game : MonoBehaviour
             }
 
             Vector2Int selectedTile = (Vector2Int)openList[UnityEngine.Random.Range(0, openList.Count)];
-            temp[i].transform.position = TilemapManager.instance.CellToWorld(selectedTile);
+            //temp[i].transform.position = TilemapManager.instance.CellToWorld(selectedTile);
+
+
+            temp[i].GetComponent<Base>().moveBase(TilemapManager.instance.CellToWorld(selectedTile));
 
             markBasePosition(selectedTile);
 
@@ -250,8 +259,8 @@ public class Game : MonoBehaviour
                     When adding a tile to the open list, all tiles within this range must be within the bounds of the array and vacant
                 */
 
-        if (isTileSpawnable(new Vector2Int(col,row), isTileInvalid))
-                    openList.Add(new Vector3Int(x, y, 0));
+                if (isTileSpawnable(new Vector2Int(col,row), isTileInvalid))
+                            openList.Add(new Vector3Int(x, y, 0));
                
 
             }
