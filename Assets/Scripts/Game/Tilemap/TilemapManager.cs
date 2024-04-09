@@ -81,6 +81,15 @@ public class TilemapManager : MonoBehaviour
         return new Vector2Int(x,y);
     }
 
+
+    public Vector2Int CellToIndex(Vector2Int cell)
+    {
+        Vector2Int v = cell;
+        v.x = v.x - TilemapManager.instance.maxBoundsData.Value.xMin;
+        v.y = TilemapManager.instance.maxBoundsData.Value.yMax - 1 - v.y;
+
+        return v;
+    }
     #endregion positionTracking
 
 

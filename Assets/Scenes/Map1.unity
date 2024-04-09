@@ -3816,8 +3816,8 @@ MonoBehaviour:
   - {fileID: 4892506037907129805, guid: ef213d76900ae7942925fac43a63244b, type: 3}
   - {fileID: 6908115449923017175, guid: a023f381b6d0d5c4cac1142e3d1da08e, type: 3}
   - {fileID: 525977185884789892, guid: 3c9915d6e8c155c40879aafe3e6cc869, type: 3}
-  spawnInterval: 15
-  sizePerPool: 10
+  spawnInterval: 1
+  sizePerPool: 3
 --- !u!1 &1193524740
 GameObject:
   m_ObjectHideFlags: 0

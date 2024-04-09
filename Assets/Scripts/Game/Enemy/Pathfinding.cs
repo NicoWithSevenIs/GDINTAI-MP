@@ -2,17 +2,36 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Pathfinding : MonoBehaviour
+public class Pathfinding 
 {
-    // Start is called before the first frame update
-    void Start()
+
+    public Node[,] nodes;
+
+    public Pathfinding()
     {
-        
+        BoundsInt b = TilemapManager.instance.maxBoundsData.Value;
+        nodes = new Node[b.size.x, b.size.y];
+
     }
 
-    // Update is called once per frame
-    void Update()
+
+    List<Node> getPathAStar(Vector2Int originCell, Vector2Int targetCell)
     {
-        
+
+        List<Node> openList = new List<Node>() {  new Node(originCell) };
+        List<Node> closeList = new List<Node>();
+
+
+
+
+
+        List<Node> path = new List<Node>();
+        return path;
     }
+
+    void ConsolidateGrid()
+    {
+
+    }
+
 }

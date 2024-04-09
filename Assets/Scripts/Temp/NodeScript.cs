@@ -34,7 +34,11 @@ public class NodeScript : MonoBehaviour
             RaycastHit2D r = Physics2D.Raycast(mousePos, Vector2.zero, 100, l);
 
             if (r && r.collider.gameObject == gameObject)
+            {
                 PathfindingTester.instance.changeTarget(TilemapManager.instance.WorldToCell(transform.position));
+                print(PowerUpManager.instance.getNameAt((Vector2Int)TilemapManager.instance.WorldToCell(transform.position)));
+            }
+                
 
         }
     }

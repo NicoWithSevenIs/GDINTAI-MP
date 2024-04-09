@@ -57,7 +57,7 @@ public class PathfindingTester : MonoBehaviour
 
     public void changeTarget(Vector3Int targetPos)
     {
-        print(targetPos);
+       // print(targetPos);
         this.targetPos = targetPos;
     }
 

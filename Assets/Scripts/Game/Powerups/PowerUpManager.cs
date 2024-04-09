@@ -9,7 +9,10 @@ using UnityEngine;
 public class PowerUpManager : MonoBehaviour
 {
     [Header("Power Ups")]
+
     [SerializeField] private GameObject[] powerUps;
+    private List<GameObject> powerUpList;
+
     [SerializeField] private float spawnInterval = 15f;
     [SerializeField] private int sizePerPool = 10;
     private Timer potionSpawnTimer;
@@ -19,7 +22,8 @@ public class PowerUpManager : MonoBehaviour
 
     private void Start()
     {
-
+        
+        powerUpList = new List<GameObject>();
         initializePool();
 
         Vector3Int size = TilemapManager.instance.maxBoundsData.Value.size;
@@ -59,6 +63,7 @@ public class PowerUpManager : MonoBehaviour
         GameObject poolable = getFromPool(key);
         poolable.transform.position = TilemapManager.instance.CellToWorld((Vector2Int)randomTile);
 
+        powerUpList.Add(poolable);
 
         PowerUp powerup = poolable.GetComponent<PowerUp>();
 
@@ -71,6 +76,8 @@ public class PowerUpManager : MonoBehaviour
             v.x = v.x - TilemapManager.instance.maxBoundsData.Value.xMin;
             v.y = TilemapManager.instance.maxBoundsData.Value.yMax - 1 - v.y;
 
+            powerUpList.Remove(poolable);
+
             potionPosTracker[v.x, v.y] = false;
             powerup.onConsumption -= e;
         };
@@ -79,7 +86,41 @@ public class PowerUpManager : MonoBehaviour
         
     }
 
- 
+
+    public string getNameAt(Vector2Int cellPos)
+    {
+
+        Vector2Int v = cellPos;
+        v.x = v.x - TilemapManager.instance.maxBoundsData.Value.xMin;
+        v.y = TilemapManager.instance.maxBoundsData.Value.yMax - 1 - v.y;
+
+
+        if (!potionPosTracker[v.x, v.y])
+            return null;
+
+
+        foreach(var i in powerUpList)
+        {
+            if(i.activeSelf && TilemapManager.instance.WorldToCell(i.transform.position) == new Vector3Int(cellPos.x, cellPos.y, 0))
+            {
+                return i.name;
+            }
+        }
+            
+        return null;
+    }
+
+    private GameObject getPowerUpByName(string name)
+    {
+        foreach (var p in powerUps)
+        {
+            if (p.name == name)
+                return p;
+        }
+        return null;
+    }
+
+    #region object pooling
 
     private void initializePool()
     {
@@ -95,6 +136,7 @@ public class PowerUpManager : MonoBehaviour
             for(int j =0; j < sizePerPool; j++)
             {
                 GameObject poolable = Instantiate(powerUps[i]);
+                poolable.name = powerUps[i].name;
                 poolable.transform.parent = container.transform;
                 poolable.SetActive(false);
                 potionPool[powerUps[i].name].Add(poolable);
@@ -118,6 +160,7 @@ public class PowerUpManager : MonoBehaviour
                 
         }
         GameObject poolable = Instantiate(getPowerUpByName(name));
+        poolable.name = name;
         poolable.transform.parent = gameObject.transform.Find(name + " Pool");
         potionPool[name].Add(poolable); 
 
@@ -125,15 +168,7 @@ public class PowerUpManager : MonoBehaviour
     }
 
 
-    private GameObject getPowerUpByName(string name)
-    {
-        foreach(var p in powerUps)
-        {
-            if (p.name == name)
-                return p;
-        }
-        return null;
-    }
+    #endregion
 
     private void Update()
     {
