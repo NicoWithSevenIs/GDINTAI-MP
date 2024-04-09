@@ -35,6 +35,13 @@ public class Node
         this.hCost = hCost;
     }
 
+    public void assignPrevious (Node node)
+    {
+        if (node == this)
+            return;
+
+        this.previous = node;
+    }
 
     public void CalculateFCost()
     {

@@ -19,6 +19,8 @@ public class Pathfinding
     List<Node> getPathAStar(Vector2Int originCell, Vector2Int targetCell)
     {
 
+        ConsolidateGrid();
+
         List<Node> openList = new List<Node>() {  new Node(originCell) };
         List<Node> closeList = new List<Node>();
 
@@ -53,13 +55,33 @@ public class Pathfinding
 
     }
 
-    private float getHeuristic(Vector2Int cellPos)
+    private float getPotionCost(Vector2Int cellPos)
     {
+        string potionName = PowerUpManager.instance.getNameAt(cellPos);
 
-        return 0;
+        switch(potionName)
+        {
+            case "Invincibility":  
+                
+            break;
+
+            case "Mine": 
+                
+            break;
+
+            case "Chaos":  
+                
+            break;
+        }
+
+        return 0f;
     }
 
-
+    private float getHeuristic(Vector2Int cellPos)
+    {
+            
+        return 0;
+    }
 
     //test
 
