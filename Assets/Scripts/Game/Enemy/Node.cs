@@ -36,7 +36,7 @@ public class Node
     }
 
 
-    void CalculateFCost()
+    public void CalculateFCost()
     {
         fCost = gCost + hCost;
     }   

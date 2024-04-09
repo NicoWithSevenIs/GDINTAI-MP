@@ -13,12 +13,14 @@ public class PathfindingTester : MonoBehaviour
     private Vector3Int enemyPos;
     private Vector3Int targetPos;
 
+    private Pathfinding pathfinder;
+
     // Start is called before the first frame update
     void Start()
     {
         enemyPos = TilemapManager.instance.enemyPos;
         targetPos = TilemapManager.instance.playerPos;
-
+        pathfinder = new Pathfinding();
         BoundsInt bounds = TilemapManager.instance.maxBoundsData.Value;
 
         for (int row = 0; row < bounds.size.y; row++)
@@ -53,6 +55,11 @@ public class PathfindingTester : MonoBehaviour
         Vector2 tP = TilemapManager.instance.CellToWorld(new Vector2Int(targetPos.x, targetPos.y));
 
         Debug.DrawLine(tP, eP);
+
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            pathfinder.writeToTextFile();
+        }
     }
 
     public void changeTarget(Vector3Int targetPos)
