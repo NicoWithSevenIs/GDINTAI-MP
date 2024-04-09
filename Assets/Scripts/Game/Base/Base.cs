@@ -12,6 +12,12 @@ public class Base : MonoBehaviour
     [SerializeField] private GameObject statueTop;
     [SerializeField] private GameObject statueBottom;
     [SerializeField] private GameObject statueDestroyed;
+
+    [Header("Base Texture")]
+    [SerializeField] private Sprite activeTexture;
+    [SerializeField] private Sprite destroyedTexture;
+
+
     [SerializeField] private GameObject[] InvincibilityObjects;
 
     [ColorUsageAttribute(true, false)]
@@ -59,6 +65,8 @@ public class Base : MonoBehaviour
                 i.SetActive(true);
             }
         };
+
+        sprite.sprite = activeTexture;
        
     }
 
@@ -124,6 +132,8 @@ public class Base : MonoBehaviour
         statueTop.SetActive(!isDestroyed);
         statueBottom.SetActive(!isDestroyed);
         statueDestroyed.SetActive(isDestroyed);
+        sprite.sprite = isDestroyed ? destroyedTexture : activeTexture;
+
     }
     #endregion collisionHandling
 }

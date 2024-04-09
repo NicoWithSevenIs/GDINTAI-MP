@@ -537,6 +537,8 @@ MonoBehaviour:
   statueTop: {fileID: 4212752614942264403}
   statueBottom: {fileID: 1207027027560456638}
   statueDestroyed: {fileID: 3958009794046162838}
+  activeTexture: {fileID: 1981114021, guid: 1c8b4b0d9a551904c92bf92040af8fa5, type: 3}
+  destroyedTexture: {fileID: -2071341352, guid: 1c8b4b0d9a551904c92bf92040af8fa5, type: 3}
   InvincibilityObjects:
   - {fileID: 2797953359767794542}
   - {fileID: 2201923041179553131}

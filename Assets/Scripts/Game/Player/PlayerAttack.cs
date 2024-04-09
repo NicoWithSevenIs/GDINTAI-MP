@@ -90,6 +90,7 @@ public class PlayerAttack : MonoBehaviour
 
         float unsignedX = Mathf.Abs(transform.localScale.x);
 
+
         if (mousePos.x < transform.position.x)
         {
             transform.localScale = new Vector2(-1 * unsignedX, transform.localScale.y);
