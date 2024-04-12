@@ -3207,8 +3207,11 @@ MonoBehaviour:
   projectileContainer: {fileID: 1336335013}
   projectile: {fileID: 6860295098911327965, guid: 006b3fd5caf19bc43b5d2039dfd6a96b, type: 3}
   poolSize: 3
-  attackRange: 30
+  attackRange: 12
   attackCooldown: 2
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 513
 --- !u!1 &1152104884
 GameObject:
   m_ObjectHideFlags: 0
@@ -3220,7 +3223,7 @@ GameObject:
   - component: {fileID: 1152104885}
   - component: {fileID: 1152104887}
   - component: {fileID: 1152104886}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: FillMap
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4631,7 +4634,7 @@ GameObject:
   - component: {fileID: 2116686574}
   - component: {fileID: 2116686576}
   - component: {fileID: 2116686577}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: LandMap
   m_TagString: Ground
   m_Icon: {fileID: 0}
@@ -12436,7 +12439,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1361077236924913460, guid: d5ccbdab11c09dd4f84af605555a4502, type: 3}
       propertyPath: m_Layer
-      value: 0
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 1971305546740872564, guid: d5ccbdab11c09dd4f84af605555a4502, type: 3}
       propertyPath: projectileContainer
@@ -12485,6 +12488,10 @@ PrefabInstance:
     - target: {fileID: 7181779000696776663, guid: d5ccbdab11c09dd4f84af605555a4502, type: 3}
       propertyPath: m_Name
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 7181779000696776663, guid: d5ccbdab11c09dd4f84af605555a4502, type: 3}
+      propertyPath: m_Layer
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 7181779000696776663, guid: d5ccbdab11c09dd4f84af605555a4502, type: 3}
       propertyPath: m_IsActive

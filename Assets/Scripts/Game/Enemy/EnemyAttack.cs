@@ -26,6 +26,10 @@ public class EnemyAttack : MonoBehaviour
     [SerializeField] private float attackCooldown = 1f;
     private Timer attackCooldownTimer;
 
+    [Header("Collisions")]
+    [SerializeField] private LayerMask layerMask;
+
+
     public event Action onAttack;
     public event Action onAttackComplete;
 
@@ -71,7 +75,7 @@ public class EnemyAttack : MonoBehaviour
 
     private void Update()
     {
-        Debug.DrawRay(attackOrigin.transform.position, player.transform.position-attackOrigin.transform.position);
+        Debug.DrawRay(transform.position, player.transform.position-transform.position);
 
         attackCooldownTimer.setDuration(attackCooldown);
         attackCooldownTimer.TickDown(Time.deltaTime);
@@ -80,19 +84,12 @@ public class EnemyAttack : MonoBehaviour
             return;
 
        
-        if(Vector3.Distance(transform.position, player.transform.position) <= attackRange)
+        RaycastHit2D r = Physics2D.Raycast(transform.position, player.transform.position - transform.position, attackRange, layerMask);
+        if (r && r.collider.gameObject == player)
         {
-           
-
-            RaycastHit2D r = Physics2D.Raycast(attackOrigin.transform.position, player.transform.position-attackOrigin.transform.position, attackRange);
-
-            print(r.collider.gameObject.name);  
-            if (r && r.collider.gameObject == player)
-            {
-                onAttack?.Invoke();
-            }
+            onAttack?.Invoke();
         }
-        
+       
         
         
     }
