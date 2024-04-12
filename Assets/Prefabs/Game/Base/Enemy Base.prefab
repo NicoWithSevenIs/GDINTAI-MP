@@ -625,6 +625,10 @@ PrefabInstance:
       value: Sigil (1)
       objectReference: {fileID: 0}
     - target: {fileID: 8528366254038234873, guid: be408421f6cb75d40a533007e3b84548, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8528366254038234873, guid: be408421f6cb75d40a533007e3b84548, type: 3}
       propertyPath: m_TagString
       value: Base
       objectReference: {fileID: 0}
@@ -718,6 +722,10 @@ PrefabInstance:
     - target: {fileID: 6997074201309435960, guid: 318e7f2c457b7a94aad1861176ee718a, type: 3}
       propertyPath: m_Name
       value: Invincible_Eyes (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6997074201309435960, guid: 318e7f2c457b7a94aad1861176ee718a, type: 3}
+      propertyPath: m_Layer
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6997074201309435960, guid: 318e7f2c457b7a94aad1861176ee718a, type: 3}
       propertyPath: m_IsActive
@@ -819,6 +827,10 @@ PrefabInstance:
       value: Invincible_Eyes
       objectReference: {fileID: 0}
     - target: {fileID: 6997074201309435960, guid: 318e7f2c457b7a94aad1861176ee718a, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6997074201309435960, guid: 318e7f2c457b7a94aad1861176ee718a, type: 3}
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
@@ -918,6 +930,10 @@ PrefabInstance:
       value: Sigil (2)
       objectReference: {fileID: 0}
     - target: {fileID: 8528366254038234873, guid: be408421f6cb75d40a533007e3b84548, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8528366254038234873, guid: be408421f6cb75d40a533007e3b84548, type: 3}
       propertyPath: m_TagString
       value: Base
       objectReference: {fileID: 0}
@@ -1011,6 +1027,10 @@ PrefabInstance:
     - target: {fileID: 8528366254038234873, guid: be408421f6cb75d40a533007e3b84548, type: 3}
       propertyPath: m_Name
       value: Sigil
+      objectReference: {fileID: 0}
+    - target: {fileID: 8528366254038234873, guid: be408421f6cb75d40a533007e3b84548, type: 3}
+      propertyPath: m_Layer
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8528366254038234873, guid: be408421f6cb75d40a533007e3b84548, type: 3}
       propertyPath: m_TagString

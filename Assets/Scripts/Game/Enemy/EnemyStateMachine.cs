@@ -1,6 +1,15 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+
+
+public enum EnemyStates
+{
+    Patrolling,
+    Pathing,
+    Attacking,
+}
 
 public class EnemyStateMachine : MonoBehaviour
 {
@@ -11,9 +20,13 @@ public class EnemyStateMachine : MonoBehaviour
     private Pathfinding pathfinder;
     private List<Node> waypoints;
 
+
+    private event Action onCompleteAction;
+
     void Start()
     {
         anim = GetComponent<Animator>();
+        onCompleteAction += updateStateMachine;
     }
 
   
@@ -25,7 +38,9 @@ public class EnemyStateMachine : MonoBehaviour
     }
 
     private void updateStateMachine()
-    {   
+    {
+        float cellSightRange = Mathf.Pow(PlayerPrefs.GetInt("Difficulty") + 1, 2);
         
+
     }
 }
