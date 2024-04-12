@@ -2,17 +2,19 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Node 
+
+//will optimize this if i have the time
+public class Node
 {
 
     public int x { get; private set; }
     public int y { get; private set; }
 
-    public float gCost { get; private set; } = 0f;
-    public float hCost { get; private set; } = 0f;
-    public float fCost { get; private set; } = 0f;
+    public float gCost;
+    public float hCost;
+    public float fCost;
 
-    Node previous = null;
+    public Node previous { get; private set; }
 
     public Node(int x, int y)
     {
@@ -26,26 +28,28 @@ public class Node
         this.y = cell.y;
     }
 
-    public void setGCost(float gCost)
-    {
-        this.gCost = gCost;
-    }
-
-    public void setHCost(float hCost) { 
-        this.hCost = hCost;
-    }
-
-    public void assignPrevious (Node node)
+    public void assignPrevious(Node node)
     {
         if (node == this)
+        {
+            Debug.LogException(new System.Exception("Previous cannot be itself"));
             return;
+        }
+
 
         this.previous = node;
+    }
+
+
+    public Vector2Int toVector2i()
+    {
+        return new Vector2Int(x, y);
     }
 
     public void CalculateFCost()
     {
         fCost = gCost + hCost;
-    }   
+    }
 
+   
 }

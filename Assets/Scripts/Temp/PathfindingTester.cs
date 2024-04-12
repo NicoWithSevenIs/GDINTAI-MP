@@ -10,17 +10,22 @@ public class PathfindingTester : MonoBehaviour
 
     [SerializeField] private GameObject prefab;
 
+    [SerializeField] private GameObject enemy;
     private Vector3Int enemyPos;
-    private Vector3Int targetPos;
+    private Vector3Int? targetPos;
+
+
 
     private Pathfinding pathfinder;
+    private List<Node> path;
 
     // Start is called before the first frame update
     void Start()
     {
         enemyPos = TilemapManager.instance.enemyPos;
-        targetPos = TilemapManager.instance.playerPos;
         pathfinder = new Pathfinding();
+        targetPos = null;
+      
         BoundsInt bounds = TilemapManager.instance.maxBoundsData.Value;
 
         for (int row = 0; row < bounds.size.y; row++)
@@ -51,15 +56,36 @@ public class PathfindingTester : MonoBehaviour
         enemyPos = TilemapManager.instance.enemyPos;
 
 
-        Vector2 eP = TilemapManager.instance.CellToWorld(new Vector2Int(enemyPos.x, enemyPos.y));
-        Vector2 tP = TilemapManager.instance.CellToWorld(new Vector2Int(targetPos.x, targetPos.y));
+        if (targetPos == null)
+            return;
 
-        Debug.DrawLine(tP, eP);
+        Vector2Int eP = new Vector2Int(enemyPos.x, enemyPos.y);
+        Vector2Int tP = new Vector2Int(targetPos.Value.x, targetPos.Value.y);
 
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            pathfinder.writeToTextFile();
+            path = pathfinder.getPathAStar(eP, tP);
+            print("Target: " + tP.ToString());
+            print("Path End: " + path[path.Count - 1].toVector2i().ToString());
         }
+
+
+        if (path == null)
+            return;
+
+ 
+        for (int i = 1; i < path.Count; i++)
+        {
+            Debug.DrawLine(
+                (Vector3)TilemapManager.instance.CellToWorld(path[i - 1].toVector2i()),
+                (Vector3)TilemapManager.instance.CellToWorld(path[i].toVector2i()),
+                Color.blue
+            );
+        }
+
+        
+
+       
     }
 
     public void changeTarget(Vector3Int targetPos)

@@ -36,7 +36,6 @@ public class NodeScript : MonoBehaviour
             if (r && r.collider.gameObject == gameObject)
             {
                 PathfindingTester.instance.changeTarget(TilemapManager.instance.WorldToCell(transform.position));
-                print(PowerUpManager.instance.getNameAt((Vector2Int)TilemapManager.instance.WorldToCell(transform.position)));
             }
                 
 
