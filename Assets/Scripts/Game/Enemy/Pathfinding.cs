@@ -39,12 +39,9 @@ public class Pathfinding
         Vector2Int originIndex = TilemapManager.instance.CellToIndex(originCell);
         Vector2Int targetIndex = TilemapManager.instance.CellToIndex(targetCell);
 
-     
-
+    
         Node originNode = nodes[originIndex.x, originIndex.y];
         Node targetNode = nodes[targetIndex.x, targetIndex.y];
-
-
 
 
         originNode.gCost = 0;
@@ -144,6 +141,7 @@ public class Pathfinding
     }
     
     
+    //This part's all by myself
     private List<Node> getValidNeighbors(Node node)
     {
         BoundsInt b = TilemapManager.instance.maxBoundsData.Value;
@@ -171,6 +169,24 @@ public class Pathfinding
             return TilemapManager.instance.tileMapTypes[index.x, index.y] == TileType.Path;
         };
 
+        
+        /*
+         
+         Checks if the corner is traversable by checking if both direction tiles corresponding to it is a valid tile
+         This is done to avoid cases where the agent gets stuck because the diagonal tile is valid but its direction
+         tiles are not
+
+
+                                        ________ <- This is the debug draw line
+                Gets stuck here ->     /________
+                                      /|
+                                     | | Tilemap Collider
+                     
+            
+          I'm pretty proud of this one (the illustration hahahhaha)
+
+         */
+
         Action<string, string> tryAddCorner = (string vertical, string horizontal) =>
         {
             bool containsHorizontal = false;
@@ -178,22 +194,25 @@ public class Pathfinding
 
             foreach (var n in neighbors)
             {
-                if (n.toVector2i() == dir[vertical])
+                Vector2Int vertTrav = index + dir[vertical];
+
+                if (n.toVector2i() == TilemapManager.instance.IndexToCell(vertTrav.x, vertTrav.y))
                     containsVertical = true;
 
-                if (n.toVector2i() == dir[horizontal])
+                Vector2Int horiTrav = index + dir[horizontal];
+                if (n.toVector2i() == TilemapManager.instance.IndexToCell(horiTrav.x, horiTrav.y))
                     containsHorizontal = true;
             }
 
-            if(containsVertical && containsHorizontal)
+            if (containsVertical && containsHorizontal)
             {
-                var tIndex = new Vector2Int(dir[horizontal].x, dir[vertical].y);
+                var tIndex = new Vector2Int(index.x + dir[horizontal].x, index.y + dir[vertical].y);
                 neighbors.Add(nodes[tIndex.x, tIndex.y]);
+         
             }
 
-       
-        };
 
+        };
 
         foreach (var i in dir)
         {
@@ -205,10 +224,14 @@ public class Pathfinding
             }
         }
 
+
         tryAddCorner("North", "West");
         tryAddCorner("North", "East");
         tryAddCorner("South", "West");
         tryAddCorner("South", "East");
+
+    
+        neighbors.Reverse();
 
         return neighbors;
     }
