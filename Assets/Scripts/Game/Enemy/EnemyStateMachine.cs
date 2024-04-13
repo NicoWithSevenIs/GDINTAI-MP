@@ -52,8 +52,8 @@ public class EnemyStateMachine : MonoBehaviour
  
  saturday tasks
 
+- test heuristics // ok
 - enemy movement // done by ~2pm
-- test heuristics // done by ~ 2pm
 - brainstorm statemachine // 
 - implement state machine
 

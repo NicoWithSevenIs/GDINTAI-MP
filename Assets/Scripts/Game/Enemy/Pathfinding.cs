@@ -17,7 +17,7 @@ using System.Reflection;
             https://www.youtube.com/watch?v=-L-WgKMFuhE
             https://en.wikipedia.org/wiki/A*_search_algorithm
     
-        As well as my GDADPRG MP BFS Pathfinding Implementation.
+        As well as my BFS Pathfinding Implementation in my group's GDADPRG MP. (which is pretty similar to the one below)
 
         For unity based pathfinding, I used this as reference:
 
@@ -48,7 +48,6 @@ public class Pathfinding
         originNode.hCost = getDistance(originNode, targetNode);
         originNode.CalculateFCost();
        
-        //will convert this to priority queue
         List<Node> openList = new List<Node>() {  originNode };
         List<Node> closedList = new List<Node>();
 
@@ -76,7 +75,7 @@ public class Pathfinding
                 {
                     n.assignPrevious(currentNode);
                     n.gCost = tentativeGCost;
-                    n.hCost = getDistance(n, targetNode);
+                    n.hCost = getDistance(n, targetNode) + getPotionCost(n);
                     n.CalculateFCost();
 
                     if(!openList.Contains(n))
@@ -107,7 +106,6 @@ public class Pathfinding
         nodes.Initialize();
 
 
-        //this can be done in the node constructor
         for (int row = 0; row < b.size.y; row++)
         {
             for (int col = 0; col < b.size.x; col++)
@@ -237,26 +235,19 @@ public class Pathfinding
     }
     
     
-    private float getPotionCost(Vector2Int cellPos)
+    private float getPotionCost(Node node)
     {
-        string potionName = PowerUpManager.instance.getNameAt(cellPos);
+        float cost = 0f;
+        string potionName = PowerUpManager.instance.getNameAt(node.toVector2i());
 
-        switch(potionName)
+        //based on current implementation (where only mine has a static heuristic)
+        switch (potionName)
         {
-            case "Invincibility":  
-                
-            break;
-
-            case "Mine": 
-                
-            break;
-
-            case "Chaos":  
-                
-            break;
+            case "Mine": return int.MaxValue;
         }
 
-        return 0f;
+
+        return cost;
     }
 
     private float getDistance(Node a, Node b)
