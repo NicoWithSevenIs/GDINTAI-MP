@@ -26,8 +26,6 @@ public class PowerUpManager : MonoBehaviour
         powerUpList = new List<GameObject>();
         initializePool();
 
-        Vector3Int size = TilemapManager.instance.maxBoundsData.Value.size;
-        potionPosTracker = new bool[size.x, size.y];
 
         potionPosTracker.Initialize();
 
@@ -210,6 +208,9 @@ public class PowerUpManager : MonoBehaviour
         if (instance == null)
             instance = this;
         else Destroy(gameObject);
+
+        Vector3Int size = TilemapManager.instance.maxBoundsData.Value.size;
+        potionPosTracker = new bool[size.x, size.y];
     }
     #endregion
 }
