@@ -21,7 +21,6 @@ public class InvincibilitySigils : MonoBehaviour, IInvincibilityComponent
 
     private void OnEnable()
     {
-        print("Enabled");
         originalPos = transform.position;
 
         sprite.sprite = possibleTextures[Random.Range(0, possibleTextures.Length)];

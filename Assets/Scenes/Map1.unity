@@ -3224,7 +3224,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 64568c42660e21542ba48869bda9fd39, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 5
+  speed: 4
 --- !u!1 &1152104884
 GameObject:
   m_ObjectHideFlags: 0
@@ -12450,6 +12450,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1547825111}
     m_Modifications:
+    - target: {fileID: 334540880334075585, guid: d5ccbdab11c09dd4f84af605555a4502, type: 3}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 6200000, guid: a70e9fb1b4c9e9b4cbc85a6d10ac4750, type: 2}
     - target: {fileID: 1361077236924913460, guid: d5ccbdab11c09dd4f84af605555a4502, type: 3}
       propertyPath: m_Layer
       value: 9
@@ -12458,6 +12462,14 @@ PrefabInstance:
       propertyPath: projectileContainer
       value: 
       objectReference: {fileID: 1336335013}
+    - target: {fileID: 3841610776246718065, guid: d5ccbdab11c09dd4f84af605555a4502, type: 3}
+      propertyPath: m_Size.y
+      value: 1.0776838
+      objectReference: {fileID: 0}
+    - target: {fileID: 3841610776246718065, guid: d5ccbdab11c09dd4f84af605555a4502, type: 3}
+      propertyPath: m_Offset.y
+      value: 0.067959845
+      objectReference: {fileID: 0}
     - target: {fileID: 5337490983515246059, guid: d5ccbdab11c09dd4f84af605555a4502, type: 3}
       propertyPath: m_LocalPosition.x
       value: -1.808
@@ -12650,6 +12662,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1547825111}
     m_Modifications:
+    - target: {fileID: 1696067703307632258, guid: 13f3c7ef6e9908a4bb7191efa1fb2227, type: 3}
+      propertyPath: m_Size.y
+      value: 0.88139665
+      objectReference: {fileID: 0}
+    - target: {fileID: 1696067703307632258, guid: 13f3c7ef6e9908a4bb7191efa1fb2227, type: 3}
+      propertyPath: m_Offset.y
+      value: 0.20557141
+      objectReference: {fileID: 0}
+    - target: {fileID: 2189992337183055309, guid: 13f3c7ef6e9908a4bb7191efa1fb2227, type: 3}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 6200000, guid: a70e9fb1b4c9e9b4cbc85a6d10ac4750, type: 2}
     - target: {fileID: 3658711843425140268, guid: 13f3c7ef6e9908a4bb7191efa1fb2227, type: 3}
       propertyPath: m_LocalPosition.x
       value: 1.01

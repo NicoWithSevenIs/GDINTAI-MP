@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
@@ -51,13 +52,20 @@ public class EnemyMovement : MonoBehaviour
         if (!canMove)
             return;
 
-        if(lastPlayerPos != TilemapManager.instance.playerPos)
+        if(TilemapManager.instance.playerPos != TilemapManager.instance.enemyPos && lastPlayerPos != TilemapManager.instance.playerPos)
         {
             Vector2Int eCell = (Vector2Int)TilemapManager.instance.WorldToCell(transform.position);
             Vector2Int pCell = (Vector2Int)TilemapManager.instance.playerPos;
             waypoints = pathfinder.getPathAStar(eCell, pCell);
         }
-            
+
+        for (int i = 1; i < waypoints.Count; i++)
+            Debug.DrawLine(
+               (Vector3)TilemapManager.instance.CellToWorld(waypoints[i - 1].toVector2i()),
+               (Vector3)TilemapManager.instance.CellToWorld(waypoints[i].toVector2i()),
+               Color.blue
+           );
+
 
         anim.SetBool("isEnemyWalking", body.velocity != Vector2.zero);
 
@@ -77,18 +85,17 @@ public class EnemyMovement : MonoBehaviour
             return;
 
 
-        Vector2 targetPos = TilemapManager.instance.CellToWorld((Vector2Int)TilemapManager.instance.playerPos);
-        Vector2 velocity = (targetPos - (Vector2)transform.position).normalized * speed ;
+        Vector2 waypointPos = TilemapManager.instance.CellToWorld(targetWaypoint.toVector2i());
+        Vector2 velocity = (waypointPos - (Vector2)transform.position).normalized * speed ;
 
-        //velocity.x = HorizontalInput * Time.fixedDeltaTime;
-        //velocity.y = VerticalInput * Time.fixedDeltaTime;
+        Debug.DrawRay(transform.position, (waypointPos - (Vector2)transform.position).normalized, Color.yellow);
 
         velocity.Normalize();
         velocity *= speed;
 
         body.velocity = velocity;
 
-        if((Vector2Int)TilemapManager.instance.WorldToCell(transform.position) == targetWaypoint.toVector2i())
+        if(TilemapManager.instance.CellToWorld(targetWaypoint.toVector2i()) == (Vector2)transform.position)
         {
             waypoints.Remove(targetWaypoint);
         }
