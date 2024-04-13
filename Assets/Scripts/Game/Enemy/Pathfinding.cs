@@ -29,6 +29,11 @@ public class Pathfinding
 {
 
     public Node[,] nodes;
+    public LayerMask layerMask;
+
+    public Pathfinding() { }
+    public Pathfinding (LayerMask layerMask) { this.layerMask = layerMask;}
+
 
 
     public List<Node> getPathAStar(Vector2Int originCell, Vector2Int targetCell)
@@ -164,7 +169,16 @@ public class Pathfinding
 
         Func<Vector2Int, bool> isValidCell = (Vector2Int index) =>
         {
-            return TilemapManager.instance.tileMapTypes[index.x, index.y] == TileType.Path;
+           
+            Vector2 nodePos = TilemapManager.instance.CellToWorld(node.toVector2i());
+            Vector2Int neighborCell = TilemapManager.instance.IndexToCell(index.x, index.y);
+            Vector2 neighborPos = TilemapManager.instance.CellToWorld(neighborCell);
+
+            RaycastHit2D ray = Physics2D.Raycast(nodePos, neighborPos - nodePos, 1, layerMask);
+
+           // Debug.DrawRay(nodePos, neighborPos - nodePos, Color.black);
+
+            return TilemapManager.instance.tileMapTypes[index.x, index.y] == TileType.Path && !ray;
         };
 
         

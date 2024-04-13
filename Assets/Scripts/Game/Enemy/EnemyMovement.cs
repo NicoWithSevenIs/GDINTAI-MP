@@ -10,6 +10,9 @@ public class EnemyMovement : MonoBehaviour
     [Header("Settings")]
     [SerializeField] private float speed;
 
+    [Header("Pathfinding")]
+    [SerializeField] private LayerMask layerMask;
+
     private Rigidbody2D body;
     private Animator anim;
     private SpriteRenderer sprite;
@@ -34,7 +37,7 @@ public class EnemyMovement : MonoBehaviour
         };
 
         lastPlayerPos = TilemapManager.instance.playerPos;
-        pathfinder = new Pathfinding();
+        pathfinder = new Pathfinding(layerMask);
 
         Vector2Int eCell = (Vector2Int)TilemapManager.instance.WorldToCell(transform.position);
         Vector2Int pCell = (Vector2Int)TilemapManager.instance.playerPos;
@@ -77,6 +80,8 @@ public class EnemyMovement : MonoBehaviour
         if(waypoints != null && waypoints.Count > 0)
             Move(waypoints[0]);
     }
+
+
 
     private void Move(Node targetWaypoint)
     {

@@ -22,6 +22,11 @@ public class TilemapManager : MonoBehaviour
     public BoundsInt? maxBoundsData { get; private set; } = null; //largest bounds data among all tilemap layers
 
 
+    public float getCellSize()
+    {
+        return (tileMap[0].cellBounds.size.x + tileMap[0].cellBounds.size.y) / 2 ;
+    }
+
 
     #region positionTracking
 

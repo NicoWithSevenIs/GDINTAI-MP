@@ -3225,6 +3225,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 4
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 1
 --- !u!1 &1152104884
 GameObject:
   m_ObjectHideFlags: 0
@@ -12667,8 +12670,16 @@ PrefabInstance:
       value: 0.88139665
       objectReference: {fileID: 0}
     - target: {fileID: 1696067703307632258, guid: 13f3c7ef6e9908a4bb7191efa1fb2227, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1696067703307632258, guid: 13f3c7ef6e9908a4bb7191efa1fb2227, type: 3}
       propertyPath: m_Offset.y
       value: 0.20557141
+      objectReference: {fileID: 0}
+    - target: {fileID: 1696067703307632258, guid: 13f3c7ef6e9908a4bb7191efa1fb2227, type: 3}
+      propertyPath: m_IsTrigger
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2189992337183055309, guid: 13f3c7ef6e9908a4bb7191efa1fb2227, type: 3}
       propertyPath: m_Material
@@ -12688,11 +12699,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6525603057950358801, guid: 13f3c7ef6e9908a4bb7191efa1fb2227, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 2.503
+      value: -9.57
       objectReference: {fileID: 0}
     - target: {fileID: 6525603057950358801, guid: 13f3c7ef6e9908a4bb7191efa1fb2227, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.475
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 6525603057950358801, guid: 13f3c7ef6e9908a4bb7191efa1fb2227, type: 3}
       propertyPath: m_LocalPosition.z
