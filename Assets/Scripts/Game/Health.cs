@@ -12,6 +12,8 @@ public class Health : MonoBehaviour, IDamageable
 
     [SerializeField] private string deathTrigger;
 
+
+    public event Action onRevive;
     public event Action onDie;
     public event Action<string> onHandleBlame;
 
@@ -30,7 +32,9 @@ public class Health : MonoBehaviour, IDamageable
     {
         currentHealth = maxHealth;
         GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;
-        
+
+        onRevive?.Invoke();
+
         if(box != null )
         {
             box.enabled = true;

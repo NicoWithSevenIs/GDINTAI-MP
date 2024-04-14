@@ -3228,6 +3228,19 @@ MonoBehaviour:
   layerMask:
     serializedVersion: 2
     m_Bits: 1
+--- !u!114 &1144683219
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 560554150}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a6d6d45372e7f3540ace212aa1fd5137, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 1418000621}
 --- !u!1 &1152104884
 GameObject:
   m_ObjectHideFlags: 0
@@ -12755,6 +12768,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 7022968983745808578, guid: 13f3c7ef6e9908a4bb7191efa1fb2227, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1144683218}
+    - targetCorrespondingSourceObject: {fileID: 7022968983745808578, guid: 13f3c7ef6e9908a4bb7191efa1fb2227, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1144683219}
   m_SourcePrefab: {fileID: 100100000, guid: 13f3c7ef6e9908a4bb7191efa1fb2227, type: 3}
 --- !u!1001 &9110401116038844413
 PrefabInstance:

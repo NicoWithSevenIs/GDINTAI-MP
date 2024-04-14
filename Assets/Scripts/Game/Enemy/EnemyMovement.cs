@@ -74,6 +74,7 @@ public class EnemyMovement : MonoBehaviour
 
        pathfindToTarget();
         
+ 
         for (int i = 1; i < waypoints.Count; i++)
             Debug.DrawLine(
                (Vector3)TilemapManager.instance.CellToWorld(waypoints[i - 1].toVector2i()),

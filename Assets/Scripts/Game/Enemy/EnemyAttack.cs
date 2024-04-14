@@ -22,7 +22,7 @@ public class EnemyAttack : MonoBehaviour
 
 
     [Header("Stats")]
-    [SerializeField] private float attackRange;
+    private float attackRange = 5;
     [SerializeField] private float attackCooldown = 1f;
     private Timer attackCooldownTimer;
 
@@ -71,6 +71,11 @@ public class EnemyAttack : MonoBehaviour
     private void OnEnable()
     {
         canAttack = true;
+    }
+
+    public void setAttackRange(float attackRange)
+    {
+        this.attackRange = attackRange;
     }
 
     private void Update()

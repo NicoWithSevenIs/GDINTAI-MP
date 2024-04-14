@@ -29,7 +29,7 @@ public class Base : MonoBehaviour
     [Header("Game Logic")]
     [SerializeField] private string[] destroyOnTouch;
     public bool isDestroyed { get; private set; } = false;
-    private bool isInvincible = false;
+    public bool isInvincible { get; private set; } = false;
 
 
     private SpriteRenderer sprite;

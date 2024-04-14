@@ -98,13 +98,7 @@ public class Pathfinding
         }
 
         path.Reverse();
-
-        if (path.Count == 0)
-        {
-            Debug.Log("No Path" + originCell + " " + targetCell);
-        }
-
-            return path;
+        return path;
     }
 
     private void ConsolidateGrid()

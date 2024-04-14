@@ -372,6 +372,22 @@ public class Game : MonoBehaviour
         return nearest;
     }
 
+    public bool areBasesInvincible(bool isPlayer)
+    {
+        bool areInvincible = true;
+
+        foreach(var b in isPlayer ? playerBases : enemyBases)
+        {
+            if (!b.GetComponent<Base>().isInvincible)
+            {
+                areInvincible = false;
+                break;
+            }
+        }
+
+
+        return areInvincible;
+    }
 
     #endregion
     private void writeToTextFile()
