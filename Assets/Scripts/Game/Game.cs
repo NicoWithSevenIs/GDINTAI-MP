@@ -356,12 +356,15 @@ public class Game : MonoBehaviour
     public GameObject getBaseNearestTo(Vector3Int cellPos, bool isPlayerBases)
     {
         List<GameObject> toSearch = isPlayerBases ? playerBases : enemyBases;
-        GameObject nearest = toSearch[0];
+        GameObject nearest = null;
         Vector3 cellWorld = TilemapManager.instance.CellToWorld((Vector2Int)cellPos);
 
         foreach (var b in toSearch)
         {
-            if (Vector3.Distance(b.transform.position, cellWorld) < Vector3.Distance(nearest.transform.position, cellWorld){
+            if(b.GetComponent<Base>().isDestroyed)
+                    continue;
+
+            if (nearest == null || Vector3.Distance(b.transform.position, cellWorld) < Vector3.Distance(nearest.transform.position, cellWorld)){
                 nearest = b;
             }
         }

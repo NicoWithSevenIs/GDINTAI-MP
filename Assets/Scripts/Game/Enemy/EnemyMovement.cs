@@ -16,12 +16,37 @@ public class EnemyMovement : MonoBehaviour
     private Animator anim;
     private SpriteRenderer sprite;
 
-    private Vector3Int lastPlayerPos;
     private Pathfinding pathfinder;
     private List<Node> waypoints;
 
     private bool canTurn = true;
     private bool canMove = true;
+
+
+    private GameObject target;
+    public void setTarget(GameObject target)
+    {
+        this.target = target;
+        pathfindToTarget();
+    }
+
+    private void pathfindToTarget()
+    {
+        if (!target)
+            return;
+ 
+        Vector2Int eCell = (Vector2Int)TilemapManager.instance.WorldToCell(transform.position);
+        Vector2Int tCell = (Vector2Int)TilemapManager.instance.WorldToCell(target.transform.position);
+        waypoints = pathfinder.getPathAStar(eCell, tCell);
+
+       
+    }
+
+    private void Awake()
+    {
+        pathfinder = new Pathfinding(layerMask);
+        target = null;
+    }
 
     private void Start()
     {
@@ -35,12 +60,8 @@ public class EnemyMovement : MonoBehaviour
             anim.SetBool("isEnemyWalking", false);
         };
 
-        lastPlayerPos = TilemapManager.instance.playerPos;
-        pathfinder = new Pathfinding(layerMask);
+ 
 
-        Vector2Int eCell = (Vector2Int)TilemapManager.instance.WorldToCell(transform.position);
-        Vector2Int pCell = (Vector2Int)TilemapManager.instance.playerPos;
-        waypoints = pathfinder.getPathAStar(eCell, pCell);
     }
 
     private void OnEnable()
@@ -51,16 +72,8 @@ public class EnemyMovement : MonoBehaviour
     private void Update()
     {
 
-        if (!canMove)
-            return;
-
-        if(TilemapManager.instance.playerPos != TilemapManager.instance.enemyPos && lastPlayerPos != TilemapManager.instance.playerPos)
-        {
-            Vector2Int eCell = (Vector2Int)TilemapManager.instance.WorldToCell(transform.position);
-            Vector2Int pCell = (Vector2Int)TilemapManager.instance.playerPos;
-            waypoints = pathfinder.getPathAStar(eCell, pCell);
-        }
-
+       pathfindToTarget();
+        
         for (int i = 1; i < waypoints.Count; i++)
             Debug.DrawLine(
                (Vector3)TilemapManager.instance.CellToWorld(waypoints[i - 1].toVector2i()),
@@ -76,7 +89,10 @@ public class EnemyMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if(waypoints != null && waypoints.Count > 0)
+        if (!canMove || !target)
+            return;
+
+        if (waypoints != null && waypoints.Count > 0)
             Move(waypoints[0]);
     }
 
