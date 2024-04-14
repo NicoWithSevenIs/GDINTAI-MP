@@ -3185,6 +3185,63 @@ MonoBehaviour:
   - {fileID: 665857445}
   typedTile: {fileID: 11400000, guid: c65451f580eb4cb45a2ad5578244654c, type: 2}
   pathReference: {fileID: 2116686575}
+--- !u!1001 &1076603418
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 788085337922798177, guid: ef213d76900ae7942925fac43a63244b, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.2549417
+      objectReference: {fileID: 0}
+    - target: {fileID: 788085337922798177, guid: ef213d76900ae7942925fac43a63244b, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -3.4456134
+      objectReference: {fileID: 0}
+    - target: {fileID: 788085337922798177, guid: ef213d76900ae7942925fac43a63244b, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 788085337922798177, guid: ef213d76900ae7942925fac43a63244b, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 788085337922798177, guid: ef213d76900ae7942925fac43a63244b, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 788085337922798177, guid: ef213d76900ae7942925fac43a63244b, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 788085337922798177, guid: ef213d76900ae7942925fac43a63244b, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 788085337922798177, guid: ef213d76900ae7942925fac43a63244b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 788085337922798177, guid: ef213d76900ae7942925fac43a63244b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 788085337922798177, guid: ef213d76900ae7942925fac43a63244b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4892506037907129805, guid: ef213d76900ae7942925fac43a63244b, type: 3}
+      propertyPath: m_Name
+      value: Invincibility
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: ef213d76900ae7942925fac43a63244b, type: 3}
 --- !u!4 &1144683211 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6525603057950358801, guid: 13f3c7ef6e9908a4bb7191efa1fb2227, type: 3}
@@ -3197,7 +3254,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 560554150}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8863b8417d9b84f41bea002b368dc28c, type: 3}
   m_Name: 
@@ -3207,7 +3264,6 @@ MonoBehaviour:
   projectileContainer: {fileID: 1336335013}
   projectile: {fileID: 6860295098911327965, guid: 006b3fd5caf19bc43b5d2039dfd6a96b, type: 3}
   poolSize: 3
-  attackRange: 12
   attackCooldown: 2
   layerMask:
     serializedVersion: 2
@@ -12927,3 +12983,4 @@ SceneRoots:
   - {fileID: 1193524742}
   - {fileID: 1700936582}
   - {fileID: 1473198682}
+  - {fileID: 1076603418}

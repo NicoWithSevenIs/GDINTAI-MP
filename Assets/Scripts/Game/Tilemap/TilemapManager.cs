@@ -58,7 +58,8 @@ public class TilemapManager : MonoBehaviour
             }
         }
 
-        Debug.LogException(new Exception("Tile does not exist in Tilemap Collection"));
+        //Debug.LogException(new Exception("Tile " + vec + " does not exist in Tilemap Collection"));
+       
         return new Vector2(0, 0);
 
     }

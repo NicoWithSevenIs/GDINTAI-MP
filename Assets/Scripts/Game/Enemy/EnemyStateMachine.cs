@@ -121,6 +121,8 @@ public class EnemyStateMachine : MonoBehaviour
                 if(baseToDefend && baseToDefend.GetComponent<Base>().isDestroyed)
                     baseToDefend= null;
 
+                if (Game.instance.areBasesInvincible(true))
+                    currentState = State.Dueling;
 
                 if (willDefendBase(nearestEnemyBaseToPlayer))
                 {
@@ -134,7 +136,6 @@ public class EnemyStateMachine : MonoBehaviour
                 }
                 else
                 {
-                  
                     if (!isPlayerEliminated && isPlayerInSight() && !willIgnorePlayer())
                     {
                         currentState = State.Dueling;
@@ -144,34 +145,33 @@ public class EnemyStateMachine : MonoBehaviour
                 }
                
                
-
                 break;
 
 			case State.Defending:
 
                 Vector3Int eCell = TilemapManager.instance.WorldToCell(transform.position);
-                Vector2Int eIndex = TilemapManager.instance.CellToIndex((Vector2Int)eCell);
+                Vector2Int eIndex = TilemapManager.instance.CellToIndex(new Vector2Int(eCell.x, eCell.y));
                 BoundsInt bounds = TilemapManager.instance.maxBoundsData.Value;
-
-         
 
                 GameObject nearestInvincible = null;
                 GameObject nearestChaos = null;
 
-                for(int i = Mathf.Max(0, eIndex.y - cellSeekRange); i <= Mathf.Min(bounds.size.y, eIndex.y + cellSeekRange ); i++)
+                for(int i = Mathf.Max(0, eIndex.y - cellSeekRange); i <= Mathf.Min(bounds.size.y-1, eIndex.y + cellSeekRange ); i++)
                 {
-                    for (int j = Mathf.Max(0, eIndex.x - cellSeekRange); j <= Mathf.Min(bounds.size.x, eIndex.x + cellSeekRange); j++)
+                    for (int j = Mathf.Max(0, eIndex.x - cellSeekRange); j <= Mathf.Min(bounds.size.x-1, eIndex.x + cellSeekRange); j++)
                     {
                         Vector2Int cell = TilemapManager.instance.IndexToCell(j, i);
-                        GameObject potAtCell = PowerUpManager.instance.getPowerUpAt(cell);
+                        GameObject potAtCell = PowerUpManager.instance.getPowerUpAt(cell);                      
 
                         if (potAtCell == null)
                             continue;
 
+
+                        Debug.DrawLine(transform.position, TilemapManager.instance.CellToWorld(cell));
                         
                         switch (potAtCell.name)
                         {
-                            case "Invincible":
+                            case "Invincibility":
                                 if(nearestInvincible == null)
                                 {
                                     nearestInvincible = potAtCell;
@@ -199,10 +199,21 @@ public class EnemyStateMachine : MonoBehaviour
                                         nearestChaos = potAtCell;
                                 }
                                 break;
+
                         }
+
+                      
+
                     }
 
                 }
+
+                if(nearestChaos)
+                    Debug.DrawLine(transform.position, nearestChaos.transform.position, Color.magenta);
+
+                if (nearestInvincible)
+                    Debug.DrawLine(transform.position, nearestInvincible.transform.position, Color.blue);
+                
 
 
                 //if player is away from base or if the base being defended has been destoyed or the base is now invincible
@@ -219,11 +230,12 @@ public class EnemyStateMachine : MonoBehaviour
                     //If player is within proximity, duel with them instead
                     if (!isPlayerEliminated && isPlayerInSight())
                     {
-                        currentState = State.Dueling;
+                       // currentState = State.Dueling;
                         Debug.Log("dueling player");
                     }
                     else
-                    {
+                    {   
+                        /*
 
                         float playerDistFromBase = Vector3.Distance(baseToDefend.transform.position, player.transform.position);
 
@@ -242,7 +254,7 @@ public class EnemyStateMachine : MonoBehaviour
                         {
                             currentState = State.BaseHunting;
                         }
-
+                        */
 
                     }
 
@@ -255,11 +267,11 @@ public class EnemyStateMachine : MonoBehaviour
             case State.Dueling:
                 enemyMovement.setTarget(player);
 
-               
-                if (isPlayerEliminated || willIgnorePlayer())
-                {
-                    currentState = State.BaseHunting;
-                }
+                if(!Game.instance.areBasesInvincible(true))
+                    if (isPlayerEliminated || willIgnorePlayer())
+                    {
+                        currentState = State.BaseHunting;
+                    }
 
                 break;
 

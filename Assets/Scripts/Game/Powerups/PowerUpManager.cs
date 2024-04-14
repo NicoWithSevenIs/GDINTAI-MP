@@ -111,9 +111,7 @@ public class PowerUpManager : MonoBehaviour
     */
     public GameObject getPowerUpAt(Vector2Int cellPos)
     {
-        Vector2Int v = cellPos;
-        v.x = v.x - TilemapManager.instance.maxBoundsData.Value.xMin;
-        v.y = TilemapManager.instance.maxBoundsData.Value.yMax - 1 - v.y;
+        Vector2Int v = TilemapManager.instance.CellToIndex(cellPos);
 
 
         if (!potionPosTracker[v.x, v.y])
