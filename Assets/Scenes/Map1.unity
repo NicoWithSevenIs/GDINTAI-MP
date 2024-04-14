@@ -3185,63 +3185,6 @@ MonoBehaviour:
   - {fileID: 665857445}
   typedTile: {fileID: 11400000, guid: c65451f580eb4cb45a2ad5578244654c, type: 2}
   pathReference: {fileID: 2116686575}
---- !u!1001 &1076603418
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 788085337922798177, guid: ef213d76900ae7942925fac43a63244b, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0.2549417
-      objectReference: {fileID: 0}
-    - target: {fileID: 788085337922798177, guid: ef213d76900ae7942925fac43a63244b, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -3.4456134
-      objectReference: {fileID: 0}
-    - target: {fileID: 788085337922798177, guid: ef213d76900ae7942925fac43a63244b, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 788085337922798177, guid: ef213d76900ae7942925fac43a63244b, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 788085337922798177, guid: ef213d76900ae7942925fac43a63244b, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 788085337922798177, guid: ef213d76900ae7942925fac43a63244b, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 788085337922798177, guid: ef213d76900ae7942925fac43a63244b, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 788085337922798177, guid: ef213d76900ae7942925fac43a63244b, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 788085337922798177, guid: ef213d76900ae7942925fac43a63244b, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 788085337922798177, guid: ef213d76900ae7942925fac43a63244b, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4892506037907129805, guid: ef213d76900ae7942925fac43a63244b, type: 3}
-      propertyPath: m_Name
-      value: Invincibility
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: ef213d76900ae7942925fac43a63244b, type: 3}
 --- !u!4 &1144683211 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6525603057950358801, guid: 13f3c7ef6e9908a4bb7191efa1fb2227, type: 3}
@@ -3923,8 +3866,8 @@ MonoBehaviour:
   - {fileID: 4892506037907129805, guid: ef213d76900ae7942925fac43a63244b, type: 3}
   - {fileID: 6908115449923017175, guid: a023f381b6d0d5c4cac1142e3d1da08e, type: 3}
   - {fileID: 525977185884789892, guid: 3c9915d6e8c155c40879aafe3e6cc869, type: 3}
-  spawnInterval: 15
-  sizePerPool: 6
+  spawnInterval: 1
+  sizePerPool: 10
 --- !u!1 &1193524740
 GameObject:
   m_ObjectHideFlags: 0
@@ -12735,16 +12678,24 @@ PrefabInstance:
     m_TransformParent: {fileID: 1547825111}
     m_Modifications:
     - target: {fileID: 1696067703307632258, guid: 13f3c7ef6e9908a4bb7191efa1fb2227, type: 3}
+      propertyPath: m_Size.x
+      value: 0.45097184
+      objectReference: {fileID: 0}
+    - target: {fileID: 1696067703307632258, guid: 13f3c7ef6e9908a4bb7191efa1fb2227, type: 3}
       propertyPath: m_Size.y
-      value: 0.88139665
+      value: 1.088693
       objectReference: {fileID: 0}
     - target: {fileID: 1696067703307632258, guid: 13f3c7ef6e9908a4bb7191efa1fb2227, type: 3}
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1696067703307632258, guid: 13f3c7ef6e9908a4bb7191efa1fb2227, type: 3}
+      propertyPath: m_Offset.x
+      value: -0.03434217
+      objectReference: {fileID: 0}
+    - target: {fileID: 1696067703307632258, guid: 13f3c7ef6e9908a4bb7191efa1fb2227, type: 3}
       propertyPath: m_Offset.y
-      value: 0.20557141
+      value: 0.20173258
       objectReference: {fileID: 0}
     - target: {fileID: 1696067703307632258, guid: 13f3c7ef6e9908a4bb7191efa1fb2227, type: 3}
       propertyPath: m_IsTrigger
@@ -12983,4 +12934,3 @@ SceneRoots:
   - {fileID: 1193524742}
   - {fileID: 1700936582}
   - {fileID: 1473198682}
-  - {fileID: 1076603418}

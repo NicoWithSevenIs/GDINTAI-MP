@@ -248,8 +248,9 @@ public class Pathfinding
     
     private float getPotionCost(Node node)
     {
-        float cost = 0f;
+  
         GameObject potionObject = PowerUpManager.instance.getPowerUpAt(node.toVector2i());
+
 
         if (potionObject != null)
         {
@@ -257,10 +258,12 @@ public class Pathfinding
             switch (potionName)
             {
                 case "Mine": return int.MaxValue;
+                case "Chaos": return 30f;
+                case "Invincibility": return -20;
             }
         }
      
-        return cost;
+        return 0f;
     }
 
     private float getDistance(Node a, Node b)

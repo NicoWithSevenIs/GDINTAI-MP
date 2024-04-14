@@ -116,7 +116,7 @@ public class EnemyMovement : MonoBehaviour
 
         body.velocity = velocity;
 
-        if(TilemapManager.instance.CellToWorld(targetWaypoint.toVector2i()) == (Vector2)transform.position)
+        if(TilemapManager.instance.CellToWorld(targetWaypoint.toVector2i()) == (Vector2)transform.GetComponent<BoxCollider2D>().bounds.center)
         {
             waypoints.Remove(targetWaypoint);
         }
