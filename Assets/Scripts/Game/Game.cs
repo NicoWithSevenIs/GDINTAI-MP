@@ -160,9 +160,7 @@ public class Game : MonoBehaviour
             }
         }
     }
-
-
-    
+  
     public void SpawnBases(bool isPlayer, List<GameObject> parent, int amount)
     {
 
@@ -241,8 +239,6 @@ public class Game : MonoBehaviour
 
     }
 
-
-
     private List<Vector3Int> getSpawnableTiles(invalidTileChecker isTileInvalid)
     {
         List<Vector3Int> openList = new List<Vector3Int>();
@@ -269,7 +265,6 @@ public class Game : MonoBehaviour
         return openList;
     }
 
-   
     public bool isTileSpawnable(Vector2Int v, invalidTileChecker isTileInvalid)
     {
        
@@ -337,6 +332,9 @@ public class Game : MonoBehaviour
 
     #endregion BaseManagement
 
+
+
+    #region BaseOperations
     private bool allBasesDestroyed(List<GameObject> bases)
     {
         int count = 0;
@@ -355,7 +353,24 @@ public class Game : MonoBehaviour
         return count == bases.Count;
     }
 
-  
+    public GameObject getBaseNearestTo(Vector3Int cellPos, bool isPlayerBases)
+    {
+        List<GameObject> toSearch = isPlayerBases ? playerBases : enemyBases;
+        GameObject nearest = toSearch[0];
+        Vector3 cellWorld = TilemapManager.instance.CellToWorld((Vector2Int)cellPos);
+
+        foreach (var b in toSearch)
+        {
+            if (Vector3.Distance(b.transform.position, cellWorld) < Vector3.Distance(nearest.transform.position, cellWorld){
+                nearest = b;
+            }
+        }
+
+        return nearest;
+    }
+
+
+    #endregion
     private void writeToTextFile()
     {
 

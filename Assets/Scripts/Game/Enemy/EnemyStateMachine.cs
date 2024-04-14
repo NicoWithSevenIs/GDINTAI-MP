@@ -4,23 +4,27 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-public enum EnemyStates
+public enum State
 {
-    Patrolling,
-    Pathing,
-    Attacking,
+    BaseHunting, //Base Hunting by default
+	Dueling, //
+	Defending, //If player 
+
 }
 
 
+//if player is nearby and they're not near a base and the agent is not near the target base, duel the player
+//The enemy will always fire at the player if they're nearby 
 
 public class EnemyStateMachine : MonoBehaviour
 {
+	//Components
     private Animator anim;
     private Rigidbody2D body;
 
+	private Vector2Int currentTarget;
 
-    private Pathfinding pathfinder;
-    private List<Node> waypoints;
+	private State currentState;
 
 
     private event Action onCompleteAction;
@@ -34,9 +38,7 @@ public class EnemyStateMachine : MonoBehaviour
   
     void Update()
     {
-        updateStateMachine();
-
-        anim.SetBool("isWalking", body.velocity != Vector2.zero);
+		
     }
 
     private void updateStateMachine()
@@ -50,17 +52,17 @@ public class EnemyStateMachine : MonoBehaviour
 
 /*
  
- saturday tasks
-
-- test heuristics // ok
-- enemy movement // done by ~2pm
-- brainstorm statemachine // 
-- implement state machine
 
 sunday tasks
-- continue implementing state machine
+
+finish by 6pm tops
+- brainstorm statemachine //somewhat ok
+- implement state machine
 - fix bug: potion and base repositions should spawn on top of any agent.
 - stage design
+
+others
+
 - improve ui
 - improve vfx
 - gameplay qol: bases should have a minimum distance from other spawned bases
