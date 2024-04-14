@@ -115,34 +115,45 @@ public class EnemyStateMachine : MonoBehaviour
 
                 enemyMovement.setTarget(currentTarget);
 
-                //Transition Checker for Defend
+                /*
+                    defend sets baseToDefend to null if it successfully defends it 
+                    this doesn't happen when the agent chooses to deliberately ignore the defending base 
+                    since it is deemed a lost cause and it would be a waste of time trying to save it.
 
-                //if the ignored base has been destroyed, allow the agent to defend again
+                    if the ignored base has been destroyed, allow the agent to defend again
+                */
+
                 if(baseToDefend && baseToDefend.GetComponent<Base>().isDestroyed)
                     baseToDefend= null;
-
+                
+                //If the player's bases are invincible, fight the player instead
                 if (Game.instance.areBasesInvincible(true))
                     currentState = State.Dueling;
-
-                if (willDefendBase(nearestEnemyBaseToPlayer))
+                else 
+                /*
+                    If the player's close to a base and the agent's bases are not invincible and
+                    if the base is not deliberately ignored, switch to defend mode
+                */
+                if (willDefendBase(nearestEnemyBaseToPlayer) && !Game.instance.areBasesInvincible(false) && !baseToDefend)
                 {
-                    if (!Game.instance.areBasesInvincible(false) && !baseToDefend)
-                    {
-                  
-                        currentState = State.Defending;
-                        baseToDefend = nearestEnemyBaseToPlayer;
-                        Debug.Log("defending base");
-                    }
+                    
+                    currentState = State.Defending;
+                    baseToDefend = nearestEnemyBaseToPlayer;
+                    Debug.Log("defending base");
+                   
                 }
                 else
+                /*
+                    If the player's nearby and the agent's NOT in the ignore player proximity,
+                    the distance from the agent and their target range where the agent instead
+                    makes a beeline for the base instead of dueling the player, duel the player
+                 */
+                if (!isPlayerEliminated && isPlayerInSight() && !willIgnorePlayer())
                 {
-                    if (!isPlayerEliminated && isPlayerInSight() && !willIgnorePlayer())
-                    {
-                        currentState = State.Dueling;
-                        Debug.Log("dueling player");
-                    }
-                    
+                    currentState = State.Dueling;
                 }
+                    
+                
                
                
                 break;
@@ -156,6 +167,7 @@ public class EnemyStateMachine : MonoBehaviour
                 GameObject nearestInvincible = null;
                 GameObject nearestChaos = null;
 
+                //find the nearest Invincibility and Chaos potions cellSeekRange away from the agent's current tile
                 for(int i = Mathf.Max(0, eIndex.y - cellSeekRange); i <= Mathf.Min(bounds.size.y-1, eIndex.y + cellSeekRange ); i++)
                 {
                     for (int j = Mathf.Max(0, eIndex.x - cellSeekRange); j <= Mathf.Min(bounds.size.x-1, eIndex.x + cellSeekRange); j++)
@@ -168,42 +180,35 @@ public class EnemyStateMachine : MonoBehaviour
 
 
                         Debug.DrawLine(transform.position, TilemapManager.instance.CellToWorld(cell));
-                        
+
+                        Action<GameObject> setNearest = (GameObject nearest) =>
+                        {
+                            if(nearest == null)
+                            {
+                                nearest = potAtCell;
+                            }
+                            else
+                            {
+                                float distFromNearest = Vector3.Distance(transform.position, nearest.transform.position);
+                                float distFromCurrent = Vector3.Distance(transform.position, potAtCell.transform.position);
+
+                                if (distFromCurrent < distFromNearest)
+                                    nearest = potAtCell;
+                            }
+                        };
+
                         switch (potAtCell.name)
                         {
                             case "Invincibility":
-                                if(nearestInvincible == null)
-                                {
-                                    nearestInvincible = potAtCell;
-                                }
-                                else
-                                {
-                                    float distFromNearest = Vector3.Distance(transform.position, nearestInvincible.transform.position);
-                                    float distFromCurrent = Vector3.Distance(transform.position, potAtCell.transform.position);
-
-                                    if (distFromCurrent < distFromNearest)
-                                        nearestInvincible = potAtCell;
-                                }
+                                setNearest(nearestInvincible);
                                 break;
                             case "Chaos":
-                                if (nearestChaos == null)
-                                {
-                                    nearestChaos = potAtCell;
-                                }
-                                else
-                                {
-                                    float distFromNearest = Vector3.Distance(transform.position, nearestChaos.transform.position);
-                                    float distFromCurrent = Vector3.Distance(transform.position, potAtCell.transform.position);
-
-                                    if (distFromCurrent < distFromNearest)
-                                        nearestChaos = potAtCell;
-                                }
+                                setNearest(nearestChaos);
                                 break;
 
                         }
 
-                      
-
+                     
                     }
 
                 }
@@ -222,42 +227,31 @@ public class EnemyStateMachine : MonoBehaviour
                     //go back to base hunting
                     currentState = State.BaseHunting;
                     baseToDefend = null;
-                    Debug.Log("back to base hunting");
 
                 }
                 else
+                //If player is within attackRange, duel with them instead
+                if (!isPlayerEliminated && isPlayerInSight())
                 {
-                    //If player is within proximity, duel with them instead
-                    if (!isPlayerEliminated && isPlayerInSight())
+                    currentState = State.Dueling;
+                }
+                else
+                {   
+                      
+                    float playerDistFromBase = Vector3.Distance(baseToDefend.transform.position, player.transform.position);
+
+                    if(!nearestInvincible && !nearestChaos || playerDistFromBase > defendRange)
                     {
-                       // currentState = State.Dueling;
-                        Debug.Log("dueling player");
+                        currentState = State.BaseHunting;
+                    }else if (nearestInvincible && Vector3.Distance(transform.position, nearestInvincible.transform.position) < playerDistFromBase)
+                    {
+                        enemyMovement.setTarget(nearestInvincible);
                     }
-                    else
-                    {   
-                        /*
-
-                        float playerDistFromBase = Vector3.Distance(baseToDefend.transform.position, player.transform.position);
-
-
-                        //this will cause the player to continously chase nearby potions, do transition checking first
-                        if (nearestInvincible && Vector3.Distance(transform.position, nearestInvincible.transform.position) < playerDistFromBase)
-                        {
-                            enemyMovement.setTarget(nearestInvincible);
-                        }
-                        else if (nearestChaos && Vector3.Distance(transform.position, nearestChaos.transform.position) < playerDistFromBase)
-                        {
-                            enemyMovement.setTarget(nearestChaos);
-                        }
-                        else
-                        //if there's no other way, just go back to base hunting
-                        {
-                            currentState = State.BaseHunting;
-                        }
-                        */
-
+                    else if (nearestChaos && Vector3.Distance(transform.position, nearestChaos.transform.position) < playerDistFromBase)
+                    {
+                        enemyMovement.setTarget(nearestChaos);
                     }
-
+                        
 
                 }
 
@@ -267,11 +261,16 @@ public class EnemyStateMachine : MonoBehaviour
             case State.Dueling:
                 enemyMovement.setTarget(player);
 
-                if(!Game.instance.areBasesInvincible(true))
-                    if (isPlayerEliminated || willIgnorePlayer())
-                    {
-                        currentState = State.BaseHunting;
-                    }
+                if (!Game.instance.areBasesInvincible(true) && (isPlayerEliminated || willIgnorePlayer()))
+                {
+                    currentState = State.BaseHunting;   
+                }
+                else if(willDefendBase(nearestEnemyBaseToPlayer) && !Game.instance.areBasesInvincible(false) && !baseToDefend)
+                {
+                    currentState = State.Defending;
+                }
+                
+
 
                 break;
 
