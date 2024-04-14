@@ -249,15 +249,17 @@ public class Pathfinding
     private float getPotionCost(Node node)
     {
         float cost = 0f;
-        string potionName = PowerUpManager.instance.getNameAt(node.toVector2i());
+        GameObject potionObject = PowerUpManager.instance.getPowerUpAt(node.toVector2i());
 
-        //based on current implementation (where only mine has a static heuristic)
-        switch (potionName)
+        if (potionObject != null)
         {
-            case "Mine": return int.MaxValue;
+            string potionName = potionObject.name;
+            switch (potionName)
+            {
+                case "Mine": return int.MaxValue;
+            }
         }
-
-
+     
         return cost;
     }
 
@@ -271,9 +273,10 @@ public class Pathfinding
 
     }
 
-    //test
 
 
+
+    /*
     public void writeToTextFile()
     {
 
@@ -321,5 +324,5 @@ public class Pathfinding
         }
 
     }
-
+    */
 }

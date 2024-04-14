@@ -85,6 +85,7 @@ public class PowerUpManager : MonoBehaviour
     }
 
 
+    /*
     public string getNameAt(Vector2Int cellPos)
     {
 
@@ -107,6 +108,28 @@ public class PowerUpManager : MonoBehaviour
             
         return null;
     }
+    */
+    public GameObject getPowerUpAt(Vector2Int cellPos)
+    {
+        Vector2Int v = cellPos;
+        v.x = v.x - TilemapManager.instance.maxBoundsData.Value.xMin;
+        v.y = TilemapManager.instance.maxBoundsData.Value.yMax - 1 - v.y;
+
+
+        if (!potionPosTracker[v.x, v.y])
+            return null;
+
+        foreach (var i in powerUpList)
+        {
+            if (i.activeSelf && TilemapManager.instance.WorldToCell(i.transform.position) == new Vector3Int(cellPos.x, cellPos.y, 0))
+            {
+                return i;
+            }
+        }
+
+        return null;
+    }
+
 
     private GameObject getPowerUpByName(string name)
     {

@@ -1,6 +1,8 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Reflection;
+using Unity.VisualScripting;
 using UnityEngine;
 
 
@@ -115,11 +117,16 @@ public class EnemyStateMachine : MonoBehaviour
 
                 //Transition Checker for Defend
 
+                //if the ignored base has been destroyed, allow the agent to defend again
+                if(baseToDefend && baseToDefend.GetComponent<Base>().isDestroyed)
+                    baseToDefend= null;
+
+
                 if (willDefendBase(nearestEnemyBaseToPlayer))
                 {
-                    if (!Game.instance.areBasesInvincible(false))
+                    if (!Game.instance.areBasesInvincible(false) && !baseToDefend)
                     {
-
+                  
                         currentState = State.Defending;
                         baseToDefend = nearestEnemyBaseToPlayer;
                         Debug.Log("defending base");
@@ -127,13 +134,13 @@ public class EnemyStateMachine : MonoBehaviour
                 }
                 else
                 {
-                    /*
+                  
                     if (!isPlayerEliminated && isPlayerInSight() && !willIgnorePlayer())
                     {
                         currentState = State.Dueling;
                         Debug.Log("dueling player");
                     }
-                    */
+                    
                 }
                
                
@@ -142,21 +149,111 @@ public class EnemyStateMachine : MonoBehaviour
 
 			case State.Defending:
 
-                if(baseToDefend)
-                    enemyMovement.setTarget(baseToDefend);
-                if (!willDefendBase(nearestEnemyBaseToPlayer) || baseToDefend.GetComponent<Base>().isDestroyed)
+                Vector3Int eCell = TilemapManager.instance.WorldToCell(transform.position);
+                Vector2Int eIndex = TilemapManager.instance.CellToIndex((Vector2Int)eCell);
+                BoundsInt bounds = TilemapManager.instance.maxBoundsData.Value;
+
+         
+
+                GameObject nearestInvincible = null;
+                GameObject nearestChaos = null;
+
+                for(int i = Mathf.Max(0, eIndex.y - cellSeekRange); i <= Mathf.Min(bounds.size.y, eIndex.y + cellSeekRange ); i++)
                 {
+                    for (int j = Mathf.Max(0, eIndex.x - cellSeekRange); j <= Mathf.Min(bounds.size.x, eIndex.x + cellSeekRange); j++)
+                    {
+                        Vector2Int cell = TilemapManager.instance.IndexToCell(j, i);
+                        GameObject potAtCell = PowerUpManager.instance.getPowerUpAt(cell);
+
+                        if (potAtCell == null)
+                            continue;
+
+                        
+                        switch (potAtCell.name)
+                        {
+                            case "Invincible":
+                                if(nearestInvincible == null)
+                                {
+                                    nearestInvincible = potAtCell;
+                                }
+                                else
+                                {
+                                    float distFromNearest = Vector3.Distance(transform.position, nearestInvincible.transform.position);
+                                    float distFromCurrent = Vector3.Distance(transform.position, potAtCell.transform.position);
+
+                                    if (distFromCurrent < distFromNearest)
+                                        nearestInvincible = potAtCell;
+                                }
+                                break;
+                            case "Chaos":
+                                if (nearestChaos == null)
+                                {
+                                    nearestChaos = potAtCell;
+                                }
+                                else
+                                {
+                                    float distFromNearest = Vector3.Distance(transform.position, nearestChaos.transform.position);
+                                    float distFromCurrent = Vector3.Distance(transform.position, potAtCell.transform.position);
+
+                                    if (distFromCurrent < distFromNearest)
+                                        nearestChaos = potAtCell;
+                                }
+                                break;
+                        }
+                    }
+
+                }
+
+
+                //if player is away from base or if the base being defended has been destoyed or the base is now invincible
+                if (!willDefendBase(nearestEnemyBaseToPlayer) || baseToDefend.GetComponent<Base>().isDestroyed || Game.instance.areBasesInvincible(false))
+                {   
+                    //go back to base hunting
                     currentState = State.BaseHunting;
                     baseToDefend = null;
                     Debug.Log("back to base hunting");
 
                 }
+                else
+                {
+                    //If player is within proximity, duel with them instead
+                    if (!isPlayerEliminated && isPlayerInSight())
+                    {
+                        currentState = State.Dueling;
+                        Debug.Log("dueling player");
+                    }
+                    else
+                    {
+
+                        float playerDistFromBase = Vector3.Distance(baseToDefend.transform.position, player.transform.position);
+
+
+                        //this will cause the player to continously chase nearby potions, do transition checking first
+                        if (nearestInvincible && Vector3.Distance(transform.position, nearestInvincible.transform.position) < playerDistFromBase)
+                        {
+                            enemyMovement.setTarget(nearestInvincible);
+                        }
+                        else if (nearestChaos && Vector3.Distance(transform.position, nearestChaos.transform.position) < playerDistFromBase)
+                        {
+                            enemyMovement.setTarget(nearestChaos);
+                        }
+                        else
+                        //if there's no other way, just go back to base hunting
+                        {
+                            currentState = State.BaseHunting;
+                        }
+
+
+                    }
+
+
+                }
+
                 break;
 
 
             case State.Dueling:
                 enemyMovement.setTarget(player);
-
 
                
                 if (isPlayerEliminated || willIgnorePlayer())
