@@ -2755,17 +2755,17 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1648679751}
-  m_LocalRotation: {x: 0.0012751531, y: -0.005194652, z: -0.23839329, w: 0.971154}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1961282016}
-  m_LocalEulerAnglesHint: {x: 0, y: -0.613, z: -27.584}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 557, y: 278}
-  m_SizeDelta: {x: 212.03, y: 293.6834}
+  m_AnchoredPosition: {x: 95, y: 222}
+  m_SizeDelta: {x: 117.5742, y: 162.8524}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1648679753
 MonoBehaviour:
@@ -3431,11 +3431,11 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1444319492}
-  - {fileID: 1847286252}
   - {fileID: 1648679752}
   - {fileID: 2109357389}
   - {fileID: 129245129}
+  - {fileID: 1444319492}
+  - {fileID: 1847286252}
   m_Father: {fileID: 1447392112}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -3749,7 +3749,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: -1023.1134, y: 180.56}
+  m_AnchoredPosition: {x: -888, y: 217}
   m_SizeDelta: {x: 1267.355, y: 285.8287}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2109357390
@@ -3774,8 +3774,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Spellblast
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 136f8a865d8efed4892842dbb40b3e49, type: 2}
+  m_sharedMaterial: {fileID: -6531484747154678517, guid: 136f8a865d8efed4892842dbb40b3e49, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
