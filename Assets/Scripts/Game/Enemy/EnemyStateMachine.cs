@@ -102,21 +102,19 @@ public class EnemyStateMachine : MonoBehaviour
 			default:
 			case State.BaseHunting:
 
-		
+
                 currentTarget = Game.instance.getBaseNearestTo(enemyCell, true);
 
-                if (!currentTarget)
-                {
-                    return;
-                }
+                if (currentTarget)
+                    enemyMovement.setTarget(currentTarget);
 
 
-                enemyMovement.setTarget(currentTarget);
-
-                
                 //If the player's bases are invincible, fight the player instead
                 if (Game.instance.areBasesInvincible(true))
+                {
                     currentState = State.Dueling;
+                    print("Invincible, Base Hunting to Duelling");
+                }
                 else 
                 /*
                     If the player's close to a base and the agent's bases are not invincible and
@@ -125,6 +123,7 @@ public class EnemyStateMachine : MonoBehaviour
                 if (willDefendBase(nearestEnemyBaseToPlayer) && !Game.instance.areBasesInvincible(false))
                 {                  
                     currentState = State.Defending;
+                    //print("Base Hunting to Defending");
                 }
                 else
                 /*
@@ -135,11 +134,15 @@ public class EnemyStateMachine : MonoBehaviour
                 if (!isPlayerEliminated && isPlayerInSight() && !willIgnorePlayer())
                 {
                     currentState = State.Dueling;
+                    print("Base Hunting to Duelling");
                 }
-                    
-                
+
+
                
-               
+
+
+
+
                 break;
 
 			case State.Defending:
@@ -167,7 +170,6 @@ public class EnemyStateMachine : MonoBehaviour
                             continue;
 
 
-                       
                         /*
                         Action<GameObject> setNearest = (GameObject nearest) =>
                         {
@@ -238,12 +240,14 @@ public class EnemyStateMachine : MonoBehaviour
                 {   
                     //go back to base hunting
                     currentState = State.BaseHunting;
+                   // print("Defend to Base Hunting");
 
                 }
                 else
                 //If player is within attackRange, duel with them instead
                 if (!isPlayerEliminated && isPlayerInSight())
                 {
+                   // print("Defend to Duel");
                     currentState = State.Dueling;
                 }
                 else
@@ -254,6 +258,7 @@ public class EnemyStateMachine : MonoBehaviour
                     if(!nearestInvincible && !nearestChaos || playerDistFromBase > defendRange)
                     {   
                         currentState = State.BaseHunting;
+                      //  print("Defend to Base Hunting");
                     }
                     else if (nearestInvincible  && Vector3.Distance(transform.position, nearestInvincible.transform.position) < playerDistFromBase)
                     {
@@ -278,11 +283,18 @@ public class EnemyStateMachine : MonoBehaviour
                
                 if(willDefendBase(nearestEnemyBaseToPlayer) && !Game.instance.areBasesInvincible(false) && playerDist > aggroRange)
                 {
+                    //print("Duel to Defending");
                     currentState = State.Defending;
                 }
-                else if (!Game.instance.areBasesInvincible(true) && (isPlayerEliminated || willIgnorePlayer() || playerDist > aggroRange))
+                else if (isPlayerEliminated || willIgnorePlayer() ||  playerDist > aggroRange)
                 {
-                    currentState = State.BaseHunting;
+
+                    if (!Game.instance.areBasesInvincible(true))
+                    {
+                        print("Base not Invincible, Duel to Base Hunt");
+                        currentState = State.BaseHunting;
+                    }
+                   
                 }
 
 
@@ -297,6 +309,8 @@ public class EnemyStateMachine : MonoBehaviour
 
     bool willIgnorePlayer()
     {
+        if (!currentTarget)
+            return false;
         return Vector3.Distance(currentTarget.transform.position, transform.position) < ignorePlayerProximity;
     }
 

@@ -374,18 +374,18 @@ public class Game : MonoBehaviour
 
     public bool areBasesInvincible(bool isPlayer)
     {
-        bool areInvincible = true;
+        bool areInvincible = false;
 
         foreach(var b in isPlayer ? playerBases : enemyBases)
         {
-            if (!b.GetComponent<Base>().isInvincible)
+            if (b.GetComponent<Base>().isInvincible)
             {
-                areInvincible = false;
+                areInvincible = true;
                 break;
             }
         }
 
-
+        //return (isPlayer ? playerBases : enemyBases)[0].GetComponent<Base>().isInvincible;
         return areInvincible;
     }
 
