@@ -23,11 +23,14 @@ public class EnemyMovement : MonoBehaviour
     private bool canMove = true;
 
 
+    private Vector2Int? lastTargetCellPos;
+
     private GameObject target;
     public void setTarget(GameObject target)
     {
         this.target = target;
         pathfindToTarget();
+        lastTargetCellPos = null;
     }
 
     private void pathfindToTarget()
@@ -46,6 +49,7 @@ public class EnemyMovement : MonoBehaviour
     {
         pathfinder = new Pathfinding(layerMask);
         target = null;
+        lastTargetCellPos = null;
     }
 
     private void Start()
@@ -72,8 +76,15 @@ public class EnemyMovement : MonoBehaviour
     private void Update()
     {
 
-       pathfindToTarget();
-        
+        if (!target)
+            return;
+
+        Vector2Int targetCellPos = (Vector2Int)TilemapManager.instance.WorldToCell(target.transform.position);
+
+        if(lastTargetCellPos == null || targetCellPos != lastTargetCellPos )
+             pathfindToTarget();
+
+        lastTargetCellPos = targetCellPos;
  
         for (int i = 1; i < waypoints.Count; i++)
             Debug.DrawLine(

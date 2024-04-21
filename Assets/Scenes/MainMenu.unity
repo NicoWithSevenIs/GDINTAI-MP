@@ -501,7 +501,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 2
-  m_BackGroundColor: {r: 1, g: 0.8784314, b: 0.8509804, a: 0}
+  m_BackGroundColor: {r: 0.97735846, g: 0.8759345, b: 0.8907693, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -2019,7 +2019,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: -637, y: -190}
+  m_AnchoredPosition: {x: -512, y: -175}
   m_SizeDelta: {x: 495.12817, y: 112.1532}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1444319493
@@ -2091,7 +2091,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 0.58679235, b: 0.676357, a: 1}
+  m_Color: {r: 0.94716984, g: 0.52719826, b: 0.61519223, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -3006,7 +3006,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: -579.08875, y: -323}
+  m_AnchoredPosition: {x: -454.08875, y: -308}
   m_SizeDelta: {x: 379.30566, y: 55.1831}
   m_Pivot: {x: 0.5, y: 0.5000003}
 --- !u!114 &1847286254
