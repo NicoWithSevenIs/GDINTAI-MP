@@ -3,17 +3,40 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Audio;
+using UnityEngine.Pool;
 using static Unity.VisualScripting.Member;
 
+
+public class Sound
+{
+
+    public AudioClip clip { get; private set; }
+    public bool willLoop { get; private set; }
+    public GameObject origin { get; private set; }
+    public float maxRange { get; private set; }
+
+    public Sound(AudioClip clip, GameObject origin, float maxRange, bool willLoop)
+    {
+        this.clip = clip;
+        this.origin = origin;
+        this.maxRange = maxRange;
+        this.willLoop = willLoop;
+    }
+
+}
 public class AudioManager : MonoBehaviour
 {
 
-    [SerializeField] AudioClip[] BGM;
+    [SerializeField] private AudioClip[] BGM;
+    [SerializeField] private int poolSize;
 
-    private Dictionary<string, AudioSource> SFXLibrary;
+    private Dictionary<string, Sound> SFXLibrary;
 
     [Range(0f, 1f)]
     [SerializeField] private float Volume = 1f;
+
+
+    private List<GameObject> soundPlayerPool;
 
     public void addSFX(AudioClip sound, GameObject parent, float maxRange, bool willLoop)
     {
@@ -23,44 +46,58 @@ public class AudioManager : MonoBehaviour
         if (SFXLibrary == null || SFXLibrary.ContainsKey(name))
             return;
 
-        AudioSource source = parent.AddComponent<AudioSource>();
-        source.loop = willLoop;
-        source.clip = sound;
-        source.volume = Volume;
-        source.spatialBlend = 1;
-        source.rolloffMode = AudioRolloffMode.Linear; 
-        source.maxDistance= maxRange;
+        SFXLibrary.Add(name, new Sound(sound, parent, maxRange, willLoop));
+  
 
-
-        SFXLibrary.Add(name, source);
-     
     }
 
+    private IEnumerator DisableOnElapse(GameObject audioObject, float duration)
+    {
+        yield return new WaitForSeconds(duration);
+        audioObject.SetActive(false);
+    }
 
     public void PlaySFX(string soundName)
     {
-        AudioSource source;
+        Sound toPlay;
 
-        if (SFXLibrary.TryGetValue(soundName, out source))
+        if(SFXLibrary.TryGetValue(soundName, out toPlay))
+        {
+            GameObject poolable = getFromPool();
+
+            AudioSource source = poolable.GetComponent<AudioSource>();
+            source.loop = toPlay.willLoop;
+            source.clip = toPlay.clip;
+            source.maxDistance = toPlay.maxRange;
+            source.volume = Volume;
+       
+            poolable.transform.position = toPlay.origin.transform.position;
+            poolable.SetActive(true);
+
+
             source.Play();
-        else print("Audio Not Found " + soundName);
+            StartCoroutine(DisableOnElapse(poolable, toPlay.clip.length));
+        }
+
     }
 
 
-    //Work on this
-    public IEnumerator PlayMultiple(List<string> playlist)
+    public void PlaySFXSequential(List<string> playlist, float durationOffset)
     {
-        foreach (string name in playlist)
-        {
-            AudioSource source;
+        StartCoroutine(playSequential(playlist, durationOffset));
+    }
 
-            if (SFXLibrary.TryGetValue(name, out source))
+    private IEnumerator playSequential(List<string> playlist, float durationOffset)
+    {
+        foreach(var name in playlist)
+        {
+            Sound toPlay;
+            if (SFXLibrary.TryGetValue(name, out toPlay))
             {
-                source.Play();
-                yield return new WaitForSeconds(source.clip.length);
+                PlaySFX(name);
+                yield return new WaitForSeconds(toPlay.clip.length + durationOffset);
             }
             else yield return null;
-                
         }
     }
 
@@ -70,6 +107,46 @@ public class AudioManager : MonoBehaviour
     }
 
 
+    #region ObjectPooling
+
+    private GameObject insertToPool()
+    {
+        GameObject emptyObject = new GameObject();
+        emptyObject.SetActive(false);
+        AudioSource source = emptyObject.AddComponent<AudioSource>();
+
+        source.spatialBlend = 1;
+        source.rolloffMode = AudioRolloffMode.Linear;
+
+        emptyObject.transform.parent = transform;
+
+        soundPlayerPool.Add(emptyObject);
+        return emptyObject;
+    }
+
+    private void initializePool()
+    {
+        soundPlayerPool = new List<GameObject>();
+        for(int i =0; i < poolSize; i++)
+        {
+            insertToPool();
+        }
+    }
+
+    private GameObject getFromPool()
+    {
+        foreach (var pool in soundPlayerPool)
+        {
+            if (!pool.activeInHierarchy)
+            {
+                return pool;
+            }
+        }
+
+        return insertToPool();
+    }
+
+    #endregion
 
     #region singleton
     public static AudioManager instance { get; private set; }
@@ -81,7 +158,7 @@ public class AudioManager : MonoBehaviour
             instance = this;
         else Destroy(gameObject);
 
-        SFXLibrary = new Dictionary<string, AudioSource>();
+        SFXLibrary = new Dictionary<string, Sound>();
 
         foreach (var sound in BGM)
         {
@@ -91,6 +168,8 @@ public class AudioManager : MonoBehaviour
             source.volume = Volume;
             source.spatialBlend = 0;
         }
+
+        initializePool();
     }
     #endregion
 

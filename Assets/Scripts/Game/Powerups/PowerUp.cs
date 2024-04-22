@@ -13,24 +13,20 @@ public class PowerUp : MonoBehaviour
     private void Start()
     {
         AudioManager.instance.addSFX(consumeSFX, gameObject, 8, false);
-        AudioManager.instance.addSFX(effectSFX, gameObject, 8, false);
+        AudioManager.instance.addSFX(effectSFX, gameObject, 500, false);
     }
     protected virtual void Consume()
     {
         onConsumption?.Invoke();
+        AudioManager.instance.PlaySFXSequential(new List<string>
+        {
+            AudioManager.getName(consumeSFX, gameObject),
+            AudioManager.getName(effectSFX, gameObject)
+        }, 0f);
 
-        StartCoroutine(playSFX());
         gameObject.SetActive(false);
     }
 
-    private IEnumerator playSFX()
-    {
-        print("Started");
-        AudioManager.instance.PlaySFX(AudioManager.getName(consumeSFX, gameObject));
-        yield return new WaitForSeconds(consumeSFX.length);
-        print("Next");
-        AudioManager.instance.PlaySFX(AudioManager.getName(effectSFX, gameObject));
-    }
 
 
 }

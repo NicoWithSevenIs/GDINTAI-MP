@@ -46,14 +46,19 @@ public class ProjectileScript : MonoBehaviour
         anim.SetBool(detonateTrigger, false);
         currentDirection = direction;
 
+
+
         if(!isFirstEnabled)
         {
             AudioManager.instance.addSFX(onProjectileHit, gameObject, 16, false);
             AudioManager.instance.addSFX(onProjectileFire, gameObject, 16, false);
             isFirstEnabled = true;
         }
-      
-        AudioManager.instance.PlaySFX(AudioManager.getName(onProjectileFire, gameObject));
+        else
+        {
+            AudioManager.instance.PlaySFX(AudioManager.getName(onProjectileFire, gameObject));
+        }
+    
     }
 
     private void Update()
@@ -80,6 +85,7 @@ public class ProjectileScript : MonoBehaviour
     public void setDirection(Vector2 direction)
     {
         this.direction = direction;
+        print(direction);
     }
 
     public void OnTriggerEnter2D(Collider2D collision)

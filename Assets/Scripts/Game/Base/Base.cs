@@ -139,8 +139,8 @@ public class Base : MonoBehaviour
         if (!getDestroyedOnTouch)
             return;
 
-
-        setStatueDestroyed(true);
+        if(!isDestroyed)
+            setStatueDestroyed(true);
         onBaseDestroyed?.Invoke();
        
     }
@@ -157,6 +157,8 @@ public class Base : MonoBehaviour
     }
     public void setStatueDestroyed(bool isDestroyed)
     {
+
+
         if(isDestroyed)
             AudioManager.instance.PlaySFX(AudioManager.getName(baseDestroyedSFX, gameObject));
         this.isDestroyed = isDestroyed;
