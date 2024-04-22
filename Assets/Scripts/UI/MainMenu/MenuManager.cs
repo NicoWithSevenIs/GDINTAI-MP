@@ -9,7 +9,6 @@ public class MenuManager : MonoBehaviour
 {
 
     public int selectedDifficulty {get; private set;}
-    public int selectedMap { get; private set; }
 
 
     public event Action<int> onMapSelect;
@@ -30,7 +29,7 @@ public class MenuManager : MonoBehaviour
         PlayerPrefs.DeleteKey("Difficulty");
 
         selectDifficulty(0);
-        selectMap(0);
+        setMap();
 
     }
 
@@ -50,15 +49,20 @@ public class MenuManager : MonoBehaviour
         onDifficultySelect?.Invoke(selectedDifficulty);
     }
 
+    public void setMap()
+    {
+        onMapSelect?.Invoke(PlayerPrefs.GetInt("SelectedMap"));
+    }
+
     public void selectMap(int mapNum)
     {
-        selectedMap = Math.Clamp(mapNum, 0, mapNames.Count - 1);
-        onMapSelect?.Invoke(selectedMap);
+        PlayerPrefs.SetInt("SelectedMap", Math.Clamp(mapNum, 0, mapNames.Count - 1));
+        setMap();
     }
 
     public void Go()
     {   
-        SceneManager.LoadScene(mapNames[selectedMap]);
+        SceneManager.LoadScene(mapNames[PlayerPrefs.GetInt("SelectedMap")]);
         PlayerPrefs.SetInt("Difficulty", selectedDifficulty);
         
     }

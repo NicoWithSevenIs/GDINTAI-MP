@@ -4,6 +4,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.Pool;
+using UnityEngine.SceneManagement;
 using static Unity.VisualScripting.Member;
 
 
@@ -24,10 +25,22 @@ public class Sound
     }
 
 }
+
+[System.Serializable]
+public class Music
+{
+    public string name;
+    public AudioClip music;
+
+    [Range(0f,1f)]
+    public float volumeMultiplier;
+
+}
+
 public class AudioManager : MonoBehaviour
 {
 
-    [SerializeField] private AudioClip[] BGM;
+    [SerializeField] private Music[] BGM;
     [SerializeField] private int poolSize;
 
     private Dictionary<string, Sound> SFXLibrary;
@@ -152,22 +165,42 @@ public class AudioManager : MonoBehaviour
     public static AudioManager instance { get; private set; }
     private void Awake()
     {
-        //DontDestroyOnLoad(gameObject);
 
+        
         if (instance == null)
             instance = this;
-        else Destroy(gameObject);
+        else
+        {
+            Destroy(gameObject);
+            return;
+        }
+       
+
+        DontDestroyOnLoad(gameObject);
 
         SFXLibrary = new Dictionary<string, Sound>();
 
-        foreach (var sound in BGM)
+
+        SceneManager.sceneLoaded += (Scene scene, LoadSceneMode mode) =>
         {
-            AudioSource source = gameObject.AddComponent<AudioSource>();
-            source.loop = true;
-            source.clip = sound;
-            source.volume = Volume;
-            source.spatialBlend = 0;
-        }
+            foreach(var Music in BGM)
+            {
+                if(Music.name == scene.name)
+                {
+                    AudioSource source = GetComponent<AudioSource>();
+                    source.clip = Music.music;
+                    source.volume = Volume * Music.volumeMultiplier;
+                    source.Play();
+                }
+
+            }
+        };
+
+        SceneManager.activeSceneChanged += (Scene prev, Scene current) =>
+        {
+            GetComponent<AudioSource>().Stop();
+            SFXLibrary.Clear();
+        };
 
         initializePool();
     }
