@@ -72,6 +72,11 @@ public class MenuManager : MonoBehaviour
         Application.Quit();
     }
 
+    public void OpenCredits()
+    {
+        SceneManager.LoadScene("Credits");
+    }
+
     #region singleton
     public static MenuManager instance { get; private set; }
     private void Awake()
