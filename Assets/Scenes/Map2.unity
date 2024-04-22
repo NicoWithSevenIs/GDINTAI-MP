@@ -292,6 +292,22 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 105425349}
     m_Modifications:
+    - target: {fileID: 916655564635982586, guid: 3b5e518b70a434449ba8aaef10ceece2, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 916655564635982586, guid: 3b5e518b70a434449ba8aaef10ceece2, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 916655564635982586, guid: 3b5e518b70a434449ba8aaef10ceece2, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 916655564635982586, guid: 3b5e518b70a434449ba8aaef10ceece2, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1937402178500516482, guid: 3b5e518b70a434449ba8aaef10ceece2, type: 3}
       propertyPath: m_Name
       value: Canvas
@@ -374,6 +390,38 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5991336505449210763, guid: 3b5e518b70a434449ba8aaef10ceece2, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6837637885806769803, guid: 3b5e518b70a434449ba8aaef10ceece2, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6837637885806769803, guid: 3b5e518b70a434449ba8aaef10ceece2, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6837637885806769803, guid: 3b5e518b70a434449ba8aaef10ceece2, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6837637885806769803, guid: 3b5e518b70a434449ba8aaef10ceece2, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8315448262335818027, guid: 3b5e518b70a434449ba8aaef10ceece2, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8315448262335818027, guid: 3b5e518b70a434449ba8aaef10ceece2, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8315448262335818027, guid: 3b5e518b70a434449ba8aaef10ceece2, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8315448262335818027, guid: 3b5e518b70a434449ba8aaef10ceece2, type: 3}
+      propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -7285,7 +7333,6 @@ GameObject:
   m_Component:
   - component: {fileID: 2016660159}
   - component: {fileID: 2016660158}
-  - component: {fileID: 2016660157}
   - component: {fileID: 2016660160}
   m_Layer: 0
   m_Name: Main Camera
@@ -7294,14 +7341,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!81 &2016660157
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2016660156}
-  m_Enabled: 1
 --- !u!20 &2016660158
 Camera:
   m_ObjectHideFlags: 0

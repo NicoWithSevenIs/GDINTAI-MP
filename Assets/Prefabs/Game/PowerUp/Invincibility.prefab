@@ -143,3 +143,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e1be387dd29232a41be5d7ce49b32d24, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  consumeSFX: {fileID: 8300000, guid: 1333c68fde539f24fb9e1a8b9cdec0d7, type: 3}
+  effectSFX: {fileID: 8300000, guid: a9fe301750566784495a55fd63f338bf, type: 3}

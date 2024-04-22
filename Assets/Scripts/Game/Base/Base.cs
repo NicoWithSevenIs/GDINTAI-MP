@@ -32,6 +32,9 @@ public class Base : MonoBehaviour
     public bool isInvincible { get; private set; } = false;
 
 
+    [Header("SFX")]
+    [SerializeField] private AudioClip baseDestroyedSFX;
+
     private SpriteRenderer sprite;
 
     #region positionHandling
@@ -148,8 +151,14 @@ public class Base : MonoBehaviour
         isInvincible = false;
     }
 
+    public void Start()
+    {
+        AudioManager.instance.addSFX(baseDestroyedSFX, gameObject, 24, false);
+    }
     public void setStatueDestroyed(bool isDestroyed)
     {
+        if(isDestroyed)
+            AudioManager.instance.PlaySFX(AudioManager.getName(baseDestroyedSFX, gameObject));
         this.isDestroyed = isDestroyed;
         statueTop.SetActive(!isDestroyed);
         statueBottom.SetActive(!isDestroyed);

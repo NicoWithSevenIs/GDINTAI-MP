@@ -18,12 +18,15 @@ public class ProjectileScript : MonoBehaviour
     private Animator anim;
     private BoxCollider2D box;
 
-
-    //temp
     public Vector2 direction;
     public Vector2 currentDirection;
 
- 
+
+    bool isFirstEnabled = false;
+
+    [Header("Sounds")]
+    [SerializeField] private AudioClip onProjectileFire;
+    [SerializeField] private AudioClip onProjectileHit;
 
     private void Awake()
     {
@@ -42,6 +45,15 @@ public class ProjectileScript : MonoBehaviour
         lifetime.startTimer();
         anim.SetBool(detonateTrigger, false);
         currentDirection = direction;
+
+        if(!isFirstEnabled)
+        {
+            AudioManager.instance.addSFX(onProjectileHit, gameObject, 16, false);
+            AudioManager.instance.addSFX(onProjectileFire, gameObject, 16, false);
+            isFirstEnabled = true;
+        }
+      
+        AudioManager.instance.PlaySFX(AudioManager.getName(onProjectileFire, gameObject));
     }
 
     private void Update()
@@ -75,7 +87,8 @@ public class ProjectileScript : MonoBehaviour
         if (collision.tag == ownerTag || collision.isTrigger)
             return;
 
-        foreach(string s in blackList)
+        AudioManager.instance.PlaySFX(AudioManager.getName(onProjectileHit, gameObject));
+        foreach (string s in blackList)
         {
             if (collision.tag == s)
                 return;

@@ -47,6 +47,7 @@ GameObject:
   - component: {fileID: 2636745419261197584}
   - component: {fileID: 1971305546740872564}
   - component: {fileID: 5908465285042006477}
+  - component: {fileID: 1119854419283023112}
   m_Layer: 6
   m_Name: Player
   m_TagString: Player
@@ -261,3 +262,11 @@ MonoBehaviour:
   maxHealth: 1
   currentHealth: 0
   deathTrigger: isDead
+--- !u!81 &1119854419283023112
+AudioListener:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7181779000696776663}
+  m_Enabled: 1

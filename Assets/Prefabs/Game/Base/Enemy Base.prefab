@@ -418,6 +418,7 @@ MonoBehaviour:
   baseInvincibilityColor: {r: 0.972549, g: 0.6156863, b: 0.6156863, a: 1}
   destroyOnTouch:
   - Player
+  baseDestroyedSFX: {fileID: 8300000, guid: 11d0ff1da38c56d4b8e79a2021d999dc, type: 3}
 --- !u!1 &8246727367557093373
 GameObject:
   m_ObjectHideFlags: 0

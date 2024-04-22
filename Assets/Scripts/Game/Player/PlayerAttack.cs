@@ -104,7 +104,7 @@ public class PlayerAttack : MonoBehaviour
         projectile.GetComponent<ProjectileScript>().setDirection(aimDir);
         projectile.transform.position = attackOrigin.transform.position;
         projectile.SetActive(true);
-
+     
     }
 
     public void AttackCompleted()
