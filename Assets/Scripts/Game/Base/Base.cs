@@ -139,10 +139,15 @@ public class Base : MonoBehaviour
         if (!getDestroyedOnTouch)
             return;
 
-        if(!isDestroyed)
+        if (!isDestroyed)
+        {
+            AudioManager.instance.PlaySFX(AudioManager.getName(baseDestroyedSFX, gameObject));
             setStatueDestroyed(true);
-        onBaseDestroyed?.Invoke();
+            onBaseDestroyed?.Invoke();
+        }
+
        
+
     }
 
     private void OnEnable()
@@ -156,13 +161,7 @@ public class Base : MonoBehaviour
         AudioManager.instance.addSFX(baseDestroyedSFX, gameObject, 24, false);
     }
     public void setStatueDestroyed(bool isDestroyed)
-    {
-
-
-        if (this.isDestroyed && isDestroyed)
-            return;
-
-        AudioManager.instance.PlaySFX(AudioManager.getName(baseDestroyedSFX, gameObject));
+    {   
         this.isDestroyed = isDestroyed;
         statueTop.SetActive(!isDestroyed);
         statueBottom.SetActive(!isDestroyed);

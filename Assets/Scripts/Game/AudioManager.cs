@@ -199,6 +199,10 @@ public class AudioManager : MonoBehaviour
         SceneManager.activeSceneChanged += (Scene prev, Scene current) =>
         {
             GetComponent<AudioSource>().Stop();
+            foreach(var poolable in soundPlayerPool)
+            {
+                poolable.GetComponent<AudioSource>().Stop();   
+            }
             SFXLibrary.Clear();
         };
 

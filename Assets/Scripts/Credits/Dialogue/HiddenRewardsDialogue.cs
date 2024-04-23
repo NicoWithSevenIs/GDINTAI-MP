@@ -12,9 +12,9 @@ public class HiddenRewardsDialogue : Dialogue
     [Header("Reward List")]
     [SerializeField] private string[] rewardsList;
 
-    bool hasClaimedRewards = false;
+    protected bool hasClaimedRewards = false;
 
-    public void Start()
+    protected virtual void Start()
     {
         rewardDialogue.onDialogueFinished += () =>
         {

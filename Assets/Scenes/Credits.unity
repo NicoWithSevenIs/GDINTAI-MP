@@ -536,6 +536,33 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 7571416716242093401, guid: 0d496798866b8ea4c98f0f41ac1ed296, type: 3}
   m_PrefabInstance: {fileID: 6852909356079944467}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &104567741 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7022968983745808578, guid: 13f3c7ef6e9908a4bb7191efa1fb2227, type: 3}
+  m_PrefabInstance: {fileID: 576286906}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &104567742
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 104567741}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8095d37724a798d41952af31dc1f6af0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dialogue:
+    name: Opponent
+    dialogueText:
+    - The sky looks beautiful today.
+    - See you out there...
+--- !u!4 &104567747 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6525603057950358801, guid: 13f3c7ef6e9908a4bb7191efa1fb2227, type: 3}
+  m_PrefabInstance: {fileID: 576286906}
+  m_PrefabAsset: {fileID: 0}
 --- !u!224 &177901320 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 5806618374268157655, guid: 1069d9b1c0a2b5c4fb07fb9e2ab2acff, type: 3}
@@ -563,7 +590,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 73261205865220466, guid: 7c7d268a2e97e6a4ea36407f0c0d9f02, type: 3}
       propertyPath: onActivate.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: Dialogue, Assembly-CSharp
+      value: ChestScript, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 187316308280555305, guid: 7c7d268a2e97e6a4ea36407f0c0d9f02, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1860,6 +1887,75 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 5806618374268157655, guid: 1069d9b1c0a2b5c4fb07fb9e2ab2acff, type: 3}
   m_PrefabInstance: {fileID: 247571797}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &576286906
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 6525603057950358801, guid: 13f3c7ef6e9908a4bb7191efa1fb2227, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -13.15
+      objectReference: {fileID: 0}
+    - target: {fileID: 6525603057950358801, guid: 13f3c7ef6e9908a4bb7191efa1fb2227, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -2.74
+      objectReference: {fileID: 0}
+    - target: {fileID: 6525603057950358801, guid: 13f3c7ef6e9908a4bb7191efa1fb2227, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6525603057950358801, guid: 13f3c7ef6e9908a4bb7191efa1fb2227, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6525603057950358801, guid: 13f3c7ef6e9908a4bb7191efa1fb2227, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6525603057950358801, guid: 13f3c7ef6e9908a4bb7191efa1fb2227, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6525603057950358801, guid: 13f3c7ef6e9908a4bb7191efa1fb2227, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6525603057950358801, guid: 13f3c7ef6e9908a4bb7191efa1fb2227, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6525603057950358801, guid: 13f3c7ef6e9908a4bb7191efa1fb2227, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6525603057950358801, guid: 13f3c7ef6e9908a4bb7191efa1fb2227, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7022968983745808578, guid: 13f3c7ef6e9908a4bb7191efa1fb2227, type: 3}
+      propertyPath: m_Name
+      value: Enemy
+      objectReference: {fileID: 0}
+    - target: {fileID: 7151431392632192779, guid: 13f3c7ef6e9908a4bb7191efa1fb2227, type: 3}
+      propertyPath: m_FlipX
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 2189992337183055309, guid: 13f3c7ef6e9908a4bb7191efa1fb2227, type: 3}
+    - {fileID: 6123395988573991570, guid: 13f3c7ef6e9908a4bb7191efa1fb2227, type: 3}
+    m_RemovedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 6525603057950358801, guid: 13f3c7ef6e9908a4bb7191efa1fb2227, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1013821990}
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 7022968983745808578, guid: 13f3c7ef6e9908a4bb7191efa1fb2227, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 104567742}
+  m_SourcePrefab: {fileID: 100100000, guid: 13f3c7ef6e9908a4bb7191efa1fb2227, type: 3}
 --- !u!1001 &602829535
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3680,7 +3776,7 @@ Transform:
   m_GameObject: {fileID: 799204023}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.9406462, y: 3.97168, z: 0.0657494}
+  m_LocalPosition: {x: 0.9406462, y: 4.03, z: 0.0657494}
   m_LocalScale: {x: 0.9458242, y: 0.9458242, z: 0.9458242}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -3717,7 +3813,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 799204023}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8095d37724a798d41952af31dc1f6af0, type: 3}
+  m_Script: {fileID: 11500000, guid: 37c5e474b41ad9b4292912afa8104056, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   dialogue:
@@ -3726,6 +3822,10 @@ MonoBehaviour:
     - Greetings!
     - Welcome to the Wizard Games.
     - May the great Seph bless you.
+  alternativeDialogue:
+    name: Gerard
+    dialogueText:
+    - Did you just rifle through my locker?
 --- !u!1 &807559210
 GameObject:
   m_ObjectHideFlags: 0
@@ -3830,7 +3930,8 @@ MonoBehaviour:
   itemName: Keys
   alreadyRewardedDialogue:
     name: 
-    dialogueText: []
+    dialogueText:
+    - The wall looks like it's about to give in.
 --- !u!1 &861146195
 GameObject:
   m_ObjectHideFlags: 0
@@ -3841,7 +3942,7 @@ GameObject:
   m_Component:
   - component: {fileID: 861146197}
   - component: {fileID: 861146196}
-  - component: {fileID: 861146199}
+  - component: {fileID: 861146198}
   m_Layer: 0
   m_Name: Door
   m_TagString: Untagged
@@ -3917,7 +4018,7 @@ Transform:
   - {fileID: 1203179311}
   m_Father: {fileID: 1722903907}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &861146199
+--- !u!114 &861146198
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -3926,9 +4027,19 @@ MonoBehaviour:
   m_GameObject: {fileID: 861146195}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 830a3f3e477db2c4aa2d21b989087433, type: 3}
+  m_Script: {fileID: 11500000, guid: 288dfe90f31a98a40aaf1e8f108cf8c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dialogue:
+    name: 
+    dialogueText: []
+  alternativeDialogue:
+    name: Gerard
+    dialogueText:
+    - HALT!
+    - You're not allowed to bring anything to the Arena besides your staff.
+    - You'll have to surrender everything prohibited on your person.
+    - You can have them back by the end of the Wizard Games.
 --- !u!1 &862176430
 GameObject:
   m_ObjectHideFlags: 0
@@ -4263,8 +4374,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 5.5}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 13.2, y: -136.8}
-  m_SizeDelta: {x: 200, y: 50}
+  m_AnchoredPosition: {x: 11.7769, y: -128.7}
+  m_SizeDelta: {x: 200, y: 20.3045}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &887958043
 MonoBehaviour:
@@ -5322,6 +5433,100 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1069d9b1c0a2b5c4fb07fb9e2ab2acff, type: 3}
+--- !u!4 &1013821990 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 187316308280555305, guid: 7c7d268a2e97e6a4ea36407f0c0d9f02, type: 3}
+  m_PrefabInstance: {fileID: 1043119137}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &1043119137
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 104567747}
+    m_Modifications:
+    - target: {fileID: 73261205865220466, guid: 7c7d268a2e97e6a4ea36407f0c0d9f02, type: 3}
+      propertyPath: actionString
+      value: Talk to your opponent
+      objectReference: {fileID: 0}
+    - target: {fileID: 73261205865220466, guid: 7c7d268a2e97e6a4ea36407f0c0d9f02, type: 3}
+      propertyPath: onActivate.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 104567742}
+    - target: {fileID: 73261205865220466, guid: 7c7d268a2e97e6a4ea36407f0c0d9f02, type: 3}
+      propertyPath: onActivate.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: InitiateDialogue
+      objectReference: {fileID: 0}
+    - target: {fileID: 73261205865220466, guid: 7c7d268a2e97e6a4ea36407f0c0d9f02, type: 3}
+      propertyPath: onActivate.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: Dialogue, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 187316308280555305, guid: 7c7d268a2e97e6a4ea36407f0c0d9f02, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 187316308280555305, guid: 7c7d268a2e97e6a4ea36407f0c0d9f02, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 187316308280555305, guid: 7c7d268a2e97e6a4ea36407f0c0d9f02, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 187316308280555305, guid: 7c7d268a2e97e6a4ea36407f0c0d9f02, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 187316308280555305, guid: 7c7d268a2e97e6a4ea36407f0c0d9f02, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 187316308280555305, guid: 7c7d268a2e97e6a4ea36407f0c0d9f02, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 187316308280555305, guid: 7c7d268a2e97e6a4ea36407f0c0d9f02, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 187316308280555305, guid: 7c7d268a2e97e6a4ea36407f0c0d9f02, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 187316308280555305, guid: 7c7d268a2e97e6a4ea36407f0c0d9f02, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 187316308280555305, guid: 7c7d268a2e97e6a4ea36407f0c0d9f02, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4518240423134239803, guid: 7c7d268a2e97e6a4ea36407f0c0d9f02, type: 3}
+      propertyPath: m_Name
+      value: Interactable
+      objectReference: {fileID: 0}
+    - target: {fileID: 9142417557530877662, guid: 7c7d268a2e97e6a4ea36407f0c0d9f02, type: 3}
+      propertyPath: m_Size.x
+      value: 1.4967107
+      objectReference: {fileID: 0}
+    - target: {fileID: 9142417557530877662, guid: 7c7d268a2e97e6a4ea36407f0c0d9f02, type: 3}
+      propertyPath: m_Size.y
+      value: 1.7294393
+      objectReference: {fileID: 0}
+    - target: {fileID: 9142417557530877662, guid: 7c7d268a2e97e6a4ea36407f0c0d9f02, type: 3}
+      propertyPath: m_Offset.x
+      value: -0.28099114
+      objectReference: {fileID: 0}
+    - target: {fileID: 9142417557530877662, guid: 7c7d268a2e97e6a4ea36407f0c0d9f02, type: 3}
+      propertyPath: m_Offset.y
+      value: -0.15357113
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 7c7d268a2e97e6a4ea36407f0c0d9f02, type: 3}
 --- !u!1 &1057816954
 GameObject:
   m_ObjectHideFlags: 0
@@ -5780,9 +5985,9 @@ MonoBehaviour:
   m_fontSize: 15
   m_fontSizeBase: 15
   m_fontWeight: 400
-  m_enableAutoSizing: 0
-  m_fontSizeMin: 18
-  m_fontSizeMax: 72
+  m_enableAutoSizing: 1
+  m_fontSizeMin: 8
+  m_fontSizeMax: 15
   m_fontStyle: 0
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 256
@@ -5843,8 +6048,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 5.5}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -3.6762488, y: 37.984158}
-  m_SizeDelta: {x: 200, y: 50}
+  m_AnchoredPosition: {x: 1.6444, y: -17.273}
+  m_SizeDelta: {x: 200, y: 173.3843}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1001 &1168736079
 PrefabInstance:
@@ -5916,19 +6121,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9142417557530877662, guid: 7c7d268a2e97e6a4ea36407f0c0d9f02, type: 3}
       propertyPath: m_Size.x
-      value: 1.4844627
+      value: 0.7660217
       objectReference: {fileID: 0}
     - target: {fileID: 9142417557530877662, guid: 7c7d268a2e97e6a4ea36407f0c0d9f02, type: 3}
       propertyPath: m_Size.y
-      value: 2.2580438
+      value: 1.4567057
       objectReference: {fileID: 0}
     - target: {fileID: 9142417557530877662, guid: 7c7d268a2e97e6a4ea36407f0c0d9f02, type: 3}
       propertyPath: m_Offset.x
-      value: 0.3740139
+      value: 0.48454285
       objectReference: {fileID: 0}
     - target: {fileID: 9142417557530877662, guid: 7c7d268a2e97e6a4ea36407f0c0d9f02, type: 3}
       propertyPath: m_Offset.y
-      value: 0.20485473
+      value: -0.030020058
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -6429,6 +6634,10 @@ PrefabInstance:
       value: Talk to Gerard
       objectReference: {fileID: 0}
     - target: {fileID: 73261205865220466, guid: 7c7d268a2e97e6a4ea36407f0c0d9f02, type: 3}
+      propertyPath: onActivate.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 73261205865220466, guid: 7c7d268a2e97e6a4ea36407f0c0d9f02, type: 3}
       propertyPath: onActivate.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 799204027}
@@ -6438,7 +6647,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 73261205865220466, guid: 7c7d268a2e97e6a4ea36407f0c0d9f02, type: 3}
       propertyPath: onActivate.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: Dialogue, Assembly-CSharp
+      value: ConditionalDialogue, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 187316308280555305, guid: 7c7d268a2e97e6a4ea36407f0c0d9f02, type: 3}
       propertyPath: m_LocalScale.x
@@ -8540,11 +8749,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 2005214890}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8095d37724a798d41952af31dc1f6af0, type: 3}
+  m_Script: {fileID: 11500000, guid: 8ef077995e0090344bc2a3842a68c61e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   dialogue:
-    name: Dusty Chest
+    name: 
     dialogueText:
     - It's sealed shut...
     - Looks like the keyhole was jammed with chewing gum.
@@ -8553,6 +8762,32 @@ MonoBehaviour:
       open yet.
     - or maybe the dev's too lazy...
     - We'll never know...
+  rewardDialogue:
+    name: 
+    dialogueText:
+    - Aha, It worked!
+    - What do we have here?
+    - An expensive enchanted diamond ring.
+    - A flail.
+    - A whole horse.
+    - An underwear.
+    - The wizzit downvote button.
+    - That's everything.
+  claimedRewardsDialogue:
+    name: 
+    dialogueText:
+    - It's empty.
+  rewardsList:
+  - LuxuriousRing
+  - Flail
+  - Horse
+  - Underwear
+  - WizzitDownvote
+  chestUnlock: {fileID: 8300000, guid: 4422c751d2814df4494f1794844c8e56, type: 3}
+  unlockedTexture: {fileID: 21300040, guid: 29c9cded5e558164aaf8c9bf08aa1510, type: 3}
+  requiredItems:
+  - MagicRemover
+  - Keys
 --- !u!1 &2007530438
 GameObject:
   m_ObjectHideFlags: 0
@@ -11239,7 +11474,15 @@ PrefabInstance:
     - target: {fileID: 73261205865220466, guid: 7c7d268a2e97e6a4ea36407f0c0d9f02, type: 3}
       propertyPath: onActivate.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 861146199}
+      objectReference: {fileID: 861146198}
+    - target: {fileID: 73261205865220466, guid: 7c7d268a2e97e6a4ea36407f0c0d9f02, type: 3}
+      propertyPath: onActivate.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: InitiateDialogue
+      objectReference: {fileID: 0}
+    - target: {fileID: 73261205865220466, guid: 7c7d268a2e97e6a4ea36407f0c0d9f02, type: 3}
+      propertyPath: onActivate.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: ConditionalDialogue, Assembly-CSharp
+      objectReference: {fileID: 0}
     - target: {fileID: 187316308280555305, guid: 7c7d268a2e97e6a4ea36407f0c0d9f02, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -11492,6 +11735,12 @@ PrefabInstance:
 
         cmusounddesign
 
+        colorsCrimsonTears
+
+        LittleRobotSoundFactory
+
+        DavidDumaisAudio
+
 '
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -11511,3 +11760,4 @@ SceneRoots:
   - {fileID: 866154411}
   - {fileID: 1722903907}
   - {fileID: 476793519}
+  - {fileID: 576286906}

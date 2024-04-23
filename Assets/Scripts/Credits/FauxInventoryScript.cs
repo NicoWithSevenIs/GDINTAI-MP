@@ -74,6 +74,11 @@ public class FauxInventoryScript : MonoBehaviour
         return toFind.GetComponent<Button>().enabled;
        
     }
+
+    public bool isInventoryEmpty()
+    {
+        return Array.Find(inventoryList, item => item.GetComponent<Image>().color.a != 0) == null;
+    }
     private void sortInventory()
     {
         List<GameObject> temp = new List<GameObject>();
@@ -97,7 +102,7 @@ public class FauxInventoryScript : MonoBehaviour
             }
         }
 
-        print(temp);
+
 
         for(int i = 0; i < inventoryList.Length; i++)
         {
