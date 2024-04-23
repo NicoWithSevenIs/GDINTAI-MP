@@ -1329,6 +1329,10 @@ MonoBehaviour:
     dialogueText:
     - 'Good Job. '
     - Here take this.
+  claimedRewardsDialogue:
+    name: Sophocles
+    dialogueText:
+    - You know what to do with it
   rewardsList:
   - MagicRemover
 --- !u!61 &466065932
@@ -3824,6 +3828,9 @@ MonoBehaviour:
     - (You manage to pull the brick out)
     - It's a set of keys...
   itemName: Keys
+  alreadyRewardedDialogue:
+    name: 
+    dialogueText: []
 --- !u!1 &861146195
 GameObject:
   m_ObjectHideFlags: 0
@@ -6710,6 +6717,10 @@ MonoBehaviour:
     - and the intelligence of Skyla
     - I am wishing you the best!
   itemName: Scroll
+  alreadyRewardedDialogue:
+    name: Bartholomew
+    dialogueText:
+    - See you around my friend.
 --- !u!95 &1571508195
 Animator:
   serializedVersion: 5
@@ -8128,6 +8139,10 @@ MonoBehaviour:
     - (Jacques continues babbling unintelligibly)
     - (I'll leave him be.)
   itemName: PissBottle
+  alreadyRewardedDialogue:
+    name: Jacques
+    dialogueText:
+    - (Jacques is out cold)
 --- !u!1001 &1941801992
 PrefabInstance:
   m_ObjectHideFlags: 0
