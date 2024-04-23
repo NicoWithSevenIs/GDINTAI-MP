@@ -756,7 +756,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 958201648256357697, guid: 1069d9b1c0a2b5c4fb07fb9e2ab2acff, type: 3}
       propertyPath: dialogue.dialogueText.Array.data[0]
-      value: '*Unscrolls*'
+      value: '*Unrolls the scroll*'
       objectReference: {fileID: 0}
     - target: {fileID: 958201648256357697, guid: 1069d9b1c0a2b5c4fb07fb9e2ab2acff, type: 3}
       propertyPath: dialogue.dialogueText.Array.data[1]
@@ -6918,12 +6918,12 @@ MonoBehaviour:
     - My Friend!
     - 'Look what I found from the depths of Mt. Santoro! '
     - It is said to be the [Scroll of Infinite Wisdom]!
-    - Here have it, I have not opened it yet. For it is exactly you
-    - who is worthy of the scroll
-    - Recite the words within before the Wizard Games
-    - and you shall receive the power of Minerva
-    - the ruthlessness of Satana
-    - and the intelligence of Skyla
+    - 'Here have it. I have not opened it yet. '
+    - For it is exactly you who is worthy of the scroll
+    - Recite the incantation within before the Wizard Games
+    - And you shall receive the power of Minerva
+    - The ruthlessness of Satana
+    - And the cunning of Skyla
     - I am wishing you the best!
   itemName: Scroll
   alreadyRewardedDialogue:
