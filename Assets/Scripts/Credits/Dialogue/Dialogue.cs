@@ -5,10 +5,10 @@ using UnityEngine;
 public class Dialogue : MonoBehaviour
 {
 
-    [SerializeField] private DialogueContainer dialogue;
+    [SerializeField] protected DialogueContainer dialogue;
 
 
-    public void InitiateDialogue()
+    public virtual void InitiateDialogue()
     {
         if (dialogue != null)
             DialogueManager.instance.StartDialogue(dialogue);

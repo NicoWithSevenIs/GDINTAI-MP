@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,6 +11,10 @@ public class DialogueManager : MonoBehaviour
 
     [SerializeField] private KeyCode nextKey;
     private string currentMessage;
+    public event Action onDialogueFinished;
+
+    public event Action onDialogueBeginInitializers;
+    public event Action onDialogueFinishedInitializers;
 
     //bandaid fix for now
     bool canSkip = false;
@@ -26,7 +31,7 @@ public class DialogueManager : MonoBehaviour
 
     public void StartDialogue(DialogueContainer dialogue)
     {
-    
+        onDialogueBeginInitializers?.Invoke();
         dialogueQueue.Clear();
         canSkip = false;
 
@@ -38,6 +43,8 @@ public class DialogueManager : MonoBehaviour
         UIManager.instance.dialogueSpeakerName.text = dialogue.name;
         UIManager.instance.dialogueBox.SetActive(true);
         Time.timeScale = 0f;
+
+        onDialogueFinished += dialogue.onDialogueFinished;
    
         next();
 
@@ -50,6 +57,9 @@ public class DialogueManager : MonoBehaviour
         {
             UIManager.instance.dialogueBox.SetActive(false);
             Time.timeScale = 1f;
+            onDialogueFinished?.Invoke();
+            onDialogueFinished = null;
+            onDialogueFinishedInitializers?.Invoke();
             return;
         }
 
@@ -77,6 +87,8 @@ public class DialogueManager : MonoBehaviour
     private void Update()
     {
 
+        if (!UIManager.instance.dialogueBox.activeInHierarchy)
+            return;
 
         if (Input.GetKeyDown(nextKey) && canSkip)
         {

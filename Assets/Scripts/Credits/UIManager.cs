@@ -16,6 +16,13 @@ public class UIManager : MonoBehaviour
     public TextMeshProUGUI dialogueSpeakerName;
     public TextMeshProUGUI dialogueBoxText;
     public TextMeshProUGUI dialogueNextText;
+
+    [Header("Credits Panel")]
+    public GameObject creditsPanel;
+    public TextMeshProUGUI creditsHeaderText;
+    public TextMeshProUGUI creditsBodyText;
+    public TextMeshProUGUI creditsNextText;
+
     #region singleton
     public static UIManager instance { get; private set; }
     private void Awake()

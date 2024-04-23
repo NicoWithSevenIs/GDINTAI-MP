@@ -10,9 +10,20 @@ public class GameOverPanel : TweenableUI
     [Header("Game Over")]
     [SerializeField] private TextMeshProUGUI gameOverText;
 
+    [Header("Sound")]
+    private GameObject soundOrigin;
+    [SerializeField] private AudioClip winJingle;
+    [SerializeField] private AudioClip loseJingle;
+
     private void Start()
     {
         Game.instance.onGameOver += InvokeGameOver;
+
+        soundOrigin = new GameObject();
+        soundOrigin.transform.position = Vector3.zero;
+
+        AudioManager.instance.addSFX(winJingle, soundOrigin, 500, false);
+        AudioManager.instance.addSFX(loseJingle, soundOrigin, 500, false);
     }
 
     public void GoBackToMenu()
@@ -40,9 +51,11 @@ public class GameOverPanel : TweenableUI
         {
             case "Player":
                 message = "Player Wins!";
+                AudioManager.instance.PlaySFX(AudioManager.getName(winJingle, soundOrigin));
                 break;
             case "Enemy":
                 message = "Enemy Wins...";
+                AudioManager.instance.PlaySFX(AudioManager.getName(loseJingle, soundOrigin));
                 break;
             default: 
                 message = "Draw!";

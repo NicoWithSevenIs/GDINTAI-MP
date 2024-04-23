@@ -2434,6 +2434,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 5991336505449210763}
     m_Modifications:
+    - target: {fileID: 12973367181500581, guid: 05479f30dec781647861a52ee0845bd4, type: 3}
+      propertyPath: winJingle
+      value: 
+      objectReference: {fileID: 8300000, guid: 819c78553c75b004789fb72fc9f261a2, type: 3}
+    - target: {fileID: 12973367181500581, guid: 05479f30dec781647861a52ee0845bd4, type: 3}
+      propertyPath: loseJingle
+      value: 
+      objectReference: {fileID: 8300000, guid: e09543650a9488d4c8ec0d84800a7375, type: 3}
     - target: {fileID: 1366647973510464531, guid: 05479f30dec781647861a52ee0845bd4, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5

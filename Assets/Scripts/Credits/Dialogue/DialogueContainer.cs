@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,5 +11,7 @@ public class DialogueContainer
 
     [TextArea(1,3)]
     public string[] dialogueText;
+
+    public Action onDialogueFinished;
     
 }
