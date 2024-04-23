@@ -159,8 +159,10 @@ public class Base : MonoBehaviour
     {
 
 
-        if(isDestroyed)
-            AudioManager.instance.PlaySFX(AudioManager.getName(baseDestroyedSFX, gameObject));
+        if (this.isDestroyed && isDestroyed)
+            return;
+
+        AudioManager.instance.PlaySFX(AudioManager.getName(baseDestroyedSFX, gameObject));
         this.isDestroyed = isDestroyed;
         statueTop.SetActive(!isDestroyed);
         statueBottom.SetActive(!isDestroyed);
